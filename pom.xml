@@ -117,7 +117,7 @@
     </dependencies>
 
     <build>
-        <finalName>labs27-b-citrics-api</finalName>
+        <finalName>labs27-c-citrics-api</finalName>
 
         <plugins>
             <plugin>

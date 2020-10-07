@@ -1,10 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
-import com.lambdaschool.foundation.models.Role;
 import com.lambdaschool.foundation.models.User;
-import com.lambdaschool.foundation.models.UserRoles;
-import com.lambdaschool.foundation.models.Useremail;
 import com.lambdaschool.foundation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +23,6 @@ public class UserServiceImpl
      */
     @Autowired
     private UserRepository userrepos;
-
-    /**
-     * Connects this service to the Role table
-     */
-    @Autowired
-    private RoleService roleService;
 
     @Autowired
     private HelperFunctions helperFunctions;
@@ -101,26 +92,6 @@ public class UserServiceImpl
         newUser.setUsername(user.getUsername()
             .toLowerCase());
 
-        newUser.getRoles()
-            .clear();
-        for (UserRoles ur : user.getRoles())
-        {
-            Role addRole = roleService.findRoleById(ur.getRole()
-                .getRoleid());
-            newUser.getRoles()
-                .add(new UserRoles(newUser,
-                    addRole));
-        }
-
-        newUser.getUseremails()
-            .clear();
-        for (Useremail ue : user.getUseremails())
-        {
-            newUser.getUseremails()
-                .add(new Useremail(newUser,
-                    ue.getUseremail()));
-        }
-
         return userrepos.save(newUser);
     }
 
@@ -140,35 +111,6 @@ public class UserServiceImpl
             {
                 currentUser.setUsername(user.getUsername()
                     .toLowerCase());
-            }
-
-            if (user.getRoles()
-                .size() > 0)
-            {
-                currentUser.getRoles()
-                    .clear();
-                for (UserRoles ur : user.getRoles())
-                {
-                    Role addRole = roleService.findRoleById(ur.getRole()
-                        .getRoleid());
-
-                    currentUser.getRoles()
-                        .add(new UserRoles(currentUser,
-                            addRole));
-                }
-            }
-
-            if (user.getUseremails()
-                .size() > 0)
-            {
-                currentUser.getUseremails()
-                    .clear();
-                for (Useremail ue : user.getUseremails())
-                {
-                    currentUser.getUseremails()
-                        .add(new Useremail(currentUser,
-                            ue.getUseremail()));
-                }
             }
 
             return userrepos.save(currentUser);

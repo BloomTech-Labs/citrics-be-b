@@ -46,8 +46,9 @@ public class FoundationApplication
     public static void main(String[] args)
     {
         // Check to see if the environment variables exists. If they do not, stop execution of application.
-        checkEnvironmentVariable("OAUTHCLIENTID");
-        checkEnvironmentVariable("OAUTHCLIENTSECRET");
+//        checkEnvironmentVariable("OAUTHCLIENTID");
+//        checkEnvironmentVariable("OAUTHCLIENTSECRET");
+//        checkEnvironmentVariable("OKTA_CLIENT_ID:");
 
         if (!stop)
         {
@@ -55,7 +56,7 @@ public class FoundationApplication
                 args);
         } else
         {
-            System.out.println("Environment Variables NOT SET: OAUTHCLIENTID and / or OAUTHCLIENTSECRET");
+            System.out.println("Environment Variables NOT SET CORRECTLY");
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.lambdaschool.foundation;
 
-import com.lambdaschool.foundation.models.Role;
-import com.lambdaschool.foundation.services.RoleService;
+import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,12 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class SeedData
     implements CommandLineRunner
 {
-    /**
-     * Connects the Role Service to this process
-     */
-    @Autowired
-    RoleService roleService;
-
     /**
      * Connects the user service to this process
      */
@@ -45,19 +38,11 @@ public class SeedData
     public void run(String[] args) throws
                                    Exception
     {
-        roleService.deleteAll();
-        Role r1 = new Role("admin");
-        Role r2 = new Role("user");
-        Role r3 = new Role("data");
-
-        r1 = roleService.save(r1);
-        r2 = roleService.save(r2);
-        r3 = roleService.save(r3);
-
         // The following is an example user!
-        /*
+
         // admin, data, user
-        User u1 = new User("admin",
+        User u1 = new User("admin");
+        /*
             "password",
             "admin@lambdaschool.local");
         u1.getRoles()
@@ -75,8 +60,7 @@ public class SeedData
         u1.getUseremails()
             .add(new Useremail(u1,
                 "admin@mymail.local"));
-
+*/
         userService.save(u1);
-        */
     }
 }
