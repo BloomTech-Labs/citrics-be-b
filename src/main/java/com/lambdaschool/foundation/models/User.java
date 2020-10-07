@@ -1,15 +1,11 @@
 package com.lambdaschool.foundation.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The entity allowing interaction with the users table
@@ -38,7 +34,7 @@ public class User
     */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private List<UserCities> favCities = new ArrayList<>();
+    private List<UserCities> favcities = new ArrayList<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -104,14 +100,14 @@ public class User
      * getter and setters for user's fav cities
      */
 
-    public List<UserCities> getFavCities()
+    public List<UserCities> getFavcities()
     {
-        return favCities;
+        return favcities;
     }
 
-    public void setFavCities(List<UserCities> favCities)
+    public void setFavcities(List<UserCities> favCities)
     {
-        this.favCities = favCities;
+        this.favcities = favCities;
     }
 
     /**
@@ -123,7 +119,7 @@ public class User
         return "User{" +
             "userid=" + userid +
             ", username='" + username + '\'' +
-            ", favCities=" + favCities +
+            ", favCities=" + favcities +
             '}';
     }
 
