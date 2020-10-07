@@ -24,6 +24,7 @@ public class UserCities extends Auditable implements Serializable
     @ManyToOne
     @NotNull
     @JoinColumn(name = "cityid")
+    @JsonIgnoreProperties(value = "users", allowSetters = true)
     private City city;
 
     public UserCities()

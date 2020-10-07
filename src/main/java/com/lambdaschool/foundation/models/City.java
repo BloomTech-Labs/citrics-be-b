@@ -1,8 +1,12 @@
 package com.lambdaschool.foundation.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "cities")
@@ -63,6 +67,10 @@ public class City extends Auditable
      *  The City's cost of living index (float)
      */
     private float costoflivingindex;
+
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "city")
+    private Set<UserCities> users = new HashSet<>();
 
     /**
      * The Default constructor needed by JPA
@@ -271,6 +279,16 @@ public class City extends Auditable
     public void setCostoflivingindex(float costoflivingindex)
     {
         this.costoflivingindex = costoflivingindex;
+    }
+
+    public Set<UserCities> getUsers()
+    {
+        return users;
+    }
+
+    public void setUsers(Set<UserCities> users)
+    {
+        this.users = users;
     }
 
     /**

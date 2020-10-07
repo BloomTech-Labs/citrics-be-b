@@ -30,7 +30,7 @@ public class User
      * The username (String). Cannot be null and must be unique
      */
     @NotNull
-    @Column(unique = true)
+    @Column(unique = false)
     private String username;
 
     /**
