@@ -33,10 +33,24 @@ public class City extends Auditable
     private  String citystate;
 
     /**
-     *  The City population (double)
+     *  The City population (int)
      */
-    @NotNull
-    private double population;
+    private int populationdensityrating;
+
+
+    private int safteyratingscore;
+
+    private int costoflivingscore;
+
+    private double averageincome;
+
+    private int averagetemperature;
+
+    private float lat;
+
+    private float lon;
+
+
 
     /**
      *  The City's average age (float)
@@ -83,25 +97,21 @@ public class City extends Auditable
      * The constructor with the non-nullable fields
      */
     public City(
-        long cityid,
         @NotNull String cityname,
-        @NotNull String citystate,
-        @NotNull double population)
+        @NotNull String citystate)
     {
-        this.cityid = cityid;
         this.cityname = cityname;
         this.citystate = citystate;
-        this.population = population;
+        this.populationdensityrating = populationdensityrating;
     }
 
     /**
      * The constructor with all fields
      */
     public City(
-        long cityid,
         @NotNull String cityname,
         @NotNull String citystate,
-        @NotNull double population,
+        int populationdensityrating,
         float averageage,
         double averagehouseholdincome,
         double averageindividualincome,
@@ -109,16 +119,37 @@ public class City extends Auditable
         double averagerentcost,
         float costoflivingindex)
     {
-        this.cityid = cityid;
         this.cityname = cityname;
         this.citystate = citystate;
-        this.population = population;
+        this.populationdensityrating = populationdensityrating;
         this.averageage = averageage;
         this.averagehouseholdincome = averagehouseholdincome;
         this.averageindividualincome = averageindividualincome;
         this.averagehouseingcost = averagehouseingcost;
         this.averagerentcost = averagerentcost;
         this.costoflivingindex = costoflivingindex;
+    }
+
+    public City(
+        @NotNull String cityname,
+        @NotNull String citystate,
+        int populationdensityrating,
+        int safteyratingscore,
+        int costoflivingscore,
+        double averageincome,
+        int averagetemperature,
+        float lat,
+        float lon)
+    {
+        this.cityname = cityname;
+        this.citystate = citystate;
+        this.populationdensityrating = populationdensityrating;
+        this.safteyratingscore = safteyratingscore;
+        this.costoflivingscore = costoflivingscore;
+        this.averageincome = averageincome;
+        this.averagetemperature = averagetemperature;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     /**
@@ -172,17 +203,17 @@ public class City extends Auditable
     /**
      * Getter for the City population
      */
-    public double getPopulation()
+    public int getPopulationdensityrating()
     {
-        return population;
+        return populationdensityrating;
     }
 
     /**
      * Setter for the City population
      */
-    public void setPopulation(double population)
+    public void setPopulationdensityrating(int population)
     {
-        this.population = population;
+        this.populationdensityrating = population;
     }
 
     /**
@@ -289,6 +320,66 @@ public class City extends Auditable
     public void setUsers(Set<UserCities> users)
     {
         this.users = users;
+    }
+
+    public int getSafteyratingscore()
+    {
+        return safteyratingscore;
+    }
+
+    public void setSafteyratingscore(int safteyratingscore)
+    {
+        this.safteyratingscore = safteyratingscore;
+    }
+
+    public int getCostoflivingscore()
+    {
+        return costoflivingscore;
+    }
+
+    public void setCostoflivingscore(int costoflivingscore)
+    {
+        this.costoflivingscore = costoflivingscore;
+    }
+
+    public double getAverageincome()
+    {
+        return averageincome;
+    }
+
+    public void setAverageincome(double averageincome)
+    {
+        this.averageincome = averageincome;
+    }
+
+    public int getAveragetemperature()
+    {
+        return averagetemperature;
+    }
+
+    public void setAveragetemperature(int averagetemperature)
+    {
+        this.averagetemperature = averagetemperature;
+    }
+
+    public float getLat()
+    {
+        return lat;
+    }
+
+    public void setLat(float lat)
+    {
+        this.lat = lat;
+    }
+
+    public float getLon()
+    {
+        return lon;
+    }
+
+    public void setLon(float lon)
+    {
+        this.lon = lon;
     }
 
     /**
