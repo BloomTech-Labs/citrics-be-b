@@ -1,15 +1,11 @@
 package com.lambdaschool.foundation.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The entity allowing interaction with the users table
@@ -30,29 +26,15 @@ public class User
      * The username (String). Cannot be null and must be unique
      */
     @NotNull
-    @Column(unique = true)
+    @Column(unique = false)
     private String username;
 
     /**
-     * A list of emails for this user
-     */
-    @OneToMany(mappedBy = "user",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user",
-        allowSetters = true)
-    private List<Useremail> useremails = new ArrayList<>();
-
-    /**
-     * Part of the join relationship between user and role
-     * connects users to the user role combination
-     */
-    @OneToMany(mappedBy = "user",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user",
-        allowSetters = true)
-    private Set<UserRoles> roles = new HashSet<>();
+    *The list that holds the users favorite cities
+    */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<UserCities> favcities = new ArrayList<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -114,43 +96,31 @@ public class User
     }
 
     /**
-     * Getter for the list of useremails for this user
      *
-     * @return the list of useremails (List(Useremail)) for this user
+     * getter and setters for user's fav cities
      */
-    public List<Useremail> getUseremails()
+
+    public List<UserCities> getFavcities()
     {
-        return useremails;
+        return favcities;
+    }
+
+    public void setFavcities(List<UserCities> favCities)
+    {
+        this.favcities = favCities;
     }
 
     /**
-     * Setter for list of useremails for this user
-     *
-     * @param useremails the new list of useremails (List(Useremail)) for this user
+     * ToString override method
      */
-    public void setUseremails(List<Useremail> useremails)
+    @Override
+    public String toString()
     {
-        this.useremails = useremails;
-    }
-
-    /**
-     * Getter for user role combinations
-     *
-     * @return A list of user role combinations associated with this user
-     */
-    public Set<UserRoles> getRoles()
-    {
-        return roles;
-    }
-
-    /**
-     * Setter for user role combinations
-     *
-     * @param roles Change the list of user role combinations associated with this user to this one
-     */
-    public void setRoles(Set<UserRoles> roles)
-    {
-        this.roles = roles;
+        return "User{" +
+            "userid=" + userid +
+            ", username='" + username + '\'' +
+            ", favCities=" + favcities +
+            '}';
     }
 
     /**
@@ -159,19 +129,19 @@ public class User
      *
      * @return The list of authorities, roles, this user object has
      */
-    @JsonIgnore
-    public List<SimpleGrantedAuthority> getAuthority()
-    {
-        List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
-
-        for (UserRoles r : this.roles)
-        {
-            String myRole = "ROLE_" + r.getRole()
-                .getName()
-                .toUpperCase();
-            rtnList.add(new SimpleGrantedAuthority(myRole));
-        }
-
-        return rtnList;
-    }
+//    @JsonIgnore
+//    public List<SimpleGrantedAuthority> getAuthority()
+//    {
+//        List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
+//
+//        for (UserRoles r : this.roles)
+//        {
+//            String myRole = "ROLE_" + r.getRole()
+//                .getName()
+//                .toUpperCase();
+//            rtnList.add(new SimpleGrantedAuthority(myRole));
+//        }
+//
+//        return rtnList;
+//    }
 }

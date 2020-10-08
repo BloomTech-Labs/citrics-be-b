@@ -27,15 +27,14 @@ public class OktaAuthSecurityConfig extends WebSecurityConfigurerAdapter
                 "/swagger-resource/**",
                 "/swagger-ui.html",
                 "/v2/api-docs",
-                "/webjars/**",
-                "/createnewuser")
+                "/webjars/**")
             .permitAll()
             .antMatchers(HttpMethod.POST,
                 "/users/**")
-            .hasAnyRole("ADMIN")
+            .permitAll()
             .antMatchers(HttpMethod.DELETE,
                 "/users/**")
-            .hasAnyRole("ADMIN")
+            .permitAll()
             .antMatchers(HttpMethod.PUT,
                 "/users/**")
             .hasAnyRole("ADMIN")
@@ -43,9 +42,9 @@ public class OktaAuthSecurityConfig extends WebSecurityConfigurerAdapter
                 "/useremails/**",
                 "/oauth/revoke-token",
                 "/logout")
-            .authenticated()
+            .permitAll()
             .antMatchers("/roles/**")
-            .hasAnyRole("ADMIN")
+            .permitAll()
             .and()
             .exceptionHandling()
             .and()
