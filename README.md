@@ -507,6 +507,7 @@ Status OK
 
 </details>
 
+<details>
 <summary>DELETE http://localhost:2019/users/user/14</summary>
 
 ```TEXT
