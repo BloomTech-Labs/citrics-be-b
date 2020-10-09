@@ -4,6 +4,8 @@
 
 This is a basic database scheme with users, user cities, cities. This Java Spring REST API application will provide endpoints for clients to read various data sets contained in the application's data. User authentication is provided third party by Okta.
 
+## Base URL
+- https://labs27-c-citrics-api.herokuapp.com/
 <details>
 <summary>http://localhost:2019/cities/all</summary>
 
