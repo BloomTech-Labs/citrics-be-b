@@ -1,6 +1,6 @@
 package com.lambdaschool.foundation;
 
-import com.lambdaschool.foundation.models.City;
+import com.lambdaschool.foundation.models.DSCity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -67,25 +67,25 @@ public class FoundationApplication
 
         // telling our RestTemplate what format to expect, in this case Json
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
+        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
         restTemplate.getMessageConverters()
             .add(converter);
 
         // URL of the API we are accessing
-        String requestURL = "http://citrics-ds.eba-jvvvymfn.us-east-1.elasticbeanstalk.com/1";
+        String requestURL = "http://citrics-ds.eba-jvvvymfn.us-east-1.elasticbeanstalk.com/1222";
 
         // create the responseType expected. In this case YearFact is the type
-        ParameterizedTypeReference<City> responseType = new ParameterizedTypeReference<>() {
+        ParameterizedTypeReference<DSCity> responseType = new ParameterizedTypeReference<>() {
         };
 
         // create responseEntity
-        ResponseEntity<City> responseEntity = restTemplate.exchange(requestURL,
+        ResponseEntity<DSCity> responseEntity = restTemplate.exchange(requestURL,
             HttpMethod.GET,
             null,
             responseType);
 
         // print to the console
-        City ourCityData = responseEntity.getBody();
+        DSCity ourCityData = responseEntity.getBody();
         System.out.println(ourCityData);
 
 
