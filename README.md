@@ -142,6 +142,33 @@ This is a basic database scheme with users, user cities, cities. This Java Sprin
 
 </details>
 
+<details>
+<summary>http://localhost:2019/cities/avg</summary>
+
+```JSON
+{
+    "cityid": 0,
+    "citynamestate": "National Average, USA",
+    "population": 147764.216,
+    "populationdensityrating": 1,
+    "safteyratingscore": 2,
+    "costoflivingscore": 1,
+    "averageincome": 3022.216,
+    "averagetemperature": 2,
+    "lat": 1.4499112,
+    "lon": -3.5092895,
+    "averageage": 38.95039999999999,
+    "averagehouseholdincome": 77554.112,
+    "averageindividualincome": 38764.272,
+    "averagehouseingcost": 0.0,
+    "averagerentcost": 1557.232,
+    "costoflivingindex": 55.5,
+    "users": []
+}
+```
+
+</details>
+
 
 <details>
 <summary>http://localhost:2019/cities/allid</summary>
