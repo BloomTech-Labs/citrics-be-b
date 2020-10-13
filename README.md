@@ -8,7 +8,7 @@ This is a basic database scheme with users, user cities, cities. This Java Sprin
 - https://labs27-c-citrics-api.herokuapp.com/
 
 ## Swagger Documentation
-- https://labs27-c-citrics-api.herokuapp.com/swagger-ui.html#/user-controller
+- https://labs27-c-citrics-api.herokuapp.com/swagger-ui.html#/
 
 <details>
 <summary>http://localhost:2019/cities/all</summary>
