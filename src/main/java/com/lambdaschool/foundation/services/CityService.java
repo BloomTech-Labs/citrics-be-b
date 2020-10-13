@@ -1,6 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.models.City;
+import com.lambdaschool.foundation.models.CityIdName;
 import com.lambdaschool.foundation.models.DSCity;
 
 import java.util.List;
@@ -40,4 +41,10 @@ public interface CityService
      * @return City object matching name
      */
     City findByName(String name);
+
+    /**
+     * Finds all cities id's and citynamestate's
+     * @return List of city id's and citynamestates
+     */
+    List<CityIdName> findAllIds();
 }
