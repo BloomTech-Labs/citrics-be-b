@@ -24,17 +24,13 @@ public class City extends Auditable
      * The City name (String)
      */
     @NotNull
-    private String cityname;
-
-    /**
-     *  The City State (String)
-     */
-    @NotNull
-    private  String citystate;
+    private String citynamestate;
 
     /**
      *  The City population (int)
      */
+    private double population;
+
     private int populationdensityrating;
 
 
@@ -55,7 +51,7 @@ public class City extends Auditable
     /**
      *  The City's average age (float)
      */
-    private float averageage;
+    private double averageage;
 
     /**
      *  The City's average income per household (double)
@@ -80,7 +76,7 @@ public class City extends Auditable
     /**
      *  The City's cost of living index (float)
      */
-    private float costoflivingindex;
+    private double costoflivingindex;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "city")
@@ -97,20 +93,16 @@ public class City extends Auditable
      * The constructor with the non-nullable fields
      */
     public City(
-        @NotNull String cityname,
-        @NotNull String citystate)
+        @NotNull String citynamestate)
     {
-        this.cityname = cityname;
-        this.citystate = citystate;
-        this.populationdensityrating = populationdensityrating;
+        this.citynamestate = citynamestate;
     }
 
     /**
      * The constructor with all fields
      */
     public City(
-        @NotNull String cityname,
-        @NotNull String citystate,
+        @NotNull String citynamestate,
         int populationdensityrating,
         float averageage,
         double averagehouseholdincome,
@@ -119,8 +111,7 @@ public class City extends Auditable
         double averagerentcost,
         float costoflivingindex)
     {
-        this.cityname = cityname;
-        this.citystate = citystate;
+        this.citynamestate = citynamestate;
         this.populationdensityrating = populationdensityrating;
         this.averageage = averageage;
         this.averagehouseholdincome = averagehouseholdincome;
@@ -131,8 +122,7 @@ public class City extends Auditable
     }
 
     public City(
-        @NotNull String cityname,
-        @NotNull String citystate,
+        @NotNull String citynamestate,
         int populationdensityrating,
         int safteyratingscore,
         int costoflivingscore,
@@ -141,8 +131,7 @@ public class City extends Auditable
         float lat,
         float lon)
     {
-        this.cityname = cityname;
-        this.citystate = citystate;
+        this.citynamestate = citynamestate;
         this.populationdensityrating = populationdensityrating;
         this.safteyratingscore = safteyratingscore;
         this.costoflivingscore = costoflivingscore;
@@ -150,6 +139,27 @@ public class City extends Auditable
         this.averagetemperature = averagetemperature;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public City(
+        @NotNull String citynamestate,
+        double population,
+        float averageage,
+        double averagehouseholdincome,
+        double averageindividualincome,
+        double averagehouseingcost,
+        double averagerentcost,
+        float costoflivingindex
+    )
+    {
+        this.citynamestate = citynamestate;
+        this.population = population;
+        this.averageage = averageage;
+        this.averagehouseholdincome = averagehouseholdincome;
+        this.averageindividualincome = averageindividualincome;
+        this.averagehouseingcost = averagehouseingcost;
+        this.averagerentcost = averagerentcost;
+        this.costoflivingindex = costoflivingindex;
     }
 
     /**
@@ -171,33 +181,27 @@ public class City extends Auditable
     /**
      * Getter for the City name
      */
-    public String getCityname()
+    public String getCitynamestate()
     {
-        return cityname;
+        return citynamestate;
     }
 
     /**
      * Setter for the City name
      */
-    public void setCityname(String cityname)
+    public void setCitynamestate(String citynamestate)
     {
-        this.cityname = cityname;
+        this.citynamestate = citynamestate;
     }
 
-    /**
-     * Getter for the City state
-     */
-    public String getCitystate()
+    public double getPopulation()
     {
-        return citystate;
+        return population;
     }
 
-    /**
-     * Setter for the City state
-     */
-    public void setCitystate(String citystate)
+    public void setPopulation(double population)
     {
-        this.citystate = citystate;
+        this.population = population;
     }
 
     /**
@@ -219,7 +223,7 @@ public class City extends Auditable
     /**
      * Getter for the City's average age
      */
-    public float getAverageage()
+    public double getAverageage()
     {
         return averageage;
     }
@@ -227,7 +231,7 @@ public class City extends Auditable
     /**
      * Setter for the City's average age
      */
-    public void setAverageage(float averageage)
+    public void setAverageage(double averageage)
     {
         this.averageage = averageage;
     }
@@ -299,7 +303,7 @@ public class City extends Auditable
     /**
      * Getter for the City's cost of living index
      */
-    public float getCostoflivingindex()
+    public double getCostoflivingindex()
     {
         return costoflivingindex;
     }
@@ -307,7 +311,7 @@ public class City extends Auditable
     /**
      * Setter for the City's cost of living index
      */
-    public void setCostoflivingindex(float costoflivingindex)
+    public void setCostoflivingindex(double costoflivingindex)
     {
         this.costoflivingindex = costoflivingindex;
     }
@@ -388,6 +392,23 @@ public class City extends Auditable
     @Override
     public String toString()
     {
-        return super.toString();
+        return "City{" +
+            "cityid=" + cityid +
+            ", citynamestate='" + citynamestate + '\'' +
+            ", populationdensityrating=" + populationdensityrating +
+            ", safteyratingscore=" + safteyratingscore +
+            ", costoflivingscore=" + costoflivingscore +
+            ", averageincome=" + averageincome +
+            ", averagetemperature=" + averagetemperature +
+            ", lat=" + lat +
+            ", lon=" + lon +
+            ", averageage=" + averageage +
+            ", averagehouseholdincome=" + averagehouseholdincome +
+            ", averageindividualincome=" + averageindividualincome +
+            ", averagehouseingcost=" + averagehouseingcost +
+            ", averagerentcost=" + averagerentcost +
+            ", costoflivingindex=" + costoflivingindex +
+            ", users=" + users +
+            '}';
     }
 }

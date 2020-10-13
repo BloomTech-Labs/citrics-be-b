@@ -27,6 +27,7 @@ public class UserServiceImpl
     @Autowired
     private HelperFunctions helperFunctions;
 
+    @Override
     public User findUserById(long id) throws
                                       ResourceNotFoundException
     {

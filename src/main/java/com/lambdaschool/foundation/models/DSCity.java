@@ -5,13 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DSCity {
     private String city;
-    private int pop;
-    private double age;
-    private int household;
-    private int individual;
-    private int house;
-    private int rent;
-    private double COLI;
+    private double population;
+    private double median_age;
+    private double median_household_income;
+    private double median_individual_income;
+    private double median_home_cost;
+    private double median_rent;
+    private double Cost_of_Living_Index = 55.5;
+
+
+    public DSCity()
+    {
+    }
 
     public String getCity() {
         return city;
@@ -21,73 +26,74 @@ public class DSCity {
         this.city = city;
     }
 
-    public int getPop() {
-        return pop;
+    public double getPopulation() {
+        return population;
     }
 
-    public void setPop(int pop) {
-        this.pop = pop;
+    public void setPopulation(double population) {
+        this.population = population;
     }
 
-    public double getAge() {
-        return age;
+    public double getMedian_age() {
+        return median_age;
     }
 
-    public void setAge(double age) {
-        this.age = age;
+    public void setMedian_age(double median_age) {
+        this.median_age = median_age;
     }
 
-    public int getHousehold() {
-        return household;
+    public double getMedian_household_income() {
+        return median_household_income;
     }
 
-    public void setHousehold(int household) {
-        this.household = household;
+    public void setMedian_household_income(double median_household_income) {
+        this.median_household_income = median_household_income;
     }
 
-    public int getIndividual() {
-        return individual;
+    public double getMedian_individual_income() {
+        return median_individual_income;
     }
 
-    public void setIndividual(int individual) {
-        this.individual = individual;
+    public void setMedian_individual_income(double median_individual_income) {
+        this.median_individual_income = median_individual_income;
     }
 
-    public int getHouse() {
-        return house;
+    public double getMedian_home_cost() {
+        return median_home_cost;
     }
 
-    public void setHouse(int house) {
-        this.house = house;
+    public void setMedian_home_cost(double median_home_cost) {
+        this.median_home_cost = median_home_cost;
     }
 
-    public int getRent() {
-        return rent;
+    public double getMedian_rent() {
+        return median_rent;
     }
 
-    public void setRent(int rent) {
-        this.rent = rent;
+    public void setMedian_rent(double median_rent) {
+        this.median_rent = median_rent;
     }
 
-    public double getCOLI() {
-        return COLI;
+    public double getCost_of_Living_Index() {
+        return Cost_of_Living_Index;
     }
 
-    public void setCOLI(double COLI) {
-        this.COLI = COLI;
+    public void setCost_of_Living_Index(float cost_of_Living_Index) {
+        this.Cost_of_Living_Index = cost_of_Living_Index;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "DSCity{" +
             "city='" + city + '\'' +
-            ", pop=" + pop +
-            ", age=" + age +
-            ", household=" + household +
-            ", individual=" + individual +
-            ", house=" + house +
-            ", rent=" + rent +
-            ", COLI=" + COLI +
+            ", population=" + population +
+            ", median_age=" + median_age +
+            ", median_household_income=" + median_household_income +
+            ", median_individual_income=" + median_individual_income +
+            ", median_home_cost=" + median_home_cost +
+            ", median_rent=" + median_rent +
+            ", Cost_of_Living_Index=" + Cost_of_Living_Index +
             '}';
     }
 }
