@@ -2,6 +2,7 @@ package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.City;
+import com.lambdaschool.foundation.models.CityIdName;
 import com.lambdaschool.foundation.models.DSCity;
 import com.lambdaschool.foundation.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,5 +116,15 @@ public class CityServiceImpl implements CityService
             throw new ResourceNotFoundException("City name " + name + " not found!");
         }
         return c;
+    }
+
+    @Override
+    public List<CityIdName> findAllIds()
+    {
+        List<CityIdName> cities = new ArrayList<>();
+
+        cityrepo.findAll().iterator().forEachRemaining((city) -> cities.add(new CityIdName(city.getCityid(), city.getCitynamestate())));
+
+        return cities;
     }
 }
