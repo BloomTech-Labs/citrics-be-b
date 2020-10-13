@@ -6,6 +6,10 @@ This is a basic database scheme with users, user cities, cities. This Java Sprin
 
 ## Base URL
 - https://labs27-c-citrics-api.herokuapp.com/
+
+## Swagger Documentation
+- https://labs27-c-citrics-api.herokuapp.com/swagger-ui.html#/user-controller
+
 <details>
 <summary>http://localhost:2019/cities/all</summary>
 
@@ -133,6 +137,117 @@ This is a basic database scheme with users, user cities, cities. This Java Sprin
     "averagerentcost": 0.0,
     "costoflivingindex": 0.0,
     "users": []
+}
+```
+
+</details>
+
+
+<details>
+<summary>http://localhost:2019/cities/allid</summary>
+
+```JSON
+[
+    {
+        "cityid": 1,
+        "citynamestate": "Vestavia Hills, Alabama"
+    },
+    {
+        "cityid": 2,
+        "citynamestate": "Apache Junction, Arizona"
+    },
+    {
+        "cityid": 3,
+        "citynamestate": "Bullhead City, Arizona"
+    },
+    {
+        "cityid": 4,
+        "citynamestate": "Casa Grande, Arizona"
+    },
+    {
+        "cityid": 5,
+        "citynamestate": "El Mirage, Arizona"
+    },
+    {
+        "cityid": 6,
+        "citynamestate": "Lake Havasu City, Arizona"
+    },
+    {
+        "cityid": 7,
+        "citynamestate": "Oro Valley, Arizona"
+    },
+    {
+        "cityid": 8,
+        "citynamestate": "Prescott Valley, Arizona"
+    },
+    {
+        "cityid": 9,
+        "citynamestate": "Sierra Vista, Arizona"
+    },
+    {
+        "cityid": 10,
+        "citynamestate": "Fort Smith, Arkansas"
+    },
+    {
+        "cityid": 11,
+        "citynamestate": "Hot Springs, Arkansas"
+    },
+    {
+        "cityid": 12,
+        "citynamestate": "Little Rock, Arkansas"
+    },
+    {
+        "cityid": 13,
+        "citynamestate": "North Little Rock, Arkansas"
+    },
+    {
+        "cityid": 14,
+        "citynamestate": "Pine Bluff, Arkansas"
+    },
+    {
+        "cityid": 15,
+        "citynamestate": "Aliso Viejo, California"
+    },
+    {
+        "cityid": 16,
+        "citynamestate": "Apple Valley, California"
+    },
+    {
+        "cityid": 17,
+        "citynamestate": "Baldwin Park, California"
+    },
+    {
+        "cityid": 18,
+        "citynamestate": "Bell Gardens, California"
+    },
+    {
+        "cityid": 19,
+        "citynamestate": "Beverly Hills, California"
+    },
+    {
+        "cityid": 20,
+        "citynamestate": "Buena Park, California"
+    },
+    {
+        "cityid": 21,
+        "citynamestate": "Cathedral City, California"
+    },
+    {
+        "cityid": 22,
+        "citynamestate": "Chino Hills, California"
+    },
+    {
+        "cityid": 23,
+        "citynamestate": "Chula Vista, California"
+    },
+    {
+        "cityid": 24,
+        "citynamestate": "Citrus Heights, California"
+    },
+    {
+        "cityid": 25,
+        "citynamestate": "Costa Mesa, California"
+    }
 }
 ```
 
