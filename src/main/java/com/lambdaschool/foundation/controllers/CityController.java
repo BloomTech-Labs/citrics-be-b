@@ -59,4 +59,16 @@ public class CityController
 
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
+
+    /**
+     * /avg endpoint
+     * @return City with average fields of all cities
+     */
+    @GetMapping(value = "/avg", produces = "application/json")
+    public ResponseEntity<?> getAverageCity()
+    {
+        City c = cityService.findAverageCity();
+
+        return new ResponseEntity<>(c,HttpStatus.OK);
+    }
 }
