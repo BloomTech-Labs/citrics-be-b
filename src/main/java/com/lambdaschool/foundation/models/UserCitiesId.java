@@ -2,7 +2,6 @@ package com.lambdaschool.foundation.models;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
 public class UserCitiesId implements Serializable
