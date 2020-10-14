@@ -1,8 +1,6 @@
 package com.lambdaschool.foundation.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lambdaschool.foundation.FoundationApplication;
-import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.repository.UserRepository;
 import com.lambdaschool.foundation.services.CityService;
@@ -11,17 +9,13 @@ import com.lambdaschool.foundation.services.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -32,10 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -72,28 +62,29 @@ class UserControllerTest {
     void setUp() {
         userList = new ArrayList<>();
 
-//        City c1 = cityService.findByName("Washington, District of Columbia");
-//        c1.setPopulationdensityrating(20);
-//        c1.setSafteyratingscore(90);
-//        c1.setCostoflivingscore(15);
-//        c1.setAverageincome(110287d);
-//        c1.setAveragetemperature(100);
-//        c1.setLat(33.3367f);
-//        c1.setLon(-90.1234f);
-//
-//        City c2 = cityService.findByName("Fort Lauderdale, Florida");
-//        c2.setPopulationdensityrating(43);
-//        c2.setSafteyratingscore(86);
-//        c2.setCostoflivingscore(12);
-//        c2.setAverageincome(39477d);
-//        c2.setAveragetemperature(70);
-//        c2.setLat(32.7673f);
-//        c2.setLon(-96.7776f);
+        //        City c1 = cityService.findByName("Washington, District of Columbia");
+        //        c1.setPopulationdensityrating(20);
+        //        c1.setSafteyratingscore(90);
+        //        c1.setCostoflivingscore(15);
+        //        c1.setAverageincome(110287d);
+        //        c1.setAveragetemperature(100);
+        //        c1.setLat(33.3367f);
+        //        c1.setLon(-90.1234f);
+        //
+        //        City c2 = cityService.findByName("Fort Lauderdale, Florida");
+        //        c2.setPopulationdensityrating(43);
+        //        c2.setSafteyratingscore(86);
+        //        c2.setCostoflivingscore(12);
+        //        c2.setAverageincome(39477d);
+        //        c2.setAveragetemperature(70);
+        //        c2.setLat(32.7673f);
+        //        c2.setLon(-96.7776f);
 
         User u1 = new User("Arthur");
-
+        u1.setUserid(1);
         userList.add(u1);
         User u2 = new User("James");
+        u2.setUserid(2);
         userList.add(u2);
 
     }
@@ -129,15 +120,78 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserById() {
+    void getUserById() throws
+                       Exception {
+        String apiUrl = "/users/user/1";
+
+        Mockito.when(userService.findUserById(1))
+            .thenReturn(userList.get(1));
+
+        RequestBuilder rb = MockMvcRequestBuilders.get(apiUrl)
+            .accept(MediaType.APPLICATION_JSON);
+        MvcResult r = mockMvc.perform(rb)
+            .andReturn(); // this could throw an exception
+        String tr = r.getResponse()
+            .getContentAsString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String er = mapper.writeValueAsString(userList.get(1));
+
+        System.out.println("Expect: " + er);
+        System.out.println("Actual: " + tr);
+
+        assertEquals(er,
+            tr);
     }
 
     @Test
-    void getUserByName() {
+    void getUserByName() throws
+                         Exception {
+        String apiUrl = "/users/user/name/Arthur";
+
+        Mockito.when(userService.findByName("Arthur"))
+            .thenReturn(userList.get(1));
+
+        RequestBuilder rb = MockMvcRequestBuilders.get(apiUrl)
+            .accept(MediaType.APPLICATION_JSON);
+        MvcResult r = mockMvc.perform(rb)
+            .andReturn(); // this could throw an exception
+        String tr = r.getResponse()
+            .getContentAsString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String er = mapper.writeValueAsString(userList.get(1));
+
+        System.out.println("Expect: " + er);
+        System.out.println("Actual: " + tr);
+
+        assertEquals(er,
+            tr);
     }
 
     @Test
-    void getUserLikeName() {
+    void getUserLikeName() throws
+                           Exception {
+        String apiUrl = "/users/user/name/like/jam";
+
+        Mockito.when(userService.findByNameContaining(any(String.class)))
+            .thenReturn(userList);
+
+        RequestBuilder rb = MockMvcRequestBuilders.get(apiUrl)
+            .accept(MediaType.APPLICATION_JSON);
+        MvcResult r = mockMvc.perform(rb)
+            .andReturn(); // this could throw an exception
+        String tr = r.getResponse()
+            .getContentAsString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String er = mapper.writeValueAsString(userList);
+
+        System.out.println("Expect: " + er);
+        System.out.println("Actual: " + tr);
+
+        assertEquals(er,
+            tr);
     }
 
     @Test
