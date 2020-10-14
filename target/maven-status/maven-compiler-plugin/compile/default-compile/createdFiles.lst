@@ -31,4 +31,5 @@ com/lambdaschool/foundation/services/UserServiceImpl.class
 com/lambdaschool/foundation/services/HelperFunctions.class
 com/lambdaschool/foundation/config/H2ServerConfiguration.class
 com/lambdaschool/foundation/config/OktaAuthSecurityConfig.class
+com/lambdaschool/foundation/controllers/RootController.class
 com/lambdaschool/foundation/models/CityIdName.class
