@@ -14,6 +14,7 @@
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/services/UserServiceImpl.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/handlers/RestExceptionHandler.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/package-info.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/controllers/RootController.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/config/package-info.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/exceptions/ResourceNotFoundException.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/config/H2ServerConfiguration.java
