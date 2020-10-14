@@ -2,6 +2,7 @@ package com.lambdaschool.foundation;
 
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.DSCity;
+import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.CityService;
 import com.lambdaschool.foundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
-/**
+/*
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
  * <p>
  * CoomandLineRunner: Spring Boot automatically runs the run method once and only once
@@ -37,7 +38,7 @@ public class SeedDataTest
     @Autowired
     CityService cityService;
 
-    /**
+    /*
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
      * Second a random set of data using Java Faker is seeded into our database.
@@ -70,7 +71,7 @@ public class SeedDataTest
         ParameterizedTypeReference<DSCity> responseType = new ParameterizedTypeReference<>() {
         };
 
-        /**
+        /*
          * Loop to fetch cities from DS API
 
         for (int i = 1; i < 126; i++)
@@ -87,7 +88,15 @@ public class SeedDataTest
             cityService.saveDs(ourCityData);
         }
 */
-        /**
+
+        /*
+         * Extra dummy data for 2 users
+         */
+        User u1 = new User("Arthur");
+
+        User u2 = new User("James");
+
+        /*
          * Extra dummy data for 5 cities until DS gets V2 completed
          */
         City c1 = cityService.findByName("Washington, District of Columbia");

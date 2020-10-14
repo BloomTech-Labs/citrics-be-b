@@ -47,4 +47,10 @@ public interface CityService
      * @return List of city id's and citynamestates
      */
     List<CityIdName> findAllIds();
+
+    /**
+     * Finds the average value for all fields in cities
+     * @return a City object with the average of all city fields in the DB
+     */
+    City findAverageCity();
 }
