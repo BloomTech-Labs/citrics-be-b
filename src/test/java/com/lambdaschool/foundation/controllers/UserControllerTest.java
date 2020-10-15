@@ -196,8 +196,6 @@ class UserControllerTest {
             any(Long.class)))
             .thenReturn(userList.get(0));
 
-        //        {"userid":2,"username":"james","favcities":[]}
-
         RequestBuilder rb = MockMvcRequestBuilders.put(apiUrl,
             2L)
             .contentType(MediaType.APPLICATION_JSON)
