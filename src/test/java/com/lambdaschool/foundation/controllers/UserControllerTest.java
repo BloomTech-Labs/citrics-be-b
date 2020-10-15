@@ -92,9 +92,6 @@ class UserControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String er = mapper.writeValueAsString(userList);
 
-        System.out.println("Expect: " + er);
-        System.out.println("Actual: " + tr);
-
         assertEquals(er,
             tr,
             "Expected: " + er + "\nActual: " + tr);
