@@ -96,7 +96,8 @@ class UserControllerTest {
         System.out.println("Actual: " + tr);
 
         assertEquals(er,
-            tr, "Expected: " + er + "\nActual: " + tr);
+            tr,
+            "Expected: " + er + "\nActual: " + tr);
     }
 
     @Test
@@ -118,7 +119,8 @@ class UserControllerTest {
         String er = mapper.writeValueAsString(userList.get(1));
 
         assertEquals(er,
-            tr, "Expected: " + er + "\nActual: " + tr);
+            tr,
+            "Expected: " + er + "\nActual: " + tr);
     }
 
     @Test
@@ -140,7 +142,8 @@ class UserControllerTest {
         String er = mapper.writeValueAsString(userList.get(1));
 
         assertEquals(er,
-            tr, "Expected: " + er + "\nActual: " + tr);
+            tr,
+            "Expected: " + er + "\nActual: " + tr);
     }
 
     @Test
@@ -162,7 +165,8 @@ class UserControllerTest {
         String er = mapper.writeValueAsString(userList);
 
         assertEquals(er,
-            tr, "Expected: " + er + "\nActual: " + tr);
+            tr,
+            "Expected: " + er + "\nActual: " + tr);
     }
 
     @Test
@@ -258,6 +262,7 @@ class UserControllerTest {
         String er = mapper.writeValueAsString(userList.get(0));
 
         assertEquals(er,
-            tr, "Expected: " + er + "\nActual: " + tr);
+            tr,
+            "Expected: " + er + "\nActual: " + tr);
     }
 }
