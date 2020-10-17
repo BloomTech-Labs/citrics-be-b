@@ -86,54 +86,5 @@ public class SeedData
 
             cityService.saveDs(ourCityData);
         }
-
-        /**
-         * Extra dummy data for 5 cities until DS gets V2 completed
-         */
-        City c1 = cityService.findByName("Washington, District of Columbia");
-        City c2 = cityService.findByName("Fort Lauderdale, Florida");
-        City c3 = cityService.findByName("Rancho Cucamonga, California");
-        City c4 = cityService.findByName("Little Rock, Arkansas");
-        City c5 = cityService.findByName("Beverly Hills, California");
-
-        c1.setPopulationdensityrating(20);
-        c1.setSafteyratingscore(90);
-        c1.setCostoflivingscore(15);
-        c1.setAverageincome(110287d);
-        c1.setAveragetemperature(100);
-        c1.setLat(33.3367f);
-        c1.setLon(-90.1234f);
-
-        c2.setPopulationdensityrating(43);
-        c2.setSafteyratingscore(86);
-        c2.setCostoflivingscore(12);
-        c2.setAverageincome(39477d);
-        c2.setAveragetemperature(70);
-        c2.setLat(32.7673f);
-        c2.setLon(-96.7776f);
-
-        c3.setPopulationdensityrating(6);
-        c3.setSafteyratingscore(2);
-        c3.setCostoflivingscore(77);
-        c3.setAverageincome(100245d);
-        c3.setAveragetemperature(68);
-        c3.setLat(35.0768f);
-        c3.setLon(-85.3082f);
-
-        c4.setPopulationdensityrating(42);
-        c4.setSafteyratingscore(6);
-        c4.setCostoflivingscore(45);
-        c4.setAverageincome(40677d);
-        c4.setAveragetemperature(65);
-        c4.setLat(40.3086f);
-        c4.setLon(-76.846f);
-
-        c5.setPopulationdensityrating(51);
-        c5.setSafteyratingscore(78);
-        c5.setCostoflivingscore(51);
-        c5.setAverageincome(87091d);
-        c5.setAveragetemperature(57);
-        c5.setLat(39.7495f);
-        c5.setLon(-89.606f);
     }
 }
