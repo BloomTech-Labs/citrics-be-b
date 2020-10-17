@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class PopulationHist extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long popid;
 
     @NotNull
@@ -22,7 +24,7 @@ public class PopulationHist extends Auditable
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
-    @JsonIgnoreProperties(value = "populationhist")
+    @JsonIgnore
     private City city;
 
     public PopulationHist()

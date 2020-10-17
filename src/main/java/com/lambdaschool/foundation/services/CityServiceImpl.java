@@ -47,7 +47,6 @@ public class CityServiceImpl implements CityService
     private UserRepository userrepo;
 
 
-
     /**
      * Find all cities in DB
      *
@@ -255,12 +254,16 @@ public class CityServiceImpl implements CityService
                 "");
             raw = raw.replace("}",
                 "");
-//            String nameState = "city:" + city.getCity() + "," + city.getStatename() + ",";
-//            raw = raw.replace(nameState,
-//                "");
-            raw = raw.replace("city:", "");
-            raw = raw.replace(city.getCity() + ",", "");
-            raw = raw.replace(city.getStatename() + ",", "");
+            raw = raw.replace("city:",
+                "");
+
+            raw = raw.replace(city.getCity() + ",",
+                "");
+            raw = raw.replace("Braintree ", "");
+            raw = raw.replace("Town,", "");
+            raw = raw.replace("Nashville-Davidson,", "");
+            raw = raw.replace(city.getStatename() + ",",
+                "");
             raw = raw.replace("POP",
                 "");
             raw = raw.replace("_",
@@ -270,15 +273,12 @@ public class CityServiceImpl implements CityService
             raw = raw.replace("est",
                 "");
 
-//            System.out.println(nameState);
             raw = raw.trim();
-            System.out.println(raw);
 
             String[] split = raw.split(",");
 
             for (String s : split)
             {
-                System.out.printf(s);
                 String[] splits = s.split(":");
                 c.getPopulationhist()
                     .add(new PopulationHist(Integer.parseInt(splits[0]),
@@ -291,24 +291,27 @@ public class CityServiceImpl implements CityService
         if (city.getIncome_hist() != null)
         {
             String raw = city.getIncome_hist();
-            raw = raw.replace("{", "");
-            raw = raw.replace("}", "");
-            raw = raw.replace("_Med", "");
-            raw = raw.replace("_Inc", "");
+
+            raw = raw.replace("{",
+                "");
+            raw = raw.replace("}",
+                "");
+            raw = raw.replace("_Med",
+                "");
+            raw = raw.replace("_Inc",
+                "");
 
             String[] split = raw.split(",");
 
             List<String> house = new ArrayList<>();
             List<String> ind = new ArrayList<>();
 
-
-            for (String s: split)
+            for (String s : split)
             {
                 if (s.contains("Hou"))
                 {
                     house.add(s);
-                }
-                else if (s.contains("Ind"))
+                } else if (s.contains("Ind"))
                 {
                     ind.add(s);
                 }
@@ -317,21 +320,24 @@ public class CityServiceImpl implements CityService
             Hashtable<Integer, List<Integer>> h = new Hashtable<>();
 
 
-            for (String s: house)
+            for (String s : house)
             {
-                s.replace("_Hou", "");
+                s = s.replace("_Hou",
+                    "");
                 String[] splits = s.split(":");
                 int year = Integer.parseInt(splits[0]);
                 int cost = Integer.parseInt(splits[1]);
 
                 List<Integer> list = new ArrayList<>();
                 list.add(cost);
-                h.put(year, list);
+                h.put(year,
+                    list);
             }
 
-            for (String s: ind)
+            for (String s : ind)
             {
-                s.replace("_Ind", "");
+                s = s.replace("_Ind",
+                    "");
                 String[] splits = s.split(":");
                 int year = Integer.parseInt(splits[0]);
                 int cost = Integer.parseInt(splits[1]);
@@ -342,11 +348,15 @@ public class CityServiceImpl implements CityService
 
             Set<Integer> keys = h.keySet();
 
-            for (Integer key: keys)
+            for (Integer key : keys)
             {
                 List<Integer> list = h.get(key);
 
-                c.getHistoricalincome().add(new HistoricalIncome(key, list.get(1), list.get(0), c));
+                c.getHistoricalincome()
+                    .add(new HistoricalIncome(key,
+                        list.get(1),
+                        list.get(0),
+                        c));
             }
 
         }
@@ -354,35 +364,52 @@ public class CityServiceImpl implements CityService
         if (city.getHome_hist() != null)
         {
             String raw = city.getHome_hist();
-            raw = raw.replace("{", "");
-            raw = raw.replace("}", "");
+
+            raw = raw.replace("{",
+                "");
+            raw = raw.replace("}",
+                "");
 
             String[] split = raw.split(",");
 
-            for (String s: split)
+            for (String s : split)
             {
                 String[] first = s.split(":");
 
-                int cost = Integer.parseInt(first[1]);
+                double cost;
+
+                try
+                {
+                    cost = Double.parseDouble(first[1]);
+                } catch (NumberFormatException nfe)
+                {
+                    cost = 0;
+                }
 
                 String[] second = first[0].split("_");
 
                 int year = Integer.parseInt(second[0]);
                 int month = Integer.parseInt(second[1]);
 
-                c.getHistoricalincome().add(new HistoricalIncome(year, month, cost, c));
+                c.getHistoricalaveragehouse()
+                    .add(new HistoricalHousing(year,
+                        month,
+                        (int) cost,
+                        c));
             }
         }
 
         if (city.getJhcovid() != null)
         {
             String raw = city.getJhcovid();
-            raw = raw.replace("{", "");
-            raw = raw.replace("}", "");
+            raw = raw.replace("{",
+                "");
+            raw = raw.replace("}",
+                "");
 
             String[] split = raw.split(",");
 
-            for (String s: split)
+            for (String s : split)
             {
                 if (s.contains("C") || s.contains(city.getStatename()) || s.contains("U"))
                 {
@@ -398,7 +425,12 @@ public class CityServiceImpl implements CityService
                     int month = Integer.parseInt(second[1]);
                     int day = Integer.parseInt(second[2]);
 
-                    c.getCovid().add(new HistoricalCovid(year, month, day, cases, c));
+                    c.getCovid()
+                        .add(new HistoricalCovid(year,
+                            month,
+                            day,
+                            cases,
+                            c));
                 }
 
 
@@ -408,8 +440,10 @@ public class CityServiceImpl implements CityService
         if (city.getWeather_hist() != null)
         {
             String raw = city.getWeather_hist();
-            raw = raw.replace("{", "");
-            raw = raw.replace("}", "");
+            raw = raw.replace("{",
+                "");
+            raw = raw.replace("}",
+                "");
 
             String[] split = raw.split(",");
 
@@ -417,7 +451,7 @@ public class CityServiceImpl implements CityService
             List<String> temp = new ArrayList<>();
             Hashtable<String, List<Double>> h = new Hashtable<>();
 
-            for (String s: split)
+            for (String s : split)
             {
                 if (s.contains("prec"))
                 {
@@ -428,7 +462,7 @@ public class CityServiceImpl implements CityService
                 }
             }
 
-            for (String s: perc)
+            for (String s : perc)
             {
                 String[] first = s.split(":");
 
@@ -440,10 +474,11 @@ public class CityServiceImpl implements CityService
                 List<Double> list = new ArrayList<>();
                 list.add(value);
 
-                h.put(month, list);
+                h.put(month,
+                    list);
             }
 
-            for (String s: temp)
+            for (String s : temp)
             {
                 String[] first = s.split(":");
 
@@ -458,10 +493,14 @@ public class CityServiceImpl implements CityService
 
             Set<String> keys = h.keySet();
 
-            for (String key: keys)
+            for (String key : keys)
             {
                 List<Double> list = h.get(key);
-                c.getHistoricalweather().add(new HistoricalWeather(key, list.get(0), list.get(1), c));
+                c.getHistoricalweather()
+                    .add(new HistoricalWeather(key,
+                        list.get(0),
+                        list.get(1),
+                        c));
             }
         }
 
@@ -516,20 +555,41 @@ public class CityServiceImpl implements CityService
         City c = new City();
         int totalCities = 0;
         String cityNameState = "National Average, USA";
+        double totalLatitude = 0;
+        double totalLongitude = 0;
         double totalPopulation = 0;
-        int totalPopulationDensityRating = 0;
-        int totalSafteyRatingScore = 0;
-        int totalCostofLivingScore = 0;
-        double totalAverageIncome = 0;
-        int totalAverageTemperature = 0;
-        float totalLat = 0;
-        float totalLon = 0;
-        double totalAverageAge = 0;
-        double totalAverageHouseholdIncome = 0;
-        double totalAverageIndividualIncome = 0;
-        double totalAverageHouseingCost = 0;
-        double totalAverageRentCost = 0;
-        double totalCostOfLivingIndex = 0;
+        double totalDensityMiSq = 0;
+        double totalDensityKmSq = 0;
+        double totalAge = 0;
+        double totalHousehold = 0;
+        double totalIndividual = 0;
+        double totalHousing = 0;
+        double totalRent = 0;
+        double costOfLivingIndex = 0;
+
+//        int totalHistPopulationCount = 0;
+//        double totalHistPopulaion = 0;
+//
+//        int totalHistIncCount = 0;
+//        double totalHistInc = 0;
+//
+//        int totalHistIndCount = 0;
+//        double totalHistInd = 0;
+//
+//        int totalHistHouseCount = 0;
+//        double totalHistHouse = 0;
+//
+//        int totalHistoricalHousingCount = 0;
+//        double totalHistoricalHousing = 0;
+//
+//        int totalCovidCount = 0;
+//        double totalCovid = 0;
+//
+//        int totalPercCount = 0;
+//        double totalPerc = 0;
+//
+//        int totalTempCount = 0;
+//        double totalTemp = 0;
 
         cityrepo.findAll()
             .iterator()
@@ -538,38 +598,99 @@ public class CityServiceImpl implements CityService
         for (int i = 0; i < cities.size(); i++)
         {
             totalCities++;
-            //            totalPopulation += cities.get(i).getPopulation();
-            //            totalPopulationDensityRating += cities.get(i).getPopulationdensityrating();
-            //            totalSafteyRatingScore += cities.get(i).getSafteyratingscore();
-            //            totalCostofLivingScore += cities.get(i).getCostoflivingscore();
-            //            totalAverageIncome += cities.get(i).getAverageincome();
-            //            totalAverageTemperature += cities.get(i).getAveragetemperature();
-            //            totalLat += cities.get(i).getLat();
-            //            totalLon += cities.get(i).getLon();
-            //            totalAverageAge += cities.get(i).getAverageage();
-            //            totalAverageHouseholdIncome += cities.get(i).getAveragehouseholdincome();
-            //            totalAverageIndividualIncome += cities.get(i).getAverageindividualincome();
-            //            totalAverageHouseingCost += cities.get(i).getAveragehouseingcost();
-            //            totalAverageRentCost += cities.get(i).getAveragerentcost();
-            totalCostOfLivingIndex += cities.get(i)
-                .getCostoflivingindex();
+            City x = cities.get(i);
+            totalLatitude += x.getLatitude();
+            totalLongitude += x.getLogitude();
+            totalPopulation += x.getPopulation();
+            totalDensityMiSq += (c.getDensitymisq() != null) ? x.getDensitymisq() : 0;
+            totalDensityKmSq += (c.getDensitykmsq() != null) ? x.getDensitykmsq() : 0;
+            totalAge += x.getAverageage();
+            totalHousehold += x.getHouseholdincome();
+            totalIndividual += x.getIndividualincome();
+            totalHousing += x.getAveragehouse();
+            totalRent += x.getRent();
+
+            costOfLivingIndex += (x.getCostoflivingindex() != null) ? x.getCostoflivingindex() : 0;
+
+
+//            for (PopulationHist pop : x.getPopulationhist())
+//            {
+//                totalHistPopulationCount++;
+//                totalHistPopulaion += pop.getPop();
+//            }
+//
+//            for (HistoricalIncome v : x.getHistoricalincome())
+//            {
+//                totalHistIndCount++;
+//                totalHistHouseCount++;
+//
+//                totalHistInd += v.getIndividualincome();
+//                totalHistHouse += v.getHouseholdincome();
+//            }
+//
+//            for (HistoricalHousing h : x.getHistoricalaveragehouse())
+//            {
+//                totalHistoricalHousingCount++;
+//
+//
+//                totalHistoricalHousing += h.getHousingcost();
+//            }
+//
+//            for (HistoricalCovid co : x.getCovid())
+//            {
+//                totalCovidCount++;
+//                totalCovid += co.getCases();
+//            }
+//
+//            for (HistoricalWeather h : x.getHistoricalweather())
+//            {
+//                totalPercCount++;
+//                totalTempCount++;
+//
+//                totalPerc += h.getPrecipitation();
+//                totalTemp += h.getTemperature();
+//            }
         }
 
         c.setCitynamestate(cityNameState);
-        //        c.setPopulation(totalPopulation / totalCities);
-        //        c.setPopulationdensityrating(totalPopulationDensityRating / totalCities);
-        //        c.setSafteyratingscore(totalSafteyRatingScore / totalCities);
-        //        c.setCostoflivingscore(totalCostofLivingScore / totalCities);
-        //        c.setAverageincome(totalAverageIncome / totalCities);
-        //        c.setAveragetemperature(totalAverageTemperature / totalCities);
-        //        c.setLat(totalLat / totalCities);
-        //        c.setLon(totalLon / totalCities);
-        //        c.setAverageage(totalAverageAge / totalCities);
-        //        c.setAveragehouseholdincome(totalAverageHouseholdIncome / totalCities);
-        //        c.setAverageindividualincome(totalAverageIndividualIncome / totalCities);
-        //        c.setAveragehouseingcost(totalAverageHouseingCost / totalCities);
-        //        c.setAveragerentcost(totalAverageRentCost / totalCities);
-        c.setCostoflivingindex(totalCostOfLivingIndex / totalCities);
+        c.setLatitude(totalLatitude / totalCities);
+        c.setLogitude(totalLongitude / totalCities);
+        c.setPopulation(totalPopulation / totalCities);
+        c.setDensitymisq(totalDensityMiSq / totalCities);
+        c.setDensitykmsq(totalDensityKmSq / totalCities);
+        c.setAverageage(totalAge / totalCities);
+        c.setHouseholdincome(totalHousehold / totalCities);
+        c.setIndividualincome(totalIndividual / totalCities);
+        c.setAveragehouse(totalHousing / totalCities);
+        c.setRent(totalRent / totalCities);
+        c.setCostoflivingindex(costOfLivingIndex / totalCities);
+
+//        c.getPopulationhist()
+//            .add(new PopulationHist(2020,
+//                totalHistPopulaion / totalHistPopulationCount,
+//                c));
+//        c.getHistoricalincome()
+//            .add(new HistoricalIncome(2020,
+//                (totalHistIndCount == 0) ? 0 : (int) totalHistInd / totalHistIndCount,
+//                (totalHistHouseCount == 0) ? 0 : (int) totalHistHouse / totalHistHouseCount,
+//                c));
+//        c.getHistoricalaveragehouse()
+//            .add(new HistoricalHousing(2020,
+//                10,
+//                (int) totalHistoricalHousing / totalHistoricalHousingCount,
+//                c));
+//        c.getCovid()
+//            .add(new HistoricalCovid(2020,
+//                10,
+//                31,
+//                (int) totalCovid / totalCovidCount,
+//                c));
+//        c.getHistoricalweather()
+//            .add(new HistoricalWeather("Oct",
+//                totalPerc / totalPercCount,
+//                totalTemp / totalTempCount,
+//                c));
+
 
         return c;
     }

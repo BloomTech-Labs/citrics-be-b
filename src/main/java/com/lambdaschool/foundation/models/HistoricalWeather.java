@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class HistoricalWeather extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long weatherid;
 
     @NotNull
@@ -25,7 +27,7 @@ public class HistoricalWeather extends Auditable
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
-    @JsonIgnoreProperties(value = "historicalweather")
+    @JsonIgnore
     private City city;
 
     public HistoricalWeather()

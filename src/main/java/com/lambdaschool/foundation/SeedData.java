@@ -24,7 +24,7 @@ import java.util.Collections;
  * after the application context has been loaded.
  */
 @Transactional
-@Component
+//@Component
 public class SeedData
     implements CommandLineRunner
 {
@@ -73,7 +73,7 @@ public class SeedData
         /**
          * Loop to fetch cities from DS API
          */
-        for (int i = 1; i < 126; i++)
+        for (int i = 1; i < 1278; i++)
         {
             // create responseEntity
             ResponseEntity<DSCity> responseEntity = restTemplate.exchange(requestURL + i,
@@ -81,7 +81,6 @@ public class SeedData
                 null,
                 responseType);
 
-            // print to the console
             DSCity ourCityData = responseEntity.getBody();
 
             cityService.saveDs(ourCityData);

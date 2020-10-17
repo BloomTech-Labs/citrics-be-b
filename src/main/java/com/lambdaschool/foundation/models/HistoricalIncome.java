@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class HistoricalIncome extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long incid;
 
     @NotNull
@@ -25,7 +27,7 @@ public class HistoricalIncome extends Auditable
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
-    @JsonIgnoreProperties(value = "historicalincome")
+    @JsonIgnore
     private City city;
 
     public HistoricalIncome()
@@ -72,6 +74,16 @@ public class HistoricalIncome extends Auditable
     public void setIndividualincome(int income)
     {
         this.individualincome = income;
+    }
+
+    public int getHouseholdincome()
+    {
+        return householdincome;
+    }
+
+    public void setHouseholdincome(int householdincome)
+    {
+        this.householdincome = householdincome;
     }
 
     public City getCity()

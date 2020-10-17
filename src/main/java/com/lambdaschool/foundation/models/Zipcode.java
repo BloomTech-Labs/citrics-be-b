@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class Zipcode extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long zipid;
 
     @NotNull
@@ -19,7 +21,7 @@ public class Zipcode extends Auditable
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
-    @JsonIgnoreProperties(value = "zipcodes")
+    @JsonIgnore
     private City city;
 
     public Zipcode()

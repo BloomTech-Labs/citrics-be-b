@@ -1,6 +1,7 @@
 package com.lambdaschool.foundation.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -36,7 +37,10 @@ public class City extends Auditable
     private Double logitude;
     private String fpis;
     private String gnis;
+
+    @Column(columnDefinition = "TEXT")
     private String wikiimgurl;
+
     private String website;
     private Double population;
     private Double densitymisq;
@@ -73,7 +77,7 @@ public class City extends Auditable
 
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "city")
+    @JsonIgnore
     private Set<UserCities> users = new HashSet<>();
 
     /**
