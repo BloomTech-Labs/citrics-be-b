@@ -25,16 +25,18 @@ public class CityController
     private CityService cityService;
 
     /**
-     *  /all endpont
+     *  /all endpont (Not enough memory in free tier of
+     *  Heroku to use with fully populated DB. Disabled until
+     *  resources are available)
      * @return list of all cities
      */
-    @GetMapping(value = "/all",
-       produces = "application/json")
-    public ResponseEntity<?> listAllCities()
-    {
-        List<City> cities = cityService.findAll();
-        return  new ResponseEntity<>(cities, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/all",
+//       produces = "application/json")
+//    public ResponseEntity<?> listAllCities()
+//    {
+//        List<City> cities = cityService.findAll();
+//        return  new ResponseEntity<>(cities, HttpStatus.OK);
+//    }
 
     /**
      * /city/{cityid} endpoint

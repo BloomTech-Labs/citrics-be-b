@@ -12,6 +12,13 @@ import java.io.Serializable;
 public class UserCities extends Auditable implements Serializable
 {
 
+    /**
+     * Table for Cities favorited by User
+     */
+
+    /**
+     * 1/2 of complex key, UserId
+     */
     @Id
     @ManyToOne
     @NotNull
@@ -19,6 +26,9 @@ public class UserCities extends Auditable implements Serializable
     @JsonIgnoreProperties(value = "cities", allowSetters = true)
     private User user;
 
+    /**
+     * 1/2 of complex key, CityId
+     */
     @Id
     @ManyToOne
     @NotNull
@@ -26,10 +36,18 @@ public class UserCities extends Auditable implements Serializable
     @JsonIgnoreProperties(value = "users", allowSetters = true)
     private City city;
 
+    /**
+     * Default constructor
+     */
     public UserCities()
     {
     }
 
+    /**
+     * Main constructor
+     * @param user User that is favoriting
+     * @param city City that is being favorited
+     */
     public UserCities(
         @NotNull User user,
         @NotNull City city)
@@ -38,6 +56,10 @@ public class UserCities extends Auditable implements Serializable
         this.city = city;
     }
 
+    /**
+     * Getters and setters for UserCities's fields
+     *
+     **********************************************************************************/
     public User getUser()
     {
         return user;
@@ -58,6 +80,12 @@ public class UserCities extends Auditable implements Serializable
         this.city = city;
     }
 
+    /**
+     * Because this is a join table and implements Serializable,
+     * equals and hashcode methods are required
+     * @param o Object being compared
+     * @return return boolean if object matches
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -74,6 +102,11 @@ public class UserCities extends Auditable implements Serializable
             ((city == null) ? 0 : city.getCityid()) == ((that.city == null) ? 0 : that.city.getCityid());
     }
 
+    /**
+     * Override of default hasCode(), we always want it to default to equals()
+     * so we return a default value
+     * @return default value
+     */
     @Override
     public int hashCode()
     {

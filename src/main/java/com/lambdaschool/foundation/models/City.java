@@ -1,11 +1,14 @@
 package com.lambdaschool.foundation.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,59 +30,143 @@ public class City extends Auditable
     private String citynamestate;
 
     /**
-     *  The City population (int)
+     * The two letter state abbreviation
      */
-    private double population;
-
-    private int populationdensityrating;
-
-
-    private int safteyratingscore;
-
-    private int costoflivingscore;
-
-    private double averageincome;
-
-    private int averagetemperature;
-
-    private float lat;
-
-    private float lon;
-
-
+    private String statecode;
 
     /**
-     *  The City's average age (float)
+     * City's Timezone
      */
-    private double averageage;
+    private String timezone;
 
     /**
-     *  The City's average income per household (double)
+     * City's latitude
      */
-    private double averagehouseholdincome;
+    private Double latitude;
 
     /**
-     *  The City's average income per individual (double)
+     * City's longitude
      */
-    private double averageindividualincome;
+    private Double logitude;
 
     /**
-     *  The City's average cost to buy a house (double)
+     * City's FPIS
      */
-    private double averagehouseingcost;
+    private String fpis;
 
     /**
-     *  The City's average cost to rent a house (double)
+     * City's GNIS
      */
-    private double averagerentcost;
+    private String gnis;
 
     /**
-     *  The City's cost of living index (float)
+     * City's wiki image url
      */
-    private double costoflivingindex;
+    @Column(columnDefinition = "TEXT")
+    private String wikiimgurl;
 
+    /**
+     * City's website
+     */
+    private String website;
+
+    /**
+     * City's average population
+     */
+    private Double population;
+
+    /**
+     * City's population density per square mile
+     */
+    private Double densitymisq;
+
+    /**
+     * City's population density per square kilometer
+     */
+    private Double densitykmsq;
+
+    /**
+     * City's average age
+     */
+    private Double averageage;
+
+    /**
+     * City's average household income
+     */
+    private Double householdincome;
+
+    /**
+     * City's average individual income
+     */
+    private Double individualincome;
+
+    /**
+     * City's average housing cost
+     */
+    private Double averagehouse;
+
+    /**
+     * City's average rent cost
+     */
+    private Double rent;
+
+    /**
+     * City's average cost of living index
+     */
+    private Double costoflivingindex;
+
+    /**
+     * City's current ACA status
+     */
+    private String acastatus;
+
+    /**
+     * List of City's zipcodes
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Zipcode> zipcodes = new ArrayList<>();
+
+    /**
+     * List of City's counties
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<County> counties = new ArrayList<>();
+
+    /**
+     * List of historical population data
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<PopulationHist> populationhist = new ArrayList<>();
+
+    /**
+     * List of historical income data
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<HistoricalIncome> historicalincome = new ArrayList<>();
+
+    /**
+     * List of historical housing cost
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<HistoricalHousing> historicalaveragehouse = new ArrayList<>();
+
+    /**
+     * List of reported Covid-19 cases
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<HistoricalCovid> covid = new ArrayList<>();
+
+    /**
+     * List of historical weather data
+     */
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<HistoricalWeather> historicalweather = new ArrayList<>();
+
+    /**
+     * List of User's who have favorited the city
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "city")
+    @JsonIgnore
     private Set<UserCities> users = new HashSet<>();
 
     /**
@@ -99,221 +186,281 @@ public class City extends Auditable
     }
 
     /**
-     * The constructor with all fields
-     */
-    public City(
-        @NotNull String citynamestate,
-        int populationdensityrating,
-        float averageage,
-        double averagehouseholdincome,
-        double averageindividualincome,
-        double averagehouseingcost,
-        double averagerentcost,
-        float costoflivingindex)
-    {
-        this.citynamestate = citynamestate;
-        this.populationdensityrating = populationdensityrating;
-        this.averageage = averageage;
-        this.averagehouseholdincome = averagehouseholdincome;
-        this.averageindividualincome = averageindividualincome;
-        this.averagehouseingcost = averagehouseingcost;
-        this.averagerentcost = averagerentcost;
-        this.costoflivingindex = costoflivingindex;
-    }
+     * Getters and setters for the City's fields
+     *
+     **************************************************************************/
 
-    public City(
-        @NotNull String citynamestate,
-        int populationdensityrating,
-        int safteyratingscore,
-        int costoflivingscore,
-        double averageincome,
-        int averagetemperature,
-        float lat,
-        float lon)
-    {
-        this.citynamestate = citynamestate;
-        this.populationdensityrating = populationdensityrating;
-        this.safteyratingscore = safteyratingscore;
-        this.costoflivingscore = costoflivingscore;
-        this.averageincome = averageincome;
-        this.averagetemperature = averagetemperature;
-        this.lat = lat;
-        this.lon = lon;
-    }
 
-    public City(
-        @NotNull String citynamestate,
-        double population,
-        float averageage,
-        double averagehouseholdincome,
-        double averageindividualincome,
-        double averagehouseingcost,
-        double averagerentcost,
-        float costoflivingindex
-    )
-    {
-        this.citynamestate = citynamestate;
-        this.population = population;
-        this.averageage = averageage;
-        this.averagehouseholdincome = averagehouseholdincome;
-        this.averageindividualincome = averageindividualincome;
-        this.averagehouseingcost = averagehouseingcost;
-        this.averagerentcost = averagerentcost;
-        this.costoflivingindex = costoflivingindex;
-    }
 
-    /**
-     * Getter for the CityID
-     */
     public long getCityid()
     {
         return cityid;
     }
 
-    /**
-     * Setter for the CityID
-     */
+
     public void setCityid(long cityid)
     {
         this.cityid = cityid;
     }
 
-    /**
-     * Getter for the City name
-     */
     public String getCitynamestate()
     {
         return citynamestate;
     }
 
-    /**
-     * Setter for the City name
-     */
     public void setCitynamestate(String citynamestate)
     {
         this.citynamestate = citynamestate;
     }
 
-    public double getPopulation()
+    public String getStatecode()
+    {
+        return statecode;
+    }
+
+    public void setStatecode(String statecode)
+    {
+        this.statecode = statecode;
+    }
+
+    public String getTimezone()
+    {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone)
+    {
+        this.timezone = timezone;
+    }
+
+    public Double getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public Double getLogitude()
+    {
+        return logitude;
+    }
+
+    public void setLogitude(Double logitude)
+    {
+        this.logitude = logitude;
+    }
+
+    public String getFpis()
+    {
+        return fpis;
+    }
+
+    public void setFpis(String fpis)
+    {
+        this.fpis = fpis;
+    }
+
+    public String getGnis()
+    {
+        return gnis;
+    }
+
+    public void setGnis(String gnis)
+    {
+        this.gnis = gnis;
+    }
+
+    public String getWikiimgurl()
+    {
+        return wikiimgurl;
+    }
+
+    public void setWikiimgurl(String wikiimgurl)
+    {
+        this.wikiimgurl = wikiimgurl;
+    }
+
+    public String getWebsite()
+    {
+        return website;
+    }
+
+    public void setWebsite(String website)
+    {
+        this.website = website;
+    }
+
+    public Double getPopulation()
     {
         return population;
     }
 
-    public void setPopulation(double population)
+    public void setPopulation(Double population)
     {
         this.population = population;
     }
 
-    /**
-     * Getter for the City population
-     */
-    public int getPopulationdensityrating()
+    public Double getDensitymisq()
     {
-        return populationdensityrating;
+        return densitymisq;
     }
 
-    /**
-     * Setter for the City population
-     */
-    public void setPopulationdensityrating(int population)
+    public void setDensitymisq(Double densitymisq)
     {
-        this.populationdensityrating = population;
+        this.densitymisq = densitymisq;
     }
 
-    /**
-     * Getter for the City's average age
-     */
-    public double getAverageage()
+    public Double getDensitykmsq()
+    {
+        return densitykmsq;
+    }
+
+    public void setDensitykmsq(Double densitykmsq)
+    {
+        this.densitykmsq = densitykmsq;
+    }
+
+    public Double getAverageage()
     {
         return averageage;
     }
 
-    /**
-     * Setter for the City's average age
-     */
-    public void setAverageage(double averageage)
+    public void setAverageage(Double averageage)
     {
         this.averageage = averageage;
     }
 
-    /**
-     * Getter for the City's average household income
-     */
-    public double getAveragehouseholdincome()
+    public Double getHouseholdincome()
     {
-        return averagehouseholdincome;
+        return householdincome;
     }
 
-    /**
-     * Setter for the City's average household income
-     */
-    public void setAveragehouseholdincome(double averagehouseholdincome)
+    public void setHouseholdincome(Double householdincome)
     {
-        this.averagehouseholdincome = averagehouseholdincome;
+        this.householdincome = householdincome;
     }
 
-    /**
-     * Getter for the City's average individual income
-     */
-    public double getAverageindividualincome()
+    public Double getIndividualincome()
     {
-        return averageindividualincome;
+        return individualincome;
     }
 
-    /**
-     * Setter for the City's average individual income
-     */
-    public void setAverageindividualincome(double averageindividualincome)
+    public void setIndividualincome(Double individualincome)
     {
-        this.averageindividualincome = averageindividualincome;
+        this.individualincome = individualincome;
     }
 
-    /**
-     * Getter for the City's average housing cost
-     */
-    public double getAveragehouseingcost()
+    public Double getAveragehouse()
     {
-        return averagehouseingcost;
+        return averagehouse;
     }
 
-    /**
-     * Setter for the City's average housing cost
-     */
-    public void setAveragehouseingcost(double averagehouseingcost)
+    public void setAveragehouse(Double averagehouse)
     {
-        this.averagehouseingcost = averagehouseingcost;
+        this.averagehouse = averagehouse;
     }
 
-    /**
-     * Getter for the City's average renting cost
-     */
-    public double getAveragerentcost()
+    public Double getRent()
     {
-        return averagerentcost;
+        return rent;
     }
 
-    /**
-     * Setter for the City's average renting cost
-     */
-    public void setAveragerentcost(double averagerentcost)
+    public void setRent(Double rent)
     {
-        this.averagerentcost = averagerentcost;
+        this.rent = rent;
     }
 
-    /**
-     * Getter for the City's cost of living index
-     */
-    public double getCostoflivingindex()
+    public Double getCostoflivingindex()
     {
         return costoflivingindex;
     }
 
-    /**
-     * Setter for the City's cost of living index
-     */
-    public void setCostoflivingindex(double costoflivingindex)
+    public void setCostoflivingindex(Double costoflivingindex)
     {
         this.costoflivingindex = costoflivingindex;
+    }
+
+    public String getAcastatus()
+    {
+        return acastatus;
+    }
+
+    public void setAcastatus(String acastatus)
+    {
+        this.acastatus = acastatus;
+    }
+
+    public List<Zipcode> getZipcodes()
+    {
+        return zipcodes;
+    }
+
+    public void setZipcodes(List<Zipcode> zipcodes)
+    {
+        this.zipcodes = zipcodes;
+    }
+
+    public List<County> getCounties()
+    {
+        return counties;
+    }
+
+    public void setCounties(List<County> counties)
+    {
+        this.counties = counties;
+    }
+
+    public List<PopulationHist> getPopulationhist()
+    {
+        return populationhist;
+    }
+
+    public void setPopulationhist(List<PopulationHist> populationhist)
+    {
+        this.populationhist = populationhist;
+    }
+
+    public List<HistoricalIncome> getHistoricalincome()
+    {
+        return historicalincome;
+    }
+
+    public void setHistoricalincome(List<HistoricalIncome> historicalincome)
+    {
+        this.historicalincome = historicalincome;
+    }
+
+    public List<HistoricalHousing> getHistoricalaveragehouse()
+    {
+        return historicalaveragehouse;
+    }
+
+    public void setHistoricalaveragehouse(List<HistoricalHousing> historicalaveragehouse)
+    {
+        this.historicalaveragehouse = historicalaveragehouse;
+    }
+
+    public List<HistoricalCovid> getCovid()
+    {
+        return covid;
+    }
+
+    public void setCovid(List<HistoricalCovid> covid)
+    {
+        this.covid = covid;
+    }
+
+    public List<HistoricalWeather> getHistoricalweather()
+    {
+        return historicalweather;
+    }
+
+    public void setHistoricalweather(List<HistoricalWeather> historicalweather)
+    {
+        this.historicalweather = historicalweather;
     }
 
     public Set<UserCities> getUsers()
@@ -326,68 +473,9 @@ public class City extends Auditable
         this.users = users;
     }
 
-    public int getSafteyratingscore()
-    {
-        return safteyratingscore;
-    }
-
-    public void setSafteyratingscore(int safteyratingscore)
-    {
-        this.safteyratingscore = safteyratingscore;
-    }
-
-    public int getCostoflivingscore()
-    {
-        return costoflivingscore;
-    }
-
-    public void setCostoflivingscore(int costoflivingscore)
-    {
-        this.costoflivingscore = costoflivingscore;
-    }
-
-    public double getAverageincome()
-    {
-        return averageincome;
-    }
-
-    public void setAverageincome(double averageincome)
-    {
-        this.averageincome = averageincome;
-    }
-
-    public int getAveragetemperature()
-    {
-        return averagetemperature;
-    }
-
-    public void setAveragetemperature(int averagetemperature)
-    {
-        this.averagetemperature = averagetemperature;
-    }
-
-    public float getLat()
-    {
-        return lat;
-    }
-
-    public void setLat(float lat)
-    {
-        this.lat = lat;
-    }
-
-    public float getLon()
-    {
-        return lon;
-    }
-
-    public void setLon(float lon)
-    {
-        this.lon = lon;
-    }
-
     /**
-     * toString override method
+     * Override default toString()
+     * @return string of City object
      */
     @Override
     public String toString()
@@ -395,20 +483,26 @@ public class City extends Auditable
         return "City{" +
             "cityid=" + cityid +
             ", citynamestate='" + citynamestate + '\'' +
-            ", populationdensityrating=" + populationdensityrating +
-            ", safteyratingscore=" + safteyratingscore +
-            ", costoflivingscore=" + costoflivingscore +
-            ", averageincome=" + averageincome +
-            ", averagetemperature=" + averagetemperature +
-            ", lat=" + lat +
-            ", lon=" + lon +
+            ", statecode='" + statecode + '\'' +
+            ", timezone='" + timezone + '\'' +
+            ", latitude=" + latitude +
+            ", logitude=" + logitude +
+            ", fpis='" + fpis + '\'' +
+            ", gnis='" + gnis + '\'' +
+            ", wikiimgurl='" + wikiimgurl + '\'' +
+            ", website='" + website + '\'' +
+            ", population=" + population +
+            ", densitymisq=" + densitymisq +
+            ", densitykmsq=" + densitykmsq +
             ", averageage=" + averageage +
-            ", averagehouseholdincome=" + averagehouseholdincome +
-            ", averageindividualincome=" + averageindividualincome +
-            ", averagehouseingcost=" + averagehouseingcost +
-            ", averagerentcost=" + averagerentcost +
+            ", householdincome=" + householdincome +
+            ", individualincome=" + individualincome +
+            ", averagehouse=" + averagehouse +
+            ", rent=" + rent +
             ", costoflivingindex=" + costoflivingindex +
-            ", users=" + users +
+            ", acastatus='" + acastatus + '\'' +
+            ", zipcodes=" + zipcodes +
+            ", counties=" + counties +
             '}';
     }
 }
