@@ -7,17 +7,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.ArgumentMatchers.any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.shortThat;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -28,8 +32,19 @@ class UserServiceImplTest {
     @MockBean
     private UserRepository userrepos;
 
+    List<User> userList;
+
     @BeforeEach
     void setUp() {
+        userList = new ArrayList<>();
+
+        User u1 = new User("Arthur");
+        u1.setUserid(1);
+        userList.add(u1);
+        User u2 = new User("James");
+        u2.setUserid(2);
+        userList.add(u2);
+
         MockitoAnnotations.initMocks(this);
     }
 
@@ -78,7 +93,8 @@ class UserServiceImplTest {
         User u3 = new User("Edward");
 
         Mockito.doReturn(Arrays.asList(u1,
-            u2, u3))
+            u2,
+            u3))
             .when(userrepos)
             .findAll();
 
@@ -88,22 +104,46 @@ class UserServiceImplTest {
             users.size());
     }
 
-    @Test
-    void delete() {
+//    @Test
+//    void delete() throws Exception {
 //        User u1 = new User("Arthur");
-//        User u2 = new User("Cathcart");
-//        User u3 = new User("Edward");
+//        u1.setUserid(1);
+////        User u2 = new User("Cathcart");
+////        u2.setUserid(2);
+////        User u3 = new User("Edward");
+////        u3.setUserid(3);
+//        System.out.println(u1.getUserid());
 //
-//        Mockito.doReturn(Arrays.asList(u1,
-//            u2, u3))
-//            .when(userrepos)
-//            .findAll();
+//        Mockito.when(userrepos.findById(u1.getUserid())).thenReturn(Optional.of(u1));
 //
-//        List<User> users = userService.findAll();
+////        Mockito.when(userrepos).deleteById(any());
 //
-//        assertEquals(3,
-//            users.size());
-    }
+//        userService.delete(u1.getUserid());
+//
+////        List<User> users = userService.findAll();
+//        System.out.println("second " + u1.getUserid());
+//
+//        assertNull(u1);
+//                User u1 = new User("Arthur");
+//                u1.setUserid(1);
+//                User u2 = new User("Cathcart");
+//                u2.setUserid(2);
+//                User u3 = new User("Edward");
+//                u3.setUserid(3);
+//
+//                Mockito.doReturn(Arrays.asList(u1,
+//                    u2,
+//                    u3))
+//                    .when(userrepos)
+//                    .findAll();
+//
+//                userService.delete(u1.getUserid());
+//                List<User> users = userService.findAll();
+//                System.out.println(u1.getUserid());
+//
+//                assertEquals(2,
+//                    users.size());
+//    }
 
     @Test
     void findByName() {
@@ -122,13 +162,39 @@ class UserServiceImplTest {
 
     @Test
     void save() {
+        User u1 = new User("Arthur");
+
+        Mockito.doReturn(u1)
+            .when(userrepos)
+            .save(any());
+
+        User newUser = userService.save(u1);
+
+        assertSame(u1,
+            newUser);
     }
 
     @Test
     void update() {
     }
 
-    @Test
-    void deleteAll() {
-    }
+//    @Test
+//    void deleteAll() {
+//        User u1 = new User("Arthur");
+//        User u2 = new User("Cathcart");
+//        User u3 = new User("Edward");
+//
+//        Mockito.doReturn(Arrays.asList(u1,
+//            u2,
+//            u3))
+//            .when(userrepos)
+//            .findAll();
+//
+//        List<User> users = userService.findAll();
+//
+//        userService.deleteAll();
+//
+//        assertEquals(0,
+//            users.size());
+//    }
 }
