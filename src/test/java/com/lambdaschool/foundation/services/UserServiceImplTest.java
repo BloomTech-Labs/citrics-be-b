@@ -7,16 +7,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.ArgumentMatchers.any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.shortThat;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -57,14 +58,14 @@ class UserServiceImplTest {
         User u1 = new User("Arthur");
         User u2 = new User("Cathcart");
 
-        Mockito.doReturn(Arrays.asList(u1, u2))
+        Mockito.doReturn(Arrays.asList(u1,
+            u2))
             .when(userrepos)
             .findByUsernameContainingIgnoreCase("art");
 
         // intentional capital R to test ignoring case functionality
         List<User> users = userService.findByNameContaining("aRt");
 
-        // will return lowercase name
         assertEquals(2,
             userService.findByNameContaining("art")
                 .size());
@@ -72,14 +73,51 @@ class UserServiceImplTest {
 
     @Test
     void findAll() {
+        User u1 = new User("Arthur");
+        User u2 = new User("Cathcart");
+        User u3 = new User("Edward");
+
+        Mockito.doReturn(Arrays.asList(u1,
+            u2, u3))
+            .when(userrepos)
+            .findAll();
+
+        List<User> users = userService.findAll();
+
+        assertEquals(3,
+            users.size());
     }
 
     @Test
     void delete() {
+//        User u1 = new User("Arthur");
+//        User u2 = new User("Cathcart");
+//        User u3 = new User("Edward");
+//
+//        Mockito.doReturn(Arrays.asList(u1,
+//            u2, u3))
+//            .when(userrepos)
+//            .findAll();
+//
+//        List<User> users = userService.findAll();
+//
+//        assertEquals(3,
+//            users.size());
     }
 
     @Test
     void findByName() {
+        User u1 = new User("Arthur");
+        User u2 = new User("Cathcart");
+
+        Mockito.doReturn(u1)
+            .when(userrepos)
+            .findByUsername(any());
+
+        u1 = userService.findByName("arthur");
+
+        assertEquals(u1,
+            userService.findByName("arthur"));
     }
 
     @Test
