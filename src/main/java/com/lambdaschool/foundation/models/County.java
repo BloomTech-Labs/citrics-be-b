@@ -10,24 +10,41 @@ import javax.validation.constraints.NotNull;
 @Table(name = "counties")
 public class County extends Auditable
 {
+    /**
+     * Id used for counties table
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long countyid;
 
+    /**
+     * County's name
+     */
     @NotNull
     private String name;
 
+    /**
+     * City the County is located
+     */
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
     @JsonIgnore
     private City city;
 
+    /**
+     * Default constructor
+     */
     public County()
     {
     }
 
+    /**
+     * Main constructor
+     * @param name County name
+     * @param city County City
+     */
     public County(
         @NotNull String name,
         @NotNull City city)
@@ -35,6 +52,11 @@ public class County extends Auditable
         this.name = name;
         this.city = city;
     }
+
+    /**
+     * Getters and setters for County's fields
+     *
+     ******************************************************************************************/
 
     public long getCountyid()
     {
@@ -66,6 +88,10 @@ public class County extends Auditable
         this.city = city;
     }
 
+    /**
+     * Override default toString()
+     * @return
+     */
     @Override
     public String toString()
     {

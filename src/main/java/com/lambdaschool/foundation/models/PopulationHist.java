@@ -10,27 +10,48 @@ import javax.validation.constraints.NotNull;
 @Table(name = "populationhist")
 public class PopulationHist extends Auditable
 {
+    /**
+     * Model for City's historical population data
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long popid;
 
+    /**
+     * Year of entry
+     */
     @NotNull
     private int year;
 
+    /**
+     * City's average population
+     */
     @NotNull
     private double pop;
 
+    /**
+     * City entry belongs to
+     */
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
     @JsonIgnore
     private City city;
 
+    /**
+     * Default constructor
+     */
     public PopulationHist()
     {
     }
 
+    /**
+     * Main constructor
+     * @param year Year of entry
+     * @param pop Average population
+     * @param city City entry belongs to
+     */
     public PopulationHist(
         @NotNull int year,
         @NotNull double pop,
@@ -41,6 +62,10 @@ public class PopulationHist extends Auditable
         this.city = city;
     }
 
+    /**
+     * Getters and setters for PopulationHist's fields
+     *
+     **********************************************************************************************/
     public long getPopid()
     {
         return popid;
@@ -71,6 +96,10 @@ public class PopulationHist extends Auditable
         this.city = city;
     }
 
+    /**
+     * Override default toString()
+     * @return String of PopulationHist object
+     */
     @Override
     public String toString()
     {

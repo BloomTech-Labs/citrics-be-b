@@ -17,7 +17,7 @@ import java.util.Set;
 public class CityServiceImpl implements CityService
 {
     /**
-     * Connection to city repository
+     * Connections to needed repositories
      */
     @Autowired
     private CityRepository cityrepo;
@@ -259,9 +259,12 @@ public class CityServiceImpl implements CityService
 
             raw = raw.replace(city.getCity() + ",",
                 "");
-            raw = raw.replace("Braintree ", "");
-            raw = raw.replace("Town,", "");
-            raw = raw.replace("Nashville-Davidson,", "");
+            raw = raw.replace("Braintree ",
+                "");
+            raw = raw.replace("Town,",
+                "");
+            raw = raw.replace("Nashville-Davidson,",
+                "");
             raw = raw.replace(city.getStatename() + ",",
                 "");
             raw = raw.replace("POP",
@@ -567,30 +570,6 @@ public class CityServiceImpl implements CityService
         double totalRent = 0;
         double costOfLivingIndex = 0;
 
-//        int totalHistPopulationCount = 0;
-//        double totalHistPopulaion = 0;
-//
-//        int totalHistIncCount = 0;
-//        double totalHistInc = 0;
-//
-//        int totalHistIndCount = 0;
-//        double totalHistInd = 0;
-//
-//        int totalHistHouseCount = 0;
-//        double totalHistHouse = 0;
-//
-//        int totalHistoricalHousingCount = 0;
-//        double totalHistoricalHousing = 0;
-//
-//        int totalCovidCount = 0;
-//        double totalCovid = 0;
-//
-//        int totalPercCount = 0;
-//        double totalPerc = 0;
-//
-//        int totalTempCount = 0;
-//        double totalTemp = 0;
-
         cityrepo.findAll()
             .iterator()
             .forEachRemaining(cities::add);
@@ -611,45 +590,6 @@ public class CityServiceImpl implements CityService
             totalRent += x.getRent();
 
             costOfLivingIndex += (x.getCostoflivingindex() != null) ? x.getCostoflivingindex() : 0;
-
-
-//            for (PopulationHist pop : x.getPopulationhist())
-//            {
-//                totalHistPopulationCount++;
-//                totalHistPopulaion += pop.getPop();
-//            }
-//
-//            for (HistoricalIncome v : x.getHistoricalincome())
-//            {
-//                totalHistIndCount++;
-//                totalHistHouseCount++;
-//
-//                totalHistInd += v.getIndividualincome();
-//                totalHistHouse += v.getHouseholdincome();
-//            }
-//
-//            for (HistoricalHousing h : x.getHistoricalaveragehouse())
-//            {
-//                totalHistoricalHousingCount++;
-//
-//
-//                totalHistoricalHousing += h.getHousingcost();
-//            }
-//
-//            for (HistoricalCovid co : x.getCovid())
-//            {
-//                totalCovidCount++;
-//                totalCovid += co.getCases();
-//            }
-//
-//            for (HistoricalWeather h : x.getHistoricalweather())
-//            {
-//                totalPercCount++;
-//                totalTempCount++;
-//
-//                totalPerc += h.getPrecipitation();
-//                totalTemp += h.getTemperature();
-//            }
         }
 
         c.setCitynamestate(cityNameState);
@@ -664,33 +604,6 @@ public class CityServiceImpl implements CityService
         c.setAveragehouse(totalHousing / totalCities);
         c.setRent(totalRent / totalCities);
         c.setCostoflivingindex(costOfLivingIndex / totalCities);
-
-//        c.getPopulationhist()
-//            .add(new PopulationHist(2020,
-//                totalHistPopulaion / totalHistPopulationCount,
-//                c));
-//        c.getHistoricalincome()
-//            .add(new HistoricalIncome(2020,
-//                (totalHistIndCount == 0) ? 0 : (int) totalHistInd / totalHistIndCount,
-//                (totalHistHouseCount == 0) ? 0 : (int) totalHistHouse / totalHistHouseCount,
-//                c));
-//        c.getHistoricalaveragehouse()
-//            .add(new HistoricalHousing(2020,
-//                10,
-//                (int) totalHistoricalHousing / totalHistoricalHousingCount,
-//                c));
-//        c.getCovid()
-//            .add(new HistoricalCovid(2020,
-//                10,
-//                31,
-//                (int) totalCovid / totalCovidCount,
-//                c));
-//        c.getHistoricalweather()
-//            .add(new HistoricalWeather("Oct",
-//                totalPerc / totalPercCount,
-//                totalTemp / totalTempCount,
-//                c));
-
 
         return c;
     }

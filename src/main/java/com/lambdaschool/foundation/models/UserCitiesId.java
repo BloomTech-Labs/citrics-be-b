@@ -7,14 +7,32 @@ import java.io.Serializable;
 public class UserCitiesId implements Serializable
 {
 
+    /**
+     * Model for complex Id needed for UserCities
+     *
+     */
+
+    /**
+     * User Id
+     */
     private long user;
 
+    /**
+     * City Id
+     */
     private long city;
 
+    /**
+     * Default constructor
+     */
     public UserCitiesId()
     {
     }
 
+    /**
+     * Getters and setters for UserCitiesId's field
+     * @return
+     */
     public long getUser()
     {
         return user;
@@ -35,6 +53,12 @@ public class UserCitiesId implements Serializable
         this.city = city;
     }
 
+    /**
+     * Because this is a join table and implements Serializable,
+     * equals and hashcode methods are required
+     * @param o Object being compared
+     * @return return boolean if object matches
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -51,6 +75,11 @@ public class UserCitiesId implements Serializable
             city == that.city;
     }
 
+    /**
+     * Override of default hasCode(), we always want it to default to equals()
+     * so we return a default value
+     * @return default value
+     */
     @Override
     public int hashCode()
     {

@@ -10,24 +10,41 @@ import javax.validation.constraints.NotNull;
 @Table(name = "zipcodes")
 public class Zipcode extends Auditable
 {
+    /**
+     * Model for City's zipcode data
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long zipid;
 
+    /**
+     * zipcode
+     */
     @NotNull
     private String code;
 
+    /**
+     * City zipcode belongs to
+     */
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
     @JsonIgnore
     private City city;
 
+    /**
+     * Default constructor
+     */
     public Zipcode()
     {
     }
 
+    /**
+     * Main constructor
+     * @param code Zipcode
+     * @param city City zipcode belongs to
+     */
     public Zipcode(
         @NotNull String code,
         @NotNull City city)
@@ -36,6 +53,10 @@ public class Zipcode extends Auditable
         this.city = city;
     }
 
+    /**
+     * Getters and setters for Zipscode's fields
+     * 
+     ****************************************************************************************/
     public long getZipid()
     {
         return zipid;
@@ -66,6 +87,11 @@ public class Zipcode extends Auditable
         this.city = city;
     }
 
+    /**
+     * Override default toString()
+     * @return String of Zipcode object
+     * @return String of Zipcode object
+     */
     @Override
     public String toString()
     {

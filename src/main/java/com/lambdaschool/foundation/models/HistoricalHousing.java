@@ -10,30 +10,59 @@ import javax.validation.constraints.NotNull;
 @Table(name = "historicalhousing")
 public class HistoricalHousing extends Auditable
 {
+    /**
+     * Model for City's historical housing cost data
+     */
+
+    /**
+     * Data entry ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long houseid;
 
+    /**
+     * Year of entry
+     */
     @NotNull
     private int year;
 
+    /**
+     * Month of entry
+     */
     @NotNull
     private int month;
 
+    /**
+     * Avereage housing cost of recorded data
+     */
     @NotNull
     private int housingcost;
 
+    /**
+     * City entry belongs to
+     */
     @ManyToOne()
     @JoinColumn(name = "cityid")
     @NotNull
     @JsonIgnore
     private City city;
 
+    /**
+     * Default constructor
+     */
     public HistoricalHousing()
     {
     }
 
+    /**
+     * Main constructor
+     * @param year Year of entry
+     * @param month Month of entry
+     * @param housingcost Cost at date of entry
+     * @param city City entry belongs to
+     */
     public HistoricalHousing(
         @NotNull int year,
         @NotNull int month,
@@ -46,6 +75,10 @@ public class HistoricalHousing extends Auditable
         this.city = city;
     }
 
+    /**
+     * Getters and setters for HistoricalHousing's fields
+     *
+     ********************************************************************************/
     public long getHouseid()
     {
         return houseid;
@@ -96,6 +129,10 @@ public class HistoricalHousing extends Auditable
         this.month = month;
     }
 
+    /**
+     * Override default toString()
+     * @return String of HistoricalHousing object
+     */
     @Override
     public String toString()
     {

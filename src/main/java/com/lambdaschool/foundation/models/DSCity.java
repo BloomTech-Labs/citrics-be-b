@@ -5,37 +5,159 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DSCity {
 
+    /**
+     * Model for data coming in from DS API
+     * Needed to decode the JSON String before City is
+     * saved to DB. This does not become a table.
+     */
+
+    /**
+     * City's name
+     */
     private String city;
+
+    /**
+     * City's state
+     */
     private String statename;
+
+    /**
+     * City's two letter state abbreviation
+     */
     private String abbrev;
+
+    /**
+     * City's zipcodes
+     */
     private String ziplist;
+
+    /**
+     * City's timezone
+     */
     private String timezone;
+
+    /**
+     * City's counties
+     */
     private String counties;
+
+    /**
+     * City's latitude
+     */
     private Double latitude;
+
+    /**
+     * City's longitude
+     */
     private Double longitude;
+
+    /**
+     * City's FIPS
+     */
     private String FIPS;
+
+    /**
+     * City's GNIS
+     */
     private String GNIS;
+
+    /**
+     * City's Wikipedia image url
+     */
     private String wiki_img_url;
+
+    /**
+     * City's website
+     */
     private String website;
+
+    /**
+     * City's population
+     */
     private Double pop;
+
+    /**
+     * City's density per square mile
+     */
     private Double density_mi_sq;
+
+    /**
+     * City's density per square kilometer
+     */
     private Double density_km_sq;
+
+    /**
+     * City's historical average population
+     */
     private String pop_hist;
+
+    /**
+     * City's average age
+     */
     private Double age;
+
+    /**
+     * City's average household income
+     */
     private Double household;
+
+    /**
+     * City's average individual income
+     */
     private Double individual;
+
+    /**
+     * City's historical average income
+     */
     private String income_hist;
+
+    /**
+     * City's average house cost
+     */
     private Double house;
+
+    /**
+     * City's historical average home cost
+     */
     private String home_hist;
+
+    /**
+     * City's average rent
+     */
     private Double rent;
+
+    /**
+     * City's cost of living index
+     */
     private Double COLI;
+
+    /**
+     * City's ACA status
+     */
     private String ACA_status;
+
+    /**
+     * City's historical weather
+     */
     private String weather_hist;
+
+    /**
+     * City's Covid-19 cases
+     */
     private String jhcovid;
 
+    /**
+     * Default constructor
+     */
     public DSCity()
     {
     }
+
+    /**
+     * Getters and setters for DSCity's fields
+     *
+     **********************************************************************************/
+
 
     public String getCity()
     {
@@ -307,6 +429,10 @@ public class DSCity {
         this.jhcovid = jhcovid;
     }
 
+    /**
+     * Override default toString()
+     * @return String of DSCity object
+     */
     @Override
     public String toString()
     {

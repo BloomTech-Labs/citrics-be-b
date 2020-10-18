@@ -29,53 +29,142 @@ public class City extends Auditable
     @NotNull
     private String citynamestate;
 
+    /**
+     * The two letter state abbreviation
+     */
     private String statecode;
 
+    /**
+     * City's Timezone
+     */
     private String timezone;
 
+    /**
+     * City's latitude
+     */
     private Double latitude;
+
+    /**
+     * City's longitude
+     */
     private Double logitude;
+
+    /**
+     * City's FPIS
+     */
     private String fpis;
+
+    /**
+     * City's GNIS
+     */
     private String gnis;
 
+    /**
+     * City's wiki image url
+     */
     @Column(columnDefinition = "TEXT")
     private String wikiimgurl;
 
+    /**
+     * City's website
+     */
     private String website;
+
+    /**
+     * City's average population
+     */
     private Double population;
+
+    /**
+     * City's population density per square mile
+     */
     private Double densitymisq;
+
+    /**
+     * City's population density per square kilometer
+     */
     private Double densitykmsq;
+
+    /**
+     * City's average age
+     */
     private Double averageage;
+
+    /**
+     * City's average household income
+     */
     private Double householdincome;
+
+    /**
+     * City's average individual income
+     */
     private Double individualincome;
+
+    /**
+     * City's average housing cost
+     */
     private Double averagehouse;
+
+    /**
+     * City's average rent cost
+     */
     private Double rent;
+
+    /**
+     * City's average cost of living index
+     */
     private Double costoflivingindex;
+
+    /**
+     * City's current ACA status
+     */
     private String acastatus;
 
-
+    /**
+     * List of City's zipcodes
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Zipcode> zipcodes = new ArrayList<>();
 
+    /**
+     * List of City's counties
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<County> counties = new ArrayList<>();
 
+    /**
+     * List of historical population data
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<PopulationHist> populationhist = new ArrayList<>();
 
+    /**
+     * List of historical income data
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<HistoricalIncome> historicalincome = new ArrayList<>();
 
+    /**
+     * List of historical housing cost
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<HistoricalHousing> historicalaveragehouse = new ArrayList<>();
 
+    /**
+     * List of reported Covid-19 cases
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<HistoricalCovid> covid = new ArrayList<>();
 
+    /**
+     * List of historical weather data
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<HistoricalWeather> historicalweather = new ArrayList<>();
 
-
+    /**
+     * List of User's who have favorited the city
+     */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<UserCities> users = new HashSet<>();
@@ -96,10 +185,18 @@ public class City extends Auditable
         this.citynamestate = citynamestate;
     }
 
+    /**
+     * Getters and setters for the City's fields
+     *
+     **************************************************************************/
+
+
+
     public long getCityid()
     {
         return cityid;
     }
+
 
     public void setCityid(long cityid)
     {
@@ -376,6 +473,10 @@ public class City extends Auditable
         this.users = users;
     }
 
+    /**
+     * Override default toString()
+     * @return string of City object
+     */
     @Override
     public String toString()
     {

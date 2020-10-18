@@ -10,30 +10,59 @@ import javax.validation.constraints.NotNull;
 @Table(name = "historicalincome")
 public class HistoricalIncome extends Auditable
 {
+    /**
+     * Model for City's historical income data
+     */
+
+    /**
+     * Income ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private long incid;
 
+    /**
+     * Year of entry
+     */
     @NotNull
     private int year;
 
+    /**
+     * City's average individual income
+     */
     @NotNull
     private int individualincome;
 
+    /**
+     * City's average household income
+     */
     @NotNull
     private int householdincome;
 
+    /**
+     * City entry belongs to
+     */
     @ManyToOne
     @JoinColumn(name = "cityid")
     @NotNull
     @JsonIgnore
     private City city;
 
+    /**
+     * Default constructor
+     */
     public HistoricalIncome()
     {
     }
 
+    /**
+     * Main constructor
+     * @param year Year of entry
+     * @param individualincome Average individual income
+     * @param householdincome Average household income
+     * @param city City entry belongs to
+     */
     public HistoricalIncome(
         @NotNull int year,
         @NotNull int individualincome,
@@ -46,6 +75,10 @@ public class HistoricalIncome extends Auditable
         this.city = city;
     }
 
+    /**
+     * Getters and setters for HistoricalIncome's fields
+     *
+     ****************************************************************************************/
     public long getIncid()
     {
         return incid;
@@ -96,6 +129,10 @@ public class HistoricalIncome extends Auditable
         this.city = city;
     }
 
+    /**
+     * Override default toString()
+     * @return String of HistoricalIncome object
+     */
     @Override
     public String toString()
     {
