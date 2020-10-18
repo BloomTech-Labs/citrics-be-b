@@ -104,46 +104,9 @@ class UserServiceImplTest {
             users.size());
     }
 
-//    @Test
-//    void delete() throws Exception {
-//        User u1 = new User("Arthur");
-//        u1.setUserid(1);
-////        User u2 = new User("Cathcart");
-////        u2.setUserid(2);
-////        User u3 = new User("Edward");
-////        u3.setUserid(3);
-//        System.out.println(u1.getUserid());
-//
-//        Mockito.when(userrepos.findById(u1.getUserid())).thenReturn(Optional.of(u1));
-//
-////        Mockito.when(userrepos).deleteById(any());
-//
-//        userService.delete(u1.getUserid());
-//
-////        List<User> users = userService.findAll();
-//        System.out.println("second " + u1.getUserid());
-//
-//        assertNull(u1);
-//                User u1 = new User("Arthur");
-//                u1.setUserid(1);
-//                User u2 = new User("Cathcart");
-//                u2.setUserid(2);
-//                User u3 = new User("Edward");
-//                u3.setUserid(3);
-//
-//                Mockito.doReturn(Arrays.asList(u1,
-//                    u2,
-//                    u3))
-//                    .when(userrepos)
-//                    .findAll();
-//
-//                userService.delete(u1.getUserid());
-//                List<User> users = userService.findAll();
-//                System.out.println(u1.getUserid());
-//
-//                assertEquals(2,
-//                    users.size());
-//    }
+    @Test
+    void delete() throws Exception {
+    }
 
     @Test
     void findByName() {
@@ -178,23 +141,7 @@ class UserServiceImplTest {
     void update() {
     }
 
-//    @Test
-//    void deleteAll() {
-//        User u1 = new User("Arthur");
-//        User u2 = new User("Cathcart");
-//        User u3 = new User("Edward");
-//
-//        Mockito.doReturn(Arrays.asList(u1,
-//            u2,
-//            u3))
-//            .when(userrepos)
-//            .findAll();
-//
-//        List<User> users = userService.findAll();
-//
-//        userService.deleteAll();
-//
-//        assertEquals(0,
-//            users.size());
-//    }
+    @Test
+    void deleteAll() {
+    }
 }
