@@ -120,6 +120,13 @@ public class City extends Auditable
      */
     private String acastatus;
 
+
+    private Double averagetemp;
+
+    private Double averageperc;
+
+    private Double avgnewcovidcases;
+
     /**
      * List of City's zipcodes
      */
@@ -473,6 +480,36 @@ public class City extends Auditable
         this.users = users;
     }
 
+    public Double getAveragetemp()
+    {
+        return averagetemp;
+    }
+
+    public void setAveragetemp(Double averagetemp)
+    {
+        this.averagetemp = averagetemp;
+    }
+
+    public Double getAverageperc()
+    {
+        return averageperc;
+    }
+
+    public void setAverageperc(Double averageperc)
+    {
+        this.averageperc = averageperc;
+    }
+
+    public Double getAvgnewcovidcases()
+    {
+        return avgnewcovidcases;
+    }
+
+    public void setAvgnewcovidcases(Double avgnewcovidcases)
+    {
+        this.avgnewcovidcases = avgnewcovidcases;
+    }
+
     /**
      * Override default toString()
      * @return string of City object
@@ -501,8 +538,17 @@ public class City extends Auditable
             ", rent=" + rent +
             ", costoflivingindex=" + costoflivingindex +
             ", acastatus='" + acastatus + '\'' +
+            ", averagetemp=" + averagetemp +
+            ", averageperc=" + averageperc +
+            ", avgnewcovidcases=" + avgnewcovidcases +
             ", zipcodes=" + zipcodes +
             ", counties=" + counties +
+            ", populationhist=" + populationhist +
+            ", historicalincome=" + historicalincome +
+            ", historicalaveragehouse=" + historicalaveragehouse +
+            ", covid=" + covid +
+            ", historicalweather=" + historicalweather +
+            ", users=" + users +
             '}';
     }
 }

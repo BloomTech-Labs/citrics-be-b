@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -24,7 +25,7 @@ import java.util.Collections;
  * after the application context has been loaded.
  */
 @Transactional
-//@Component
+@Component
 public class SeedData
     implements CommandLineRunner
 {
@@ -73,15 +74,22 @@ public class SeedData
         /**
          * Loop to fetch cities from DS API
          */
-        for (int i = 1; i < 1278; i++)
+        for (int i = 1; i < 127; i++)
         {
-            // create responseEntity
-            ResponseEntity<DSCity> responseEntity = restTemplate.exchange(requestURL + i,
-                HttpMethod.GET,
-                null,
-                responseType);
+            System.out.println(i);
+            DSCity ourCityData;
+            try
+            {
+                // create responseEntity
+                ResponseEntity<DSCity> responseEntity = restTemplate.exchange(requestURL + i,
+                    HttpMethod.GET,
+                    null,
+                    responseType);
 
-            DSCity ourCityData = responseEntity.getBody();
+                ourCityData = responseEntity.getBody();
+            } catch (HttpServerErrorException er) {
+                continue;
+            }
 
             cityService.saveDs(ourCityData);
         }

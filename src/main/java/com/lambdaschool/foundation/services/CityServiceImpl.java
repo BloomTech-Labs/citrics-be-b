@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.*;
 import com.lambdaschool.foundation.repository.*;
@@ -198,8 +199,10 @@ public class CityServiceImpl implements CityService
      */
     @Transactional
     @Override
-    public City saveDs(DSCity city)
+    public City saveDs(DSCity city) throws Exception
     {
+//        System.out.println(city);
+
         City c = new City();
 
         c.setCitynamestate(city.getCity() + ", " + city.getStatename());
@@ -249,15 +252,23 @@ public class CityServiceImpl implements CityService
 
         if (city.getPop_hist() != null)
         {
-            String raw = city.getPop_hist();
+            DSHistoricalPop p = city.getPop_hist();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            String raw = mapper.writeValueAsString(p);
+//            System.out.println(raw);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
+            raw = raw.replace("\"", "");
+//            System.out.println(raw);
             raw = raw.replace("city:",
                 "");
-
-            raw = raw.replace(city.getCity() + ",",
+//            System.out.println(raw);
+//            System.out.println(city.getCity());
+            raw = raw.replace(city.getCity() + ", " + city.getStatename() + ",",
                 "");
             raw = raw.replace("Braintree ",
                 "");
@@ -265,9 +276,9 @@ public class CityServiceImpl implements CityService
                 "");
             raw = raw.replace("Nashville-Davidson,",
                 "");
-            raw = raw.replace(city.getStatename() + ",",
-                "");
-            raw = raw.replace("POP",
+//            raw = raw.replace(city.getStatename() + ",",
+//                "");
+            raw = raw.replace("pop",
                 "");
             raw = raw.replace("_",
                 "");
@@ -275,6 +286,8 @@ public class CityServiceImpl implements CityService
                 "");
             raw = raw.replace("est",
                 "");
+
+//            System.out.println(raw);
 
             raw = raw.trim();
 
@@ -293,12 +306,17 @@ public class CityServiceImpl implements CityService
 
         if (city.getIncome_hist() != null)
         {
-            String raw = city.getIncome_hist();
+            DSHistoricalIncome i = city.getIncome_hist();
 
+            ObjectMapper mapper = new ObjectMapper();
+
+            String raw = mapper.writeValueAsString(i);
+//            System.out.println(raw);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
+            raw = raw.replace("\"", "");
             raw = raw.replace("_Med",
                 "");
             raw = raw.replace("_Inc",
@@ -322,6 +340,8 @@ public class CityServiceImpl implements CityService
 
             Hashtable<Integer, List<Integer>> h = new Hashtable<>();
 
+//            System.out.println(house);
+//            System.out.println(ind);
 
             for (String s : house)
             {
@@ -366,13 +386,17 @@ public class CityServiceImpl implements CityService
 
         if (city.getHome_hist() != null)
         {
-            String raw = city.getHome_hist();
+            DSHistoricalHousing h = city.getHome_hist();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            String raw = mapper.writeValueAsString(h);
 
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
-
+            raw = raw.replace("\"", "");
             String[] split = raw.split(",");
 
             for (String s : split)
@@ -404,11 +428,18 @@ public class CityServiceImpl implements CityService
 
         if (city.getJhcovid() != null)
         {
-            String raw = city.getJhcovid();
+            DSHistoricalCovid cov = city.getJhcovid();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            String raw = mapper.writeValueAsString(cov);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
+            raw = raw.replace("\"", "");
+
+//            System.out.println(raw);
 
             String[] split = raw.split(",");
 
@@ -420,7 +451,9 @@ public class CityServiceImpl implements CityService
                 } else
                 {
                     String[] first = s.split(":");
-                    int cases = Integer.parseInt(first[1]);
+//                    System.out.println(first[0]);
+//                    System.out.println(first[1]);
+                    int cases = (int) Double.parseDouble(first[1]);
 
                     String[] second = first[0].split("_");
 
@@ -442,17 +475,23 @@ public class CityServiceImpl implements CityService
 
         if (city.getWeather_hist() != null)
         {
-            String raw = city.getWeather_hist();
+            DSHistoricalWeather w = city.getWeather_hist();
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            String raw = mapper.writeValueAsString(w);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
+            raw = raw.replace("\"", "");
 
             String[] split = raw.split(",");
 
             List<String> perc = new ArrayList<>();
             List<String> temp = new ArrayList<>();
             Hashtable<String, List<Double>> h = new Hashtable<>();
+
 
             for (String s : split)
             {
@@ -465,11 +504,17 @@ public class CityServiceImpl implements CityService
                 }
             }
 
+            System.out.println(perc);
+            System.out.println(temp);
+
             for (String s : perc)
             {
                 String[] first = s.split(":");
 
                 double value = Double.parseDouble(first[1]);
+
+//                System.out.println(first[0]);
+//                System.out.println(first[1]);
 
                 String[] second = first[0].split("_");
                 String month = second[0];
@@ -506,6 +551,31 @@ public class CityServiceImpl implements CityService
                         c));
             }
         }
+
+
+        int totalHistPopulationCount = 0;
+        double totalHistPopulaion = 0;
+
+//        int totalHistIncCount = 0;
+//        double totalHistInc = 0;
+
+        int totalHistIndCount = 0;
+        double totalHistInd = 0;
+
+        int totalHistHouseCount = 0;
+        double totalHistHouse = 0;
+
+        int totalHistoricalHousingCount = 0;
+        double totalHistoricalHousing = 0;
+
+        int totalCovidCount = 0;
+        double totalCovid = 0;
+
+        int totalPercCount = 0;
+        double totalPerc = 0;
+
+        int totalTempCount = 0;
+        double totalTemp = 0;
 
         return cityrepo.save(c);
     }

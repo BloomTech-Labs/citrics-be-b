@@ -33,7 +33,7 @@ public interface CityService
      * @param city new city to be saved
      * @return newly saved city
      */
-    City saveDs(DSCity city);
+    City saveDs(DSCity city) throws Exception;
 
     /**
      * Finds city by citynamestate field

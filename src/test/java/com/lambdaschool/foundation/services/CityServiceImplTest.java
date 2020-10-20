@@ -139,7 +139,7 @@ class CityServiceImplTest
     }
 
     @Test
-    void saveDs()
+    void saveDs() throws Exception
     {
         /**
          * Mock up repository
