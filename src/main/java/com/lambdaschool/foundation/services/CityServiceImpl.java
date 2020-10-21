@@ -129,56 +129,56 @@ public class CityServiceImpl implements CityService
 
         for (County county : city.getCounties())
         {
-            County count = countrepo.findById(county.getCountyid())
-                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
+//            County count = countrepo.findById(county.getCountyid())
+//                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
 
             c.getCounties()
-                .add(count);
+                .add(county);
         }
 
         for (PopulationHist p : city.getPopulationhist())
         {
-            PopulationHist pop = poprepo.findById(p.getPopid())
-                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
+//            PopulationHist pop = poprepo.findById(p.getPopid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
 
             c.getPopulationhist()
-                .add(pop);
+                .add(new PopulationHist(p.getYear(), p.getPop(), c));
         }
 
         for (HistoricalIncome i : city.getHistoricalincome())
         {
-            HistoricalIncome inc = increpo.findById(i.getIncid())
-                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
+//            HistoricalIncome inc = increpo.findById(i.getIncid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
 
             c.getHistoricalincome()
-                .add(inc);
+                .add(new HistoricalIncome(i.getYear(), i.getIndividualincome(), i.getHouseholdincome(), c));
         }
 
         for (HistoricalHousing h : city.getHistoricalaveragehouse())
         {
-            HistoricalHousing ho = housrepo.findById(h.getHouseid())
-                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
+//            HistoricalHousing ho = housrepo.findById(h.getHouseid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
 
             c.getHistoricalaveragehouse()
-                .add(ho);
+                .add(new HistoricalHousing(h.getYear(), h.getYear(), h.getHousingcost(), c));
         }
 
         for (HistoricalCovid co : city.getCovid())
         {
-            HistoricalCovid cov = covrepo.findById(co.getCovidid())
-                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
+//            HistoricalCovid cov = covrepo.findById(co.getCovidid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
 
             c.getCovid()
-                .add(cov);
+                .add(new HistoricalCovid(co.getYear(), co.getMonth(), co.getDay(), co.getCases(), c));
         }
 
         for (HistoricalWeather weather : city.getHistoricalweather())
         {
-            HistoricalWeather h = wearepo.findById(weather.getWeatherid())
-                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
+//            HistoricalWeather h = wearepo.findById(weather.getWeatherid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
 
             c.getHistoricalweather()
-                .add(h);
+                .add(new HistoricalWeather(weather.getMonth(), weather.getPrecipitation(), weather.getTemperature(), c));
         }
 
         for (UserCities user : city.getUsers())
@@ -187,6 +187,10 @@ public class CityServiceImpl implements CityService
                 .add(user);
 
         }
+
+        c.setAveragetemp(city.getAveragetemp());
+        c.setAverageperc(city.getAverageperc());
+        c.setAvgnewcovidcases(city.getAvgnewcovidcases());
 
         return cityrepo.save(c);
     }
@@ -201,7 +205,6 @@ public class CityServiceImpl implements CityService
     @Override
     public City saveDs(DSCity city) throws Exception
     {
-//        System.out.println(city);
 
         City c = new City();
 
@@ -257,17 +260,13 @@ public class CityServiceImpl implements CityService
             ObjectMapper mapper = new ObjectMapper();
 
             String raw = mapper.writeValueAsString(p);
-//            System.out.println(raw);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
                 "");
             raw = raw.replace("\"", "");
-//            System.out.println(raw);
             raw = raw.replace("city:",
                 "");
-//            System.out.println(raw);
-//            System.out.println(city.getCity());
             raw = raw.replace(city.getCity() + ", " + city.getStatename() + ",",
                 "");
             raw = raw.replace("Braintree ",
@@ -278,7 +277,7 @@ public class CityServiceImpl implements CityService
                 "");
 //            raw = raw.replace(city.getStatename() + ",",
 //                "");
-            raw = raw.replace("pop",
+            raw = raw.replace("POP",
                 "");
             raw = raw.replace("_",
                 "");
@@ -286,8 +285,6 @@ public class CityServiceImpl implements CityService
                 "");
             raw = raw.replace("est",
                 "");
-
-//            System.out.println(raw);
 
             raw = raw.trim();
 
@@ -311,7 +308,6 @@ public class CityServiceImpl implements CityService
             ObjectMapper mapper = new ObjectMapper();
 
             String raw = mapper.writeValueAsString(i);
-//            System.out.println(raw);
             raw = raw.replace("{",
                 "");
             raw = raw.replace("}",
@@ -340,8 +336,6 @@ public class CityServiceImpl implements CityService
 
             Hashtable<Integer, List<Integer>> h = new Hashtable<>();
 
-//            System.out.println(house);
-//            System.out.println(ind);
 
             for (String s : house)
             {
@@ -439,7 +433,6 @@ public class CityServiceImpl implements CityService
                 "");
             raw = raw.replace("\"", "");
 
-//            System.out.println(raw);
 
             String[] split = raw.split(",");
 
@@ -451,8 +444,6 @@ public class CityServiceImpl implements CityService
                 } else
                 {
                     String[] first = s.split(":");
-//                    System.out.println(first[0]);
-//                    System.out.println(first[1]);
                     int cases = (int) Double.parseDouble(first[1]);
 
                     String[] second = first[0].split("_");
@@ -504,17 +495,12 @@ public class CityServiceImpl implements CityService
                 }
             }
 
-            System.out.println(perc);
-            System.out.println(temp);
 
             for (String s : perc)
             {
                 String[] first = s.split(":");
 
                 double value = Double.parseDouble(first[1]);
-
-//                System.out.println(first[0]);
-//                System.out.println(first[1]);
 
                 String[] second = first[0].split("_");
                 String month = second[0];
@@ -577,6 +563,51 @@ public class CityServiceImpl implements CityService
         int totalTempCount = 0;
         double totalTemp = 0;
 
+
+
+
+        for (PopulationHist pop : c.getPopulationhist())
+        {
+            totalHistPopulationCount++;
+            totalHistPopulaion += pop.getPop();
+        }
+
+        for (HistoricalIncome v : c.getHistoricalincome())
+        {
+            totalHistIndCount++;
+            totalHistHouseCount++;
+
+            totalHistInd += v.getIndividualincome();
+            totalHistHouse += v.getHouseholdincome();
+        }
+
+        for (HistoricalHousing h : c.getHistoricalaveragehouse())
+        {
+            totalHistoricalHousingCount++;
+
+
+            totalHistoricalHousing += h.getHousingcost();
+        }
+
+        for (HistoricalCovid co : c.getCovid())
+        {
+            totalCovidCount++;
+            totalCovid += co.getCases();
+        }
+
+        for (HistoricalWeather h : c.getHistoricalweather())
+        {
+            totalPercCount++;
+            totalTempCount++;
+
+            totalPerc += h.getPrecipitation();
+            totalTemp += h.getTemperature();
+        }
+
+        c.setAveragetemp(totalTemp / totalTempCount);
+        c.setAverageperc(totalPerc / totalPercCount);
+        c.setAvgnewcovidcases(totalCovid / totalCovidCount);
+
         return cityrepo.save(c);
     }
 
@@ -587,7 +618,7 @@ public class CityServiceImpl implements CityService
      * @return city object match name or throws exception
      */
     @Override
-    public City findByName(String name)
+    public City findByCName(String name)
     {
         City c = cityrepo.findByCitynamestate(name);
         if (c == null)
@@ -639,6 +670,9 @@ public class CityServiceImpl implements CityService
         double totalHousing = 0;
         double totalRent = 0;
         double costOfLivingIndex = 0;
+        double totalTemp = 0;
+        double totalPerc = 0;
+        double totalCov = 0;
 
         cityrepo.findAll()
             .iterator()
@@ -658,6 +692,9 @@ public class CityServiceImpl implements CityService
             totalIndividual += x.getIndividualincome();
             totalHousing += x.getAveragehouse();
             totalRent += x.getRent();
+            totalTemp += x.getAveragetemp();
+            totalPerc += x.getAverageperc();
+            totalCov += x.getAvgnewcovidcases();
 
             costOfLivingIndex += (x.getCostoflivingindex() != null) ? x.getCostoflivingindex() : 0;
         }
@@ -674,7 +711,17 @@ public class CityServiceImpl implements CityService
         c.setAveragehouse(totalHousing / totalCities);
         c.setRent(totalRent / totalCities);
         c.setCostoflivingindex(costOfLivingIndex / totalCities);
+        c.setAveragetemp(totalTemp / totalCities);
+        c.setAverageperc(totalPerc / totalCities);
+        c.setAvgnewcovidcases(totalCov / totalCities);
 
         return c;
+    }
+
+
+    @Override
+    public City returnAverageCity()
+    {
+        return findByCName("National Average, USA");
     }
 }

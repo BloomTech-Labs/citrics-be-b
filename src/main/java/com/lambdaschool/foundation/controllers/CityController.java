@@ -69,7 +69,7 @@ public class CityController
     @GetMapping(value = "/avg", produces = "application/json")
     public ResponseEntity<?> getAverageCity()
     {
-        City c = cityService.findAverageCity();
+        City c = cityService.returnAverageCity();
 
         return new ResponseEntity<>(c,HttpStatus.OK);
     }

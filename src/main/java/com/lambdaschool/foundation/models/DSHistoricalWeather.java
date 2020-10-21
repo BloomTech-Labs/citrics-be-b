@@ -1,304 +1,353 @@
 package com.lambdaschool.foundation.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DSHistoricalWeather
 {
-    private float Jan_precip;
-    private float Jan_temp;
-    private float Feb_precip;
-    private float Feb_temp;
-    private float Mar_precip;
-    private float Mar_temp;
-    private float Apr_precip;
-    private float Apr_temp;
-    private float May_precip;
-    private float May_temp;
-    private float Jun_precip;
-    private float Jun_temp;
-    private float Jul_precip;
-    private float Jul_temp;
-    private float Aug_precip;
-    private float Aug_temp;
-    private float Sep_precip;
-    private float Sep_temp;
-    private float Oct_precip;
-    private float Oct_temp;
-    private float Nov_precip;
-    private float Nov_temp;
-    private float Dec_precip;
-    private float Dec_temp;
+    @JsonProperty("Jan_precip")
+    private float sJan_precip;
+
+    @JsonProperty("Jan_temp")
+    private float sJan_temp;
+
+    @JsonProperty("Feb_precip")
+    private float sFeb_precip;
+
+    @JsonProperty("Feb_temp")
+    private float sFeb_temp;
+
+    @JsonProperty("Mar_precip")
+    private float sMar_precip;
+
+    @JsonProperty("Mar_temp")
+    private float sMar_temp;
+
+    @JsonProperty("Apr_precip")
+    private float sApr_precip;
+
+    @JsonProperty("Apr_temp")
+    private float sApr_temp;
+
+    @JsonProperty("May_precip")
+    private float sMay_precip;
+
+    @JsonProperty("May_temp")
+    private float sMay_temp;
+
+    @JsonProperty("Jun_precip")
+    private float sJun_precip;
+
+    @JsonProperty("Jun_temp")
+    private float sJun_temp;
+
+    @JsonProperty("Jul_precip")
+    private float sJul_precip;
+
+    @JsonProperty("Jul_temp")
+    private float sJul_temp;
+
+    @JsonProperty("Aug_precip")
+    private float sAug_precip;
+
+    @JsonProperty("Aug_temp")
+    private float sAug_temp;
+
+    @JsonProperty("Sep_precip")
+    private float sSep_precip;
+
+    @JsonProperty("Sep_temp")
+    private float sSep_temp;
+
+    @JsonProperty("Oct_precip")
+    private float sOct_precip;
+
+    @JsonProperty("Oct_temp")
+    private float sOct_temp;
+
+    @JsonProperty("Nov_precip")
+    private float sNov_precip;
+
+    @JsonProperty("Nov_temp")
+    private float sNov_temp;
+
+    @JsonProperty("Dec_precip")
+    private float sDec_precip;
+
+    @JsonProperty("Dec_temp")
+    private float sDec_temp;
 
     public DSHistoricalWeather()
     {
     }
 
-    public float getJan_precip()
+    public float getsJan_precip()
     {
-        return Jan_precip;
+        return sJan_precip;
     }
 
-    public void setJan_precip(float jan_precip)
+    public void setsJan_precip(float sJan_precip)
     {
-        Jan_precip = jan_precip;
+        this.sJan_precip = sJan_precip;
     }
 
-    public float getJan_temp()
+    public float getsJan_temp()
     {
-        return Jan_temp;
+        return sJan_temp;
     }
 
-    public void setJan_temp(float jan_temp)
+    public void setsJan_temp(float sJan_temp)
     {
-        Jan_temp = jan_temp;
+        this.sJan_temp = sJan_temp;
     }
 
-    public float getFeb_precip()
+    public float getsFeb_precip()
     {
-        return Feb_precip;
+        return sFeb_precip;
     }
 
-    public void setFeb_precip(float feb_precip)
+    public void setsFeb_precip(float sFeb_precip)
     {
-        Feb_precip = feb_precip;
+        this.sFeb_precip = sFeb_precip;
     }
 
-    public float getFeb_temp()
+    public float getsFeb_temp()
     {
-        return Feb_temp;
+        return sFeb_temp;
     }
 
-    public void setFeb_temp(float feb_temp)
+    public void setsFeb_temp(float sFeb_temp)
     {
-        Feb_temp = feb_temp;
+        this.sFeb_temp = sFeb_temp;
     }
 
-    public float getMar_precip()
+    public float getsMar_precip()
     {
-        return Mar_precip;
+        return sMar_precip;
     }
 
-    public void setMar_precip(float mar_precip)
+    public void setsMar_precip(float sMar_precip)
     {
-        Mar_precip = mar_precip;
+        this.sMar_precip = sMar_precip;
     }
 
-    public float getMar_temp()
+    public float getsMar_temp()
     {
-        return Mar_temp;
+        return sMar_temp;
     }
 
-    public void setMar_temp(float mar_temp)
+    public void setsMar_temp(float sMar_temp)
     {
-        Mar_temp = mar_temp;
+        this.sMar_temp = sMar_temp;
     }
 
-    public float getApr_precip()
+    public float getsApr_precip()
     {
-        return Apr_precip;
+        return sApr_precip;
     }
 
-    public void setApr_precip(float apr_precip)
+    public void setsApr_precip(float sApr_precip)
     {
-        Apr_precip = apr_precip;
+        this.sApr_precip = sApr_precip;
     }
 
-    public float getApr_temp()
+    public float getsApr_temp()
     {
-        return Apr_temp;
+        return sApr_temp;
     }
 
-    public void setApr_temp(float apr_temp)
+    public void setsApr_temp(float sApr_temp)
     {
-        Apr_temp = apr_temp;
+        this.sApr_temp = sApr_temp;
     }
 
-    public float getMay_precip()
+    public float getsMay_precip()
     {
-        return May_precip;
+        return sMay_precip;
     }
 
-    public void setMay_precip(float may_precip)
+    public void setsMay_precip(float sMay_precip)
     {
-        May_precip = may_precip;
+        this.sMay_precip = sMay_precip;
     }
 
-    public float getMay_temp()
+    public float getsMay_temp()
     {
-        return May_temp;
+        return sMay_temp;
     }
 
-    public void setMay_temp(float may_temp)
+    public void setsMay_temp(float sMay_temp)
     {
-        May_temp = may_temp;
+        this.sMay_temp = sMay_temp;
     }
 
-    public float getJun_precip()
+    public float getsJun_precip()
     {
-        return Jun_precip;
+        return sJun_precip;
     }
 
-    public void setJun_precip(float jun_precip)
+    public void setsJun_precip(float sJun_precip)
     {
-        Jun_precip = jun_precip;
+        this.sJun_precip = sJun_precip;
     }
 
-    public float getJun_temp()
+    public float getsJun_temp()
     {
-        return Jun_temp;
+        return sJun_temp;
     }
 
-    public void setJun_temp(float jun_temp)
+    public void setsJun_temp(float sJun_temp)
     {
-        Jun_temp = jun_temp;
+        this.sJun_temp = sJun_temp;
     }
 
-    public float getJul_precip()
+    public float getsJul_precip()
     {
-        return Jul_precip;
+        return sJul_precip;
     }
 
-    public void setJul_precip(float jul_precip)
+    public void setsJul_precip(float sJul_precip)
     {
-        Jul_precip = jul_precip;
+        this.sJul_precip = sJul_precip;
     }
 
-    public float getJul_temp()
+    public float getsJul_temp()
     {
-        return Jul_temp;
+        return sJul_temp;
     }
 
-    public void setJul_temp(float jul_temp)
+    public void setsJul_temp(float sJul_temp)
     {
-        Jul_temp = jul_temp;
+        this.sJul_temp = sJul_temp;
     }
 
-    public float getAug_precip()
+    public float getsAug_precip()
     {
-        return Aug_precip;
+        return sAug_precip;
     }
 
-    public void setAug_precip(float aug_precip)
+    public void setsAug_precip(float sAug_precip)
     {
-        Aug_precip = aug_precip;
+        this.sAug_precip = sAug_precip;
     }
 
-    public float getAug_temp()
+    public float getsAug_temp()
     {
-        return Aug_temp;
+        return sAug_temp;
     }
 
-    public void setAug_temp(float aug_temp)
+    public void setsAug_temp(float sAug_temp)
     {
-        Aug_temp = aug_temp;
+        this.sAug_temp = sAug_temp;
     }
 
-    public float getSep_precip()
+    public float getsSep_precip()
     {
-        return Sep_precip;
+        return sSep_precip;
     }
 
-    public void setSep_precip(float sep_precip)
+    public void setsSep_precip(float sSep_precip)
     {
-        Sep_precip = sep_precip;
+        this.sSep_precip = sSep_precip;
     }
 
-    public float getSep_temp()
+    public float getsSep_temp()
     {
-        return Sep_temp;
+        return sSep_temp;
     }
 
-    public void setSep_temp(float sep_temp)
+    public void setsSep_temp(float sSep_temp)
     {
-        Sep_temp = sep_temp;
+        this.sSep_temp = sSep_temp;
     }
 
-    public float getOct_precip()
+    public float getsOct_precip()
     {
-        return Oct_precip;
+        return sOct_precip;
     }
 
-    public void setOct_precip(float oct_precip)
+    public void setsOct_precip(float sOct_precip)
     {
-        Oct_precip = oct_precip;
+        this.sOct_precip = sOct_precip;
     }
 
-    public float getOct_temp()
+    public float getsOct_temp()
     {
-        return Oct_temp;
+        return sOct_temp;
     }
 
-    public void setOct_temp(float oct_temp)
+    public void setsOct_temp(float sOct_temp)
     {
-        Oct_temp = oct_temp;
+        this.sOct_temp = sOct_temp;
     }
 
-    public float getNov_precip()
+    public float getsNov_precip()
     {
-        return Nov_precip;
+        return sNov_precip;
     }
 
-    public void setNov_precip(float nov_precip)
+    public void setsNov_precip(float sNov_precip)
     {
-        Nov_precip = nov_precip;
+        this.sNov_precip = sNov_precip;
     }
 
-    public float getNov_temp()
+    public float getsNov_temp()
     {
-        return Nov_temp;
+        return sNov_temp;
     }
 
-    public void setNov_temp(float nov_temp)
+    public void setsNov_temp(float sNov_temp)
     {
-        Nov_temp = nov_temp;
+        this.sNov_temp = sNov_temp;
     }
 
-    public float getDec_precip()
+    public float getsDec_precip()
     {
-        return Dec_precip;
+        return sDec_precip;
     }
 
-    public void setDec_precip(float dec_precip)
+    public void setsDec_precip(float sDec_precip)
     {
-        Dec_precip = dec_precip;
+        this.sDec_precip = sDec_precip;
     }
 
-    public float getDec_temp()
+    public float getsDec_temp()
     {
-        return Dec_temp;
+        return sDec_temp;
     }
 
-    public void setDec_temp(float dec_temp)
+    public void setsDec_temp(float sDec_temp)
     {
-        Dec_temp = dec_temp;
+        this.sDec_temp = sDec_temp;
     }
 
     @Override
     public String toString()
     {
         return "DSHistoricalWeather{" +
-            "Jan_precip=" + Jan_precip +
-            ", Jan_temp=" + Jan_temp +
-            ", Feb_precip=" + Feb_precip +
-            ", Feb_temp=" + Feb_temp +
-            ", Mar_precip=" + Mar_precip +
-            ", Mar_temp=" + Mar_temp +
-            ", Apr_precip=" + Apr_precip +
-            ", Apr_temp=" + Apr_temp +
-            ", May_precip=" + May_precip +
-            ", May_temp=" + May_temp +
-            ", Jun_precip=" + Jun_precip +
-            ", Jun_temp=" + Jun_temp +
-            ", Jul_precip=" + Jul_precip +
-            ", Jul_temp=" + Jul_temp +
-            ", Aug_precip=" + Aug_precip +
-            ", Aug_temp=" + Aug_temp +
-            ", Sep_precip=" + Sep_precip +
-            ", Sep_temp=" + Sep_temp +
-            ", Oct_precip=" + Oct_precip +
-            ", Oct_temp=" + Oct_temp +
-            ", Nov_precip=" + Nov_precip +
-            ", Nov_temp=" + Nov_temp +
-            ", Dec_precip=" + Dec_precip +
-            ", Dec_temp=" + Dec_temp +
+            "sJan_precip=" + sJan_precip +
+            ", sJan_temp=" + sJan_temp +
+            ", sFeb_precip=" + sFeb_precip +
+            ", sFeb_temp=" + sFeb_temp +
+            ", sMar_precip=" + sMar_precip +
+            ", sMar_temp=" + sMar_temp +
+            ", sApr_precip=" + sApr_precip +
+            ", sApr_temp=" + sApr_temp +
+            ", sMay_precip=" + sMay_precip +
+            ", sMay_temp=" + sMay_temp +
+            ", sJun_precip=" + sJun_precip +
+            ", sJun_temp=" + sJun_temp +
+            ", sJul_precip=" + sJul_precip +
+            ", sJul_temp=" + sJul_temp +
+            ", sAug_precip=" + sAug_precip +
+            ", sAug_temp=" + sAug_temp +
+            ", sSep_precip=" + sSep_precip +
+            ", sSep_temp=" + sSep_temp +
+            ", sOct_precip=" + sOct_precip +
+            ", sOct_temp=" + sOct_temp +
+            ", sNov_precip=" + sNov_precip +
+            ", sNov_temp=" + sNov_temp +
+            ", sDec_precip=" + sDec_precip +
+            ", sDec_temp=" + sDec_temp +
             '}';
     }
 }

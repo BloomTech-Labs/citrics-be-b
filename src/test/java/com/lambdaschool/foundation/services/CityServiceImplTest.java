@@ -185,7 +185,7 @@ class CityServiceImplTest
         /**
          * Executes the service call
          */
-        City c2 = cityService.findByName("test");
+        City c2 = cityService.findByCName("test");
 
         /**
          * Assert the expected results
