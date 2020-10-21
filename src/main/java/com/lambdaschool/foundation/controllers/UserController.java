@@ -1,6 +1,7 @@
 package com.lambdaschool.foundation.controllers;
 
 import com.lambdaschool.foundation.models.User;
+import com.lambdaschool.foundation.models.UserCities;
 import com.lambdaschool.foundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -224,5 +225,16 @@ public class UserController
         User u = userService.findByName(authentication.getName());
         return new ResponseEntity<>(u,
             HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/favs",
+    produces = "application/json")
+    public ResponseEntity<?> getUsersCities(Authentication authentication)
+    {
+        User u = userService.findByName(authentication.getName());
+
+        List<UserCities> list = u.getFavcities();
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

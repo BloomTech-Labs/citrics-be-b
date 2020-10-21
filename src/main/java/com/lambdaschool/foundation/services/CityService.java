@@ -3,6 +3,7 @@ package com.lambdaschool.foundation.services;
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.CityIdName;
 import com.lambdaschool.foundation.models.DSCity;
+import com.lambdaschool.foundation.models.User;
 
 import java.util.List;
 
@@ -55,4 +56,6 @@ public interface CityService
     City findAverageCity();
 
     City returnAverageCity();
+
+    void saveFavCity(long id, User user);
 }

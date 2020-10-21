@@ -705,4 +705,14 @@ public class CityServiceImpl implements CityService
     {
         return findByCName("National Average, USA");
     }
+
+    @Override
+    public void saveFavCity(long id, User user)
+    {
+        City c = findCityById(id);
+        UserCities us = new UserCities(user, c);
+
+        user.getFavcities().add(us);
+        c.getUsers().add(us);
+    }
 }

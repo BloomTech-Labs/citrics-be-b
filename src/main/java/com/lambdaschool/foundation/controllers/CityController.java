@@ -2,14 +2,14 @@ package com.lambdaschool.foundation.controllers;
 
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.CityIdName;
+import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.CityService;
+import com.lambdaschool.foundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,9 @@ public class CityController
      */
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      *  /all endpont (Not enough memory in free tier of
@@ -72,5 +75,17 @@ public class CityController
         City c = cityService.returnAverageCity();
 
         return new ResponseEntity<>(c,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/fav/{cityid}")
+    public ResponseEntity<?> addFavCity(
+        @PathVariable long cityid,
+        Authentication authentication
+    )
+    {
+        User u = userService.findByName(authentication.getName());
+        cityService.saveFavCity(cityid, u);
+
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 }
