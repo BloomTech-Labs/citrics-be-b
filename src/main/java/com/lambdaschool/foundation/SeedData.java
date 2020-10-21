@@ -83,9 +83,9 @@ public class SeedData
         /**
          * Loop to fetch cities from DS API
          */
-        for (int i = 1; i < 900; i++)
+        for (int i = 0; i < 1278; i++)
         {
-//            System.out.println(i);
+            System.out.println(i);
             DSCity ourCityData;
             try
             {
