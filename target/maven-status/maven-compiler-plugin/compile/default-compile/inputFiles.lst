@@ -20,6 +20,7 @@
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/exceptions/package-info.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/CityIdName.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/ValidationError.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/DSHistoricalIncome.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/services/UserAuditing.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/repository/UserRepository.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/repository/HistoricalIncomeRepository.java
@@ -28,7 +29,9 @@
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/controllers/package-info.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/services/CityService.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/HistoricalWeather.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/DSHistoricalWeather.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/HistoricalCovid.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/DSHistoricalHousing.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/services/HistoricalIncomeServiceImp.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/config/OktaAuthSecurityConfig.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/config/DataSourceConfig.java
@@ -47,9 +50,11 @@
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/repository/ZipcodeRepository.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/services/HistoricalHousingServiceImp.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/SeedData.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/DSHistoricalCovid.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/handlers/RestExceptionHandler.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/package-info.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/controllers/RootController.java
+/Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/models/DSHistoricalPop.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/exceptions/ResourceNotFoundException.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/config/H2ServerConfiguration.java
 /Users/andrewshields/Desktop/Lambda/labs/Labs27-C-Citrics-BE/src/main/java/com/lambdaschool/foundation/repository/PopulationHistRepository.java

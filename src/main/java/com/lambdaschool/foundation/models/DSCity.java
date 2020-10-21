@@ -1,6 +1,9 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.codehaus.jackson.JsonNode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DSCity {
@@ -54,11 +57,13 @@ public class DSCity {
     /**
      * City's FIPS
      */
+    @JsonProperty("FIPS")
     private String FIPS;
 
     /**
      * City's GNIS
      */
+    @JsonProperty("GNIS")
     private String GNIS;
 
     /**
@@ -89,7 +94,8 @@ public class DSCity {
     /**
      * City's historical average population
      */
-    private String pop_hist;
+    @JsonProperty("pop_hist")
+    private DSHistoricalPop pop_hist;
 
     /**
      * City's average age
@@ -109,7 +115,7 @@ public class DSCity {
     /**
      * City's historical average income
      */
-    private String income_hist;
+    private DSHistoricalIncome income_hist;
 
     /**
      * City's average house cost
@@ -119,7 +125,7 @@ public class DSCity {
     /**
      * City's historical average home cost
      */
-    private String home_hist;
+    private DSHistoricalHousing home_hist;
 
     /**
      * City's average rent
@@ -129,22 +135,25 @@ public class DSCity {
     /**
      * City's cost of living index
      */
+    @JsonProperty("COLI")
     private Double COLI;
 
     /**
      * City's ACA status
      */
+    @JsonProperty("ACA_status")
     private String ACA_status;
 
     /**
      * City's historical weather
      */
-    private String weather_hist;
+//    @JsonProperty("weather_hist")
+    private DSHistoricalWeather weather_hist;
 
     /**
      * City's Covid-19 cases
      */
-    private String jhcovid;
+    private DSHistoricalCovid jhcovid;
 
     /**
      * Default constructor
@@ -309,12 +318,12 @@ public class DSCity {
         this.density_km_sq = density_km_sq;
     }
 
-    public String getPop_hist()
+    public DSHistoricalPop getPop_hist()
     {
         return pop_hist;
     }
 
-    public void setPop_hist(String pop_hist)
+    public void setPop_hist(DSHistoricalPop pop_hist)
     {
         this.pop_hist = pop_hist;
     }
@@ -349,12 +358,12 @@ public class DSCity {
         this.individual = individual;
     }
 
-    public String getIncome_hist()
+    public DSHistoricalIncome getIncome_hist()
     {
         return income_hist;
     }
 
-    public void setIncome_hist(String income_hist)
+    public void setIncome_hist(DSHistoricalIncome income_hist)
     {
         this.income_hist = income_hist;
     }
@@ -369,12 +378,12 @@ public class DSCity {
         this.house = house;
     }
 
-    public String getHome_hist()
+    public DSHistoricalHousing getHome_hist()
     {
         return home_hist;
     }
 
-    public void setHome_hist(String home_hist)
+    public void setHome_hist(DSHistoricalHousing home_hist)
     {
         this.home_hist = home_hist;
     }
@@ -409,22 +418,22 @@ public class DSCity {
         this.ACA_status = ACA_status;
     }
 
-    public String getWeather_hist()
+    public DSHistoricalWeather getWeather_hist()
     {
         return weather_hist;
     }
 
-    public void setWeather_hist(String weather_hist)
+    public void setWeather_hist(DSHistoricalWeather weather_hist)
     {
         this.weather_hist = weather_hist;
     }
 
-    public String getJhcovid()
+    public DSHistoricalCovid getJhcovid()
     {
         return jhcovid;
     }
 
-    public void setJhcovid(String jhcovid)
+    public void setJhcovid(DSHistoricalCovid jhcovid)
     {
         this.jhcovid = jhcovid;
     }

@@ -33,14 +33,14 @@ public interface CityService
      * @param city new city to be saved
      * @return newly saved city
      */
-    City saveDs(DSCity city);
+    City saveDs(DSCity city) throws Exception;
 
     /**
      * Finds city by citynamestate field
      * @param name citystatename
      * @return City object matching name
      */
-    City findByName(String name);
+    City findByCName(String name);
 
     /**
      * Finds all cities id's and citynamestate's
@@ -53,4 +53,6 @@ public interface CityService
      * @return a City object with the average of all city fields in the DB
      */
     City findAverageCity();
+
+    City returnAverageCity();
 }

@@ -1,3 +1,4 @@
+com/lambdaschool/foundation/models/DSHistoricalPop.class
 com/lambdaschool/foundation/services/CityService.class
 com/lambdaschool/foundation/services/HelperFunctionsImpl.class
 com/lambdaschool/foundation/services/PopulationHistService.class
@@ -20,6 +21,7 @@ com/lambdaschool/foundation/repository/ZipcodeRepository.class
 com/lambdaschool/foundation/services/HistoricalCovidService.class
 com/lambdaschool/foundation/services/HistoricalWeatherService.class
 com/lambdaschool/foundation/exceptions/ResourceFoundException.class
+com/lambdaschool/foundation/models/DSHistoricalHousing.class
 com/lambdaschool/foundation/services/UserAuditing.class
 com/lambdaschool/foundation/services/CountyServiceImp.class
 com/lambdaschool/foundation/services/ZipcodeServiceImp.class
@@ -41,12 +43,14 @@ com/lambdaschool/foundation/models/ValidationError.class
 com/lambdaschool/foundation/models/HistoricalCovid.class
 com/lambdaschool/foundation/controllers/UserController.class
 com/lambdaschool/foundation/repository/HistoricalHousingRepository.class
+com/lambdaschool/foundation/models/DSHistoricalIncome.class
 com/lambdaschool/foundation/repository/CountyRepository.class
 com/lambdaschool/foundation/exceptions/CustomErrorDetails.class
 com/lambdaschool/foundation/exceptions/ResourceNotFoundException.class
 com/lambdaschool/foundation/services/HistoricalHousingService.class
 com/lambdaschool/foundation/FoundationApplication.class
 com/lambdaschool/foundation/config/SwaggerWebMVC.class
+com/lambdaschool/foundation/models/DSHistoricalWeather.class
 com/lambdaschool/foundation/services/HistoricalHousingServiceImp.class
 com/lambdaschool/foundation/models/UserCitiesId.class
 com/lambdaschool/foundation/SeedData.class
@@ -60,4 +64,5 @@ com/lambdaschool/foundation/repository/PopulationHistRepository.class
 com/lambdaschool/foundation/services/HistoricalCovidServiceImp.class
 com/lambdaschool/foundation/services/CityServiceImpl.class
 com/lambdaschool/foundation/config/SimpleCorsFilter.class
+com/lambdaschool/foundation/models/DSHistoricalCovid.class
 com/lambdaschool/foundation/config/H2ServerConfiguration.class
