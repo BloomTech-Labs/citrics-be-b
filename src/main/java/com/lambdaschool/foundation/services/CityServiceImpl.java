@@ -129,7 +129,10 @@ public class CityServiceImpl implements CityService
 
         for (County county : city.getCounties())
         {
-//            County count = countrepo.findById(county.getCountyid())
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             */
+            //            County count = countrepo.findById(county.getCountyid())
 //                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
 
             c.getCounties()
@@ -539,54 +542,32 @@ public class CityServiceImpl implements CityService
         }
 
 
-        int totalHistPopulationCount = 0;
         double totalHistPopulaion = 0;
-
-//        int totalHistIncCount = 0;
-//        double totalHistInc = 0;
-
-        int totalHistIndCount = 0;
         double totalHistInd = 0;
-
-        int totalHistHouseCount = 0;
         double totalHistHouse = 0;
-
-        int totalHistoricalHousingCount = 0;
         double totalHistoricalHousing = 0;
-
         int totalCovidCount = 0;
         double totalCovid = 0;
-
         int totalPercCount = 0;
         double totalPerc = 0;
-
         int totalTempCount = 0;
         double totalTemp = 0;
 
 
-
-
         for (PopulationHist pop : c.getPopulationhist())
         {
-            totalHistPopulationCount++;
             totalHistPopulaion += pop.getPop();
         }
 
         for (HistoricalIncome v : c.getHistoricalincome())
         {
-            totalHistIndCount++;
-            totalHistHouseCount++;
-
             totalHistInd += v.getIndividualincome();
             totalHistHouse += v.getHouseholdincome();
         }
 
         for (HistoricalHousing h : c.getHistoricalaveragehouse())
         {
-            totalHistoricalHousingCount++;
-
-
-            totalHistoricalHousing += h.getHousingcost();
+             totalHistoricalHousing += h.getHousingcost();
         }
 
         for (HistoricalCovid co : c.getCovid())
