@@ -88,7 +88,7 @@ public class SeedData
 //         * Loop to fetch cities from DS API
 //         * ONLY NEEDED FOR INITIAL SEED
 //         */
-//        for (int i = 0; i < 1278; i++)
+//        for (int i = 0; i < 12; i++)
 //        {
 //            System.out.println(i);
 //            DSCity ourCityData;
@@ -285,6 +285,6 @@ public class SeedData
 //
 //
 //        cityService.save(na);
-        System.out.println("Completed");
+//        System.out.println("Completed");
     }
 }
