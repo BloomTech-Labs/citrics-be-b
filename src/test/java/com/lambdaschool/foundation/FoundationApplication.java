@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Main class to start the application.
  */
-// @EnableJpaAuditing
+
 @SpringBootApplication
 public class FoundationApplication
 {
