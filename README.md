@@ -2,14 +2,19 @@
 
 A city metrics app to help find the perfect city for you!
 
-*Deployed link coming soon*
-
 ### Key Features
 
 - View useful metrics, including population, age, cost of living, income, and more!
 - Currently features information on 1200+ US cities, with more to come
 - Select up to three cities to compare side-by-side
 - *Future predictions coming soon*
+
+
+## Base URL
+- https://labs27-c-citrics-api.herokuapp.com/
+
+## Swagger Documentation
+- https://labs27-c-citrics-api.herokuapp.com/swagger-ui.html#/
 
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
@@ -81,12 +86,6 @@ See [Data Science Documentation](https://github.com/Lambda-School-Labs/Labs27-C-
 ## Architecture
 
 [Architecture Diagram](https://whimsical.com/BrfVjttdRNhp7sbVNgKKNu)
-
-## Base URL
-- https://labs27-c-citrics-api.herokuapp.com/
-
-## Swagger Documentation
-- https://labs27-c-citrics-api.herokuapp.com/swagger-ui.html#/
 
 <details>
 <summary>http://localhost:2019/cities/city/4</summary>
