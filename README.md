@@ -19,9 +19,9 @@ A city metrics app to help find the perfect city for you!
 
 |[Andrew Shields](https://github.com/HeftyB) | [Shane Kaestner](https://github.com/Kandelonius)|
 |----------------------------------------------------------------------------------------------|
-| [<img src="https://avatars3.githubusercontent.com/u/35949416?s=400&u=7d3ab47f8239c19d37a3935da65243f528bfe199&v=4" width = "200" />](https://github.com/HeftyB) | [<img src="https://avatars3.githubusercontent.com/u/51350138?s=400&u=6b628f9ff0bd99e94cd663a6121da26582a09847&v=4" width = "200" />](https://github.com/Kandelonius) |
+|[<img src="https://avatars3.githubusercontent.com/u/35949416?s=400&u=7d3ab47f8239c19d37a3935da65243f528bfe199&v=4" width = "200" />](https://github.com/HeftyB) | [<img src="https://avatars3.githubusercontent.com/u/51350138?s=400&u=6b628f9ff0bd99e94cd663a6121da26582a09847&v=4" width = "200" />](https://github.com/Kandelonius)|
 |[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/HeftyB)|[<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Kandelonius)|  
-|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/heftyb/)                
+|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/heftyb/)|                
 |[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shane-kaestner/)|
 
 
