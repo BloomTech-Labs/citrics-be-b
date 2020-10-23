@@ -5047,7 +5047,7 @@ See [Data Science Documentation](https://github.com/Lambda-School-Labs/Labs27-C-
 </details>
 
 <details>
-<summary>http://localhost:2019/cities/fav  MUST BE SENT WITH A VALID OKTA TOKEN</summary>
+<summary>POST http://localhost:2019/cities/fav  MUST BE SENT WITH A VALID OKTA TOKEN</summary>
 
 ```JSON
 VOID - Status 201 created
