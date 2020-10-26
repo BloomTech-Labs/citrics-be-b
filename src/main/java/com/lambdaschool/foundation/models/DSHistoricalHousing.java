@@ -5,6 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DSHistoricalHousing
 {
+    /**
+     * This model is used to parse the historical
+     * data coming in from the DS API
+     */
+
+
     @JsonProperty("2010_01_31")
     private float s2010_01_31;
 

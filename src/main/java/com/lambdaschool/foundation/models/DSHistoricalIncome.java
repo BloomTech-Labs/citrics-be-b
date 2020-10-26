@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DSHistoricalIncome
 {
+    /**
+     * This model is used to parse the historical
+     * data coming in from the DS API
+     */
+
     @JsonProperty("2010_Med_Hou_Inc")
     private String sMed_Hou_Inc_2010;
 

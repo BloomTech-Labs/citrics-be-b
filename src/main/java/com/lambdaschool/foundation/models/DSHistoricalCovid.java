@@ -7,8 +7,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DSHistoricalCovid
 {
-//    private String Combined_Key;
-
+    /**
+     * This model is used to parse the historical
+     * data coming in from the DS API
+     */
 
     @JsonProperty("2020_01_22")
     private float s2020_01_22;

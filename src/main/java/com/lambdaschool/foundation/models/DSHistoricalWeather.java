@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DSHistoricalWeather
 {
+    /**
+     * This model is used to parse the historical
+     * data coming in from the DS API
+     */
+
     @JsonProperty("Jan_precip")
     private float sJan_precip;
 
