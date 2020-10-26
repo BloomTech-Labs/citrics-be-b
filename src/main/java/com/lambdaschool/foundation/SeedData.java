@@ -25,12 +25,12 @@ import java.util.*;
  * after the application context has been loaded.
  */
 @Transactional
-@Component
+//@Component
 public class SeedData
     implements CommandLineRunner
 {
     /**
-     * COMMENTED OUT CODE IN THIS CLASS IS ONLY NEEDED WHEN INTIALLY SEEDING DB
+     * COMMENTED OUT CODE IN THIS CLASS IS ONLY NEEDED WHEN INITIALLY SEEDING DB
      * IF DS UPDATES DATA, NEW DATA WILL NEED TO BE PULLED IN
      */
     //    /**
@@ -76,6 +76,8 @@ public class SeedData
 //        {
 //        };
 //
+//        // Hashtables and all code after line 110 is uses to calculate the historical averages for each historical field
+//        // For example will find and save the national average of all cities temperature in January and save it to the NA city
 //        Hashtable<Integer, Double> popHash = new Hashtable<>();
 //        Hashtable<Integer, List<Integer>> incHash = new Hashtable<>();
 //        Hashtable<Integer, Hashtable<Integer, Integer>> houseHash = new Hashtable<>();

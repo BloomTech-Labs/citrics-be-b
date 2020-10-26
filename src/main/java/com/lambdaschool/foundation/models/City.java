@@ -120,11 +120,22 @@ public class City extends Auditable
      */
     private String acastatus;
 
-
+    /**
+     * City's average temp
+     * calculated from the historical weather data
+     */
     private Double averagetemp;
 
+    /**
+     * City's average percipitation
+     * calculated from historical weather data
+     */
     private Double averageperc;
 
+    /**
+     * City's average new covid-19 cases
+     * calculated from the historical covid data
+     */
     private Double avgnewcovidcases;
 
     /**

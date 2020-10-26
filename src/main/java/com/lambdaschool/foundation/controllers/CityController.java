@@ -77,6 +77,14 @@ public class CityController
         return new ResponseEntity<>(c,HttpStatus.OK);
     }
 
+    /**
+     * /fav/{cityid} endpoint
+     * this adds city to users fav cities
+     * extracts user from token
+     * @param cityid cityid to be added to favs
+     * @param authentication used to extract user from token
+     * @return null, 201 status
+     */
     @PostMapping(value = "/fav/{cityid}")
     public ResponseEntity<?> addFavCity(
         @PathVariable long cityid,

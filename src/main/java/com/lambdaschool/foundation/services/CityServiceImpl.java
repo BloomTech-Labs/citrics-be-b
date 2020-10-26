@@ -81,7 +81,7 @@ public class CityServiceImpl implements CityService
 
     /**
      * Saves new city to DB
-     *
+     * Had to modify last minute to accept new city schema returned by DS
      * @param city new city to be saved
      * @return newly saved city
      */
@@ -131,6 +131,7 @@ public class CityServiceImpl implements CityService
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
              */
             //            County count = countrepo.findById(county.getCountyid())
 //                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
@@ -141,6 +142,10 @@ public class CityServiceImpl implements CityService
 
         for (PopulationHist p : city.getPopulationhist())
         {
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
+             */
 //            PopulationHist pop = poprepo.findById(p.getPopid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
 
@@ -150,6 +155,10 @@ public class CityServiceImpl implements CityService
 
         for (HistoricalIncome i : city.getHistoricalincome())
         {
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
+             */
 //            HistoricalIncome inc = increpo.findById(i.getIncid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
 
@@ -159,6 +168,10 @@ public class CityServiceImpl implements CityService
 
         for (HistoricalHousing h : city.getHistoricalaveragehouse())
         {
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
+             */
 //            HistoricalHousing ho = housrepo.findById(h.getHouseid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
 
@@ -168,6 +181,10 @@ public class CityServiceImpl implements CityService
 
         for (HistoricalCovid co : city.getCovid())
         {
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
+             */
 //            HistoricalCovid cov = covrepo.findById(co.getCovidid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
 
@@ -177,6 +194,10 @@ public class CityServiceImpl implements CityService
 
         for (HistoricalWeather weather : city.getHistoricalweather())
         {
+            /**
+             * UNCOMMENT WHEN DB IS DONE SEEDING
+             * cannot find property until DB is seeded
+             */
 //            HistoricalWeather h = wearepo.findById(weather.getWeatherid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
 
@@ -200,7 +221,7 @@ public class CityServiceImpl implements CityService
 
     /**
      * Saves new city from DS API schema
-     *
+     * Had to modify last minute to accept new city schema returned by DS
      * @param city JSON City to be saved
      * @return newly saved City object
      */
@@ -208,6 +229,10 @@ public class CityServiceImpl implements CityService
     @Override
     public City saveDs(DSCity city) throws Exception
     {
+
+        /**
+         * Takes DScity model and converts it to City
+         */
 
         City c = new City();
 
@@ -230,6 +255,10 @@ public class CityServiceImpl implements CityService
         c.setCostoflivingindex(city.getCOLI());
         c.setAcastatus(city.getACA_status());
 
+        /**
+         * Splits zipcode string into
+         * an actual list of strings
+         */
         if (city.getZiplist() != null)
         {
             String rawZip = city.getZiplist();
@@ -243,6 +272,10 @@ public class CityServiceImpl implements CityService
             }
         }
 
+        /**
+         * Splits counties string
+         * into an actual list of strings
+         */
         if (city.getCounties() != null)
         {
             String rawCount = city.getCounties();
@@ -256,6 +289,10 @@ public class CityServiceImpl implements CityService
             }
         }
 
+        /**
+         * Splits historical population list string
+         * into an actual list of historical populations
+         */
         if (city.getPop_hist() != null)
         {
             DSHistoricalPop p = city.getPop_hist();
@@ -304,6 +341,10 @@ public class CityServiceImpl implements CityService
 
         }
 
+        /**
+         * Splits historical income string
+         * into an actual list of historical incomes
+         */
         if (city.getIncome_hist() != null)
         {
             DSHistoricalIncome i = city.getIncome_hist();
@@ -381,6 +422,10 @@ public class CityServiceImpl implements CityService
 
         }
 
+        /**
+         * Splits historical hosuing string
+         * into an actual list of historical housing
+         */
         if (city.getHome_hist() != null)
         {
             DSHistoricalHousing h = city.getHome_hist();
@@ -423,6 +468,10 @@ public class CityServiceImpl implements CityService
             }
         }
 
+        /**
+         * Splits historical covid string
+         * into an actual list of historical covid cases
+         */
         if (city.getJhcovid() != null)
         {
             DSHistoricalCovid cov = city.getJhcovid();
@@ -467,6 +516,10 @@ public class CityServiceImpl implements CityService
             }
         }
 
+        /**
+         * Splits historical weather string
+         * into actual list of historical weather
+         */
         if (city.getWeather_hist() != null)
         {
             DSHistoricalWeather w = city.getWeather_hist();
@@ -542,6 +595,9 @@ public class CityServiceImpl implements CityService
         }
 
 
+        /**
+         * Calculates historical data averages
+         */
         double totalHistPopulaion = 0;
         double totalHistInd = 0;
         double totalHistHouse = 0;
@@ -629,7 +685,7 @@ public class CityServiceImpl implements CityService
 
     /**
      * Find the average value for all city fields
-     *
+     * excludes historical data
      * @return a City with the field averages of all cities
      */
     @Override
@@ -700,12 +756,21 @@ public class CityServiceImpl implements CityService
     }
 
 
+    /**
+     * Finds the average city object stored in DB
+     * @return National Average City
+     */
     @Override
     public City returnAverageCity()
     {
         return findByCName("National Average, USA");
     }
 
+    /**
+     * Saves the city by id to current users fav cities
+     * @param id cityid of city to be saved
+     * @param user user extracted by controller
+     */
     @Override
     public void saveFavCity(long id, User user)
     {

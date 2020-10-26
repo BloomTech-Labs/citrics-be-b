@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DSHistoricalPop
 {
+    /**
+     * This model is used to parse the historical
+     * data coming in from the DS API
+     */
 
     @JsonProperty("POP_2010_census")
     private float sPOP_2010_census;
