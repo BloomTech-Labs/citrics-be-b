@@ -141,37 +141,37 @@ public class City extends Auditable
     /**
      * List of City's zipcodes
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Zipcode> zipcodes = new ArrayList<>();
 
     /**
      * List of historical population data
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PopulationHist> populationhist = new ArrayList<>();
 
     /**
      * List of historical income data
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoricalIncome> historicalincome = new ArrayList<>();
 
     /**
      * List of historical housing cost
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoricalHousing> historicalaveragehouse = new ArrayList<>();
 
     /**
      * List of reported Covid-19 cases
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoricalCovid> covid = new ArrayList<>();
 
     /**
      * List of historical weather data
      */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoricalWeather> historicalweather = new ArrayList<>();
 
     /**
