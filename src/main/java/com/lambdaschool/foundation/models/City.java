@@ -148,7 +148,7 @@ public class City extends Auditable
      * List of historical population data
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PopulationHist> populationhist = new ArrayList<>();
+    private List<PopulationHistory> populationHistory = new ArrayList<>();
 
     /**
      * List of historical income data
@@ -415,14 +415,14 @@ public class City extends Auditable
         this.zipcodes = zipcodes;
     }
 
-    public List<PopulationHist> getPopulationhist()
+    public List<PopulationHistory> getPopulationHistory()
     {
-        return populationhist;
+        return populationHistory;
     }
 
-    public void setPopulationhist(List<PopulationHist> populationhist)
+    public void setPopulationHistory(List<PopulationHistory> populationhist)
     {
-        this.populationhist = populationhist;
+        this.populationHistory = populationhist;
     }
 
     public List<HistoricalIncome> getHistoricalincome()

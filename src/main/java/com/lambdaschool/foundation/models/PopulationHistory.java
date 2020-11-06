@@ -1,14 +1,13 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "populationhist")
-public class PopulationHist extends Auditable
+@Table(name = "population_history")
+public class PopulationHistory extends Auditable
 {
     /**
      * Model for City's historical population data
@@ -16,7 +15,7 @@ public class PopulationHist extends Auditable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private long popid;
+    private long populationId;
 
     /**
      * Year of entry
@@ -28,13 +27,13 @@ public class PopulationHist extends Auditable
      * City's average population
      */
     @NotNull
-    private double pop;
+    private double population;
 
     /**
      * City entry belongs to
      */
     @ManyToOne
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @NotNull
     @JsonIgnore
     private City city;
@@ -42,38 +41,38 @@ public class PopulationHist extends Auditable
     /**
      * Default constructor
      */
-    public PopulationHist()
+    public PopulationHistory()
     {
     }
 
     /**
      * Main constructor
      * @param year Year of entry
-     * @param pop Average population
+     * @param population Average population
      * @param city City entry belongs to
      */
-    public PopulationHist(
+    public PopulationHistory(
         @NotNull int year,
-        @NotNull double pop,
+        @NotNull double population,
         @NotNull City city)
     {
         this.year = year;
-        this.pop = pop;
+        this.population = population;
         this.city = city;
     }
 
     /**
-     * Getters and setters for PopulationHist's fields
+     * Getters and setters for PopulationHistory's fields
      *
      **********************************************************************************************/
-    public long getPopid()
+    public long getPopulationId()
     {
-        return popid;
+        return populationId;
     }
 
-    public void setPopid(long popid)
+    public void setPopulationId(long populationId)
     {
-        this.popid = popid;
+        this.populationId = populationId;
     }
 
     public int getYear()
@@ -86,14 +85,14 @@ public class PopulationHist extends Auditable
         this.year = year;
     }
 
-    public double getPop()
+    public double getPopulation()
     {
-        return pop;
+        return population;
     }
 
-    public void setPop(double pop)
+    public void setPopulation(double pop)
     {
-        this.pop = pop;
+        this.population = pop;
     }
 
     public City getCity()
@@ -108,14 +107,14 @@ public class PopulationHist extends Auditable
 
     /**
      * Override default toString()
-     * @return String of PopulationHist object
+     * @return String of PopulationHistory object
      */
     @Override
     public String toString()
     {
-        return "PopulationHist{" +
+        return "PopulationHistory{" +
             "year=" + year +
-            ", pop=" + pop +
+            ", population=" + population +
             '}';
     }
 }
