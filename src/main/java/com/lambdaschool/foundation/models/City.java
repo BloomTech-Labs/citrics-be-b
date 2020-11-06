@@ -160,7 +160,7 @@ public class City extends Auditable
      * List of historical housing cost
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricalHousing> historicalaveragehouse = new ArrayList<>();
+    private List<HistoricalHomeCost> historicalHomeCost = new ArrayList<>();
 
     /**
      * List of reported Covid-19 cases
