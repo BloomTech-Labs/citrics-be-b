@@ -145,12 +145,6 @@ public class City extends Auditable
     private List<Zipcode> zipcodes = new ArrayList<>();
 
     /**
-     * List of City's counties
-     */
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    private List<County> counties = new ArrayList<>();
-
-    /**
      * List of historical population data
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
@@ -421,16 +415,6 @@ public class City extends Auditable
         this.zipcodes = zipcodes;
     }
 
-    public List<County> getCounties()
-    {
-        return counties;
-    }
-
-    public void setCounties(List<County> counties)
-    {
-        this.counties = counties;
-    }
-
     public List<PopulationHist> getPopulationhist()
     {
         return populationhist;
@@ -553,7 +537,6 @@ public class City extends Auditable
             ", averageperc=" + averageperc +
             ", avgnewcovidcases=" + avgnewcovidcases +
             ", zipcodes=" + zipcodes +
-            ", counties=" + counties +
             ", populationhist=" + populationhist +
             ", historicalincome=" + historicalincome +
             ", historicalaveragehouse=" + historicalaveragehouse +

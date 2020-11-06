@@ -27,9 +27,6 @@ public class CityServiceImpl implements CityService
     private ZipcodeRepository ziprepo;
 
     @Autowired
-    private CountyRepository countrepo;
-
-    @Autowired
     private PopulationHistRepository poprepo;
 
     @Autowired
@@ -125,19 +122,6 @@ public class CityServiceImpl implements CityService
 
             c.getZipcodes()
                 .add(zip);
-        }
-
-        for (County county : city.getCounties())
-        {
-            /**
-             * UNCOMMENT WHEN DB IS DONE SEEDING
-             * cannot find property until DB is seeded
-             */
-            //            County count = countrepo.findById(county.getCountyid())
-//                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
-
-            c.getCounties()
-                .add(county);
         }
 
         for (PopulationHist p : city.getPopulationhist())
@@ -268,23 +252,6 @@ public class CityServiceImpl implements CityService
             {
                 c.getZipcodes()
                     .add(new Zipcode(s,
-                        c));
-            }
-        }
-
-        /**
-         * Splits counties string
-         * into an actual list of strings
-         */
-        if (city.getCounties() != null)
-        {
-            String rawCount = city.getCounties();
-            String[] split = rawCount.split(" ");
-
-            for (String s : split)
-            {
-                c.getCounties()
-                    .add(new County(s,
                         c));
             }
         }
