@@ -154,7 +154,7 @@ public class City extends Auditable
      * List of historical income data
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricalIncome> historicalincome = new ArrayList<>();
+    private List<HistoricalIncome> historicalIncome = new ArrayList<>();
 
     /**
      * List of historical housing cost
