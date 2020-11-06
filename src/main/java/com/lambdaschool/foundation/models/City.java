@@ -166,7 +166,7 @@ public class City extends Auditable
      * List of reported Covid-19 cases
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricalCovid> covid = new ArrayList<>();
+    private List<HistoricalCovid> historicalCovid = new ArrayList<>();
 
     /**
      * List of historical weather data
