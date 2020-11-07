@@ -8,12 +8,12 @@ public class CityIdName
     /**
      * city id, already established, pulled from existing data in DB
      */
-    private long cityid;
+    private long cityId;
 
     /**
      * city name, already established, pulled from existing data in DB
      */
-    private String citynamestate;
+    private String cityName;
 
     /**
      * Default constructor
@@ -24,51 +24,51 @@ public class CityIdName
 
     /**
      * Main constructor
-     * @param cityid id of city in local DB
-     * @param citynamestate name of city in local DB
+     * @param cityId id of city in local DB
+     * @param cityName name of city in local DB
      */
     public CityIdName(
-        long cityid,
-        String citynamestate)
+        long cityId,
+        String cityName)
     {
-        this.cityid = cityid;
-        this.citynamestate = citynamestate;
+        this.cityId = cityId;
+        this.cityName = cityName;
     }
 
     /**
-     * Getter for cityid
-     * @return city id
+     * Getter for cityId
+     * @return cityId
      */
-    public long getCityid()
+    public long getCityId()
     {
-        return cityid;
+        return cityId;
     }
 
     /**
-     * Setter for cityid
-     * @param cityid city id
+     * Setter for cityId
+     * @param cityId cityId
      */
-    public void setCityid(long cityid)
+    public void setCityId(long cityId)
     {
-        this.cityid = cityid;
+        this.cityId = cityId;
     }
 
     /**
-     * Getter for citynamestate
-     * @return Cityname + state
+     * Getter for cityName
+     * @return CityName
      */
-    public String getCitynamestate()
+    public String getCityName()
     {
-        return citynamestate;
+        return cityName;
     }
 
     /**
-     * Setter for citynamestate
-     * @param citynamestate CityName + state
+     * Setter for cityName
+     * @param cityName CityName
      */
-    public void setCitynamestate(String citynamestate)
+    public void setCityName(String cityName)
     {
-        this.citynamestate = citynamestate;
+        this.cityName = cityName;
     }
 
     /**
@@ -79,8 +79,8 @@ public class CityIdName
     public String toString()
     {
         return "CityIdName{" +
-            "cityid=" + cityid +
-            ", citynamestate='" + citynamestate + '\'' +
+            "cityId=" + cityId +
+            ", cityName='" + cityName + '\'' +
             '}';
     }
 }

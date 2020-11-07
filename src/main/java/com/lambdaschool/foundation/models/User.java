@@ -20,21 +20,20 @@ public class User
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userid;
+    private long userId;
 
     /**
      * The username (String). Cannot be null and must be unique
      */
     @NotNull
-    @Column(unique = false)
     private String username;
 
     /**
     *The list that holds the users favorite cities
     */
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private List<UserCities> favcities = new ArrayList<>();
+    private List<UserCities> favoriteCities = new ArrayList<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -60,9 +59,9 @@ public class User
      *
      * @return the userid (long) of the user
      */
-    public long getUserid()
+    public long getUserId()
     {
-        return userid;
+        return userId;
     }
 
     /**
@@ -70,9 +69,9 @@ public class User
      *
      * @param userid the new userid (long) of the user
      */
-    public void setUserid(long userid)
+    public void setUserId(long userid)
     {
-        this.userid = userid;
+        this.userId = userid;
     }
 
     /**
@@ -100,14 +99,14 @@ public class User
      * getter and setters for user's fav cities
      */
 
-    public List<UserCities> getFavcities()
+    public List<UserCities> getFavoriteCities()
     {
-        return favcities;
+        return favoriteCities;
     }
 
-    public void setFavcities(List<UserCities> favCities)
+    public void setFavoriteCities(List<UserCities> favoriteCities)
     {
-        this.favcities = favCities;
+        this.favoriteCities = favoriteCities;
     }
 
     /**
@@ -117,9 +116,9 @@ public class User
     public String toString()
     {
         return "User{" +
-            "userid=" + userid +
+            "userid=" + userId +
             ", username='" + username + '\'' +
-            ", favCities=" + favcities +
+            ", favCities=" + favoriteCities +
             '}';
     }
 

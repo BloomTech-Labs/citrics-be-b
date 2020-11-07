@@ -37,15 +37,15 @@ public interface CityService
     City saveDs(DSCity city) throws Exception;
 
     /**
-     * Finds city by citynamestate field
-     * @param name citystatename
+     * Finds city by cityName field
+     * @param name cityName
      * @return City object matching name
      */
-    City findByCName(String name);
+    City findByCityName(String name);
 
     /**
-     * Finds all cities id's and citynamestate's
-     * @return List of city id's and citynamestates
+     * Finds all cities ids and names
+     * @return List of city id and names
      */
     List<CityIdName> findAllIds();
 

@@ -2,7 +2,6 @@ package com.lambdaschool.foundation.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,24 +14,24 @@ import java.util.Set;
 @Table(name = "cities")
 public class City extends Auditable
 {
-
     /**
-     * Generate City id
+     * Generated City id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cityid;
+    private long cityId;
 
     /**
      * The City name (String)
      */
     @NotNull
-    private String citynamestate;
+    private String cityName;
 
     /**
      * The two letter state abbreviation
      */
-    private String statecode;
+    @NotNull
+    private String stateCode;
 
     /**
      * City's Timezone
@@ -47,7 +46,7 @@ public class City extends Auditable
     /**
      * City's longitude
      */
-    private Double logitude;
+    private Double longitude;
 
     /**
      * City's FPIS
@@ -62,8 +61,8 @@ public class City extends Auditable
     /**
      * City's wiki image url
      */
-    @Column(columnDefinition = "TEXT")
-    private String wikiimgurl;
+    // @Column(columnDefinition = "TEXT")
+    private String imageUrl;
 
     /**
      * City's website
@@ -76,34 +75,29 @@ public class City extends Auditable
     private Double population;
 
     /**
-     * City's population density per square mile
-     */
-    private Double densitymisq;
-
-    /**
      * City's population density per square kilometer
      */
-    private Double densitykmsq;
+    private Double populationDensity;
 
     /**
      * City's average age
      */
-    private Double averageage;
+    private Double averageAge;
 
     /**
      * City's average household income
      */
-    private Double householdincome;
+    private Double householdIncome;
 
     /**
      * City's average individual income
      */
-    private Double individualincome;
+    private Double individualIncome;
 
     /**
-     * City's average housing cost
+     * City's average home cost
      */
-    private Double averagehouse;
+    private Double averageHomeCost;
 
     /**
      * City's average rent cost
@@ -113,30 +107,30 @@ public class City extends Auditable
     /**
      * City's average cost of living index
      */
-    private Double costoflivingindex;
+    private Double costOfLivingIndex;
 
     /**
      * City's current ACA status
      */
-    private String acastatus;
+    private String acaStatus;
 
     /**
      * City's average temp
      * calculated from the historical weather data
      */
-    private Double averagetemp;
+    private Double averageTemperature;
 
     /**
-     * City's average percipitation
+     * City's average precipitation
      * calculated from historical weather data
      */
-    private Double averageperc;
+    private Double averagePrecipitation;
 
     /**
      * City's average new covid-19 cases
      * calculated from the historical covid data
      */
-    private Double avgnewcovidcases;
+    private Double averageNewCovidCases;
 
     /**
      * List of City's zipcodes
@@ -172,7 +166,7 @@ public class City extends Auditable
      * List of historical weather data
      */
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricalWeather> historicalweather = new ArrayList<>();
+    private List<HistoricalWeather> historicalWeather = new ArrayList<>();
 
     /**
      * List of User's who have favorited the city
@@ -192,9 +186,9 @@ public class City extends Auditable
      * The constructor with the non-nullable fields
      */
     public City(
-        @NotNull String citynamestate)
+        @NotNull String cityName)
     {
-        this.citynamestate = citynamestate;
+        this.cityName = cityName;
     }
 
     /**
@@ -204,35 +198,35 @@ public class City extends Auditable
 
 
 
-    public long getCityid()
+    public long getCityId()
     {
-        return cityid;
+        return cityId;
     }
 
 
-    public void setCityid(long cityid)
+    public void setCityId(long cityId)
     {
-        this.cityid = cityid;
+        this.cityId = cityId;
     }
 
-    public String getCitynamestate()
+    public String getCityName()
     {
-        return citynamestate;
+        return cityName;
     }
 
-    public void setCitynamestate(String citynamestate)
+    public void setCityName(String cityName)
     {
-        this.citynamestate = citynamestate;
+        this.cityName = cityName;
     }
 
-    public String getStatecode()
+    public String getStateCode()
     {
-        return statecode;
+        return stateCode;
     }
 
-    public void setStatecode(String statecode)
+    public void setStateCode(String stateCode)
     {
-        this.statecode = statecode;
+        this.stateCode = stateCode;
     }
 
     public String getTimezone()
@@ -255,14 +249,14 @@ public class City extends Auditable
         this.latitude = latitude;
     }
 
-    public Double getLogitude()
+    public Double getLongitude()
     {
-        return logitude;
+        return longitude;
     }
 
-    public void setLogitude(Double logitude)
+    public void setLongitude(Double longitude)
     {
-        this.logitude = logitude;
+        this.longitude = longitude;
     }
 
     public String getFpis()
@@ -285,14 +279,14 @@ public class City extends Auditable
         this.gnis = gnis;
     }
 
-    public String getWikiimgurl()
+    public String getImageUrl()
     {
-        return wikiimgurl;
+        return imageUrl;
     }
 
-    public void setWikiimgurl(String wikiimgurl)
+    public void setImageUrl(String imageUrl)
     {
-        this.wikiimgurl = wikiimgurl;
+        this.imageUrl = imageUrl;
     }
 
     public String getWebsite()
@@ -315,64 +309,56 @@ public class City extends Auditable
         this.population = population;
     }
 
-    public Double getDensitymisq()
+    public Double getPopulationDensity()
     {
-        return densitymisq;
+        return populationDensity;
     }
 
-    public void setDensitymisq(Double densitymisq)
+    public void setPopulationDensity(Double populationDensity)
     {
-        this.densitymisq = densitymisq;
+        this.populationDensity = populationDensity;
     }
 
-    public Double getDensitykmsq()
+    // TODO functions to return density per square mile and kilometer
+
+    public Double getAverageAge()
     {
-        return densitykmsq;
+        return averageAge;
     }
 
-    public void setDensitykmsq(Double densitykmsq)
+    public void setAverageAge(Double averageAge)
     {
-        this.densitykmsq = densitykmsq;
+        this.averageAge = averageAge;
     }
 
-    public Double getAverageage()
+    public Double getHouseholdIncome()
     {
-        return averageage;
+        return householdIncome;
     }
 
-    public void setAverageage(Double averageage)
+    public void setHouseholdIncome(Double householdIncome)
     {
-        this.averageage = averageage;
+        this.householdIncome = householdIncome;
     }
 
-    public Double getHouseholdincome()
+    public Double getIndividualIncome()
     {
-        return householdincome;
+        return individualIncome;
     }
 
-    public void setHouseholdincome(Double householdincome)
+    public void setIndividualIncome(Double individualIncome)
     {
-        this.householdincome = householdincome;
+        this.individualIncome = individualIncome;
     }
 
-    public Double getIndividualincome()
+    public Double getAverageHomeCost()
     {
-        return individualincome;
+        return averageHomeCost;
     }
 
-    public void setIndividualincome(Double individualincome)
+    public void setAverageHomeCost(Double averageHomeCost)
     {
-        this.individualincome = individualincome;
-    }
-
-    public Double getAveragehouse()
-    {
-        return averagehouse;
-    }
-
-    public void setAveragehouse(Double averagehouse)
-    {
-        this.averagehouse = averagehouse;
+        this.averageHomeCost = averageHomeCost;
     }
 
     public Double getRent()
@@ -385,24 +371,24 @@ public class City extends Auditable
         this.rent = rent;
     }
 
-    public Double getCostoflivingindex()
+    public Double getCostOfLivingIndex()
     {
-        return costoflivingindex;
+        return costOfLivingIndex;
     }
 
-    public void setCostoflivingindex(Double costoflivingindex)
+    public void setCostOfLivingIndex(Double costOfLivingIndex)
     {
-        this.costoflivingindex = costoflivingindex;
+        this.costOfLivingIndex = costOfLivingIndex;
     }
 
-    public String getAcastatus()
+    public String getAcaStatus()
     {
-        return acastatus;
+        return acaStatus;
     }
 
-    public void setAcastatus(String acastatus)
+    public void setAcaStatus(String acaStatus)
     {
-        this.acastatus = acastatus;
+        this.acaStatus = acaStatus;
     }
 
     public List<Zipcode> getZipcodes()
@@ -420,49 +406,49 @@ public class City extends Auditable
         return populationHistory;
     }
 
-    public void setPopulationHistory(List<PopulationHistory> populationhist)
+    public void setPopulationHistory(List<PopulationHistory> populationHistory)
     {
-        this.populationHistory = populationhist;
+        this.populationHistory = populationHistory;
     }
 
-    public List<HistoricalIncome> getHistoricalincome()
+    public List<HistoricalIncome> getHistoricalIncome()
     {
-        return historicalincome;
+        return historicalIncome;
     }
 
-    public void setHistoricalincome(List<HistoricalIncome> historicalincome)
+    public void setHistoricalIncome(List<HistoricalIncome> historicalIncome)
     {
-        this.historicalincome = historicalincome;
+        this.historicalIncome = historicalIncome;
     }
 
-    public List<HistoricalHousing> getHistoricalaveragehouse()
+    public List<HistoricalHomeCost> getHistoricalHomeCost()
     {
-        return historicalaveragehouse;
+        return historicalHomeCost;
     }
 
-    public void setHistoricalaveragehouse(List<HistoricalHousing> historicalaveragehouse)
+    public void setHistoricalHomeCost(List<HistoricalHomeCost> historicalHomeCost)
     {
-        this.historicalaveragehouse = historicalaveragehouse;
+        this.historicalHomeCost = historicalHomeCost;
     }
 
-    public List<HistoricalCovid> getCovid()
+    public List<HistoricalCovid> getHistoricalCovid()
     {
-        return covid;
+        return historicalCovid;
     }
 
-    public void setCovid(List<HistoricalCovid> covid)
+    public void setHistoricalCovid(List<HistoricalCovid> covid)
     {
-        this.covid = covid;
+        this.historicalCovid = covid;
     }
 
-    public List<HistoricalWeather> getHistoricalweather()
+    public List<HistoricalWeather> getHistoricalWeather()
     {
-        return historicalweather;
+        return historicalWeather;
     }
 
-    public void setHistoricalweather(List<HistoricalWeather> historicalweather)
+    public void setHistoricalWeather(List<HistoricalWeather> historicalWeather)
     {
-        this.historicalweather = historicalweather;
+        this.historicalWeather = historicalWeather;
     }
 
     public Set<UserCities> getUsers()
@@ -475,34 +461,34 @@ public class City extends Auditable
         this.users = users;
     }
 
-    public Double getAveragetemp()
+    public Double getAverageTemperature()
     {
-        return averagetemp;
+        return averageTemperature;
     }
 
-    public void setAveragetemp(Double averagetemp)
+    public void setAverageTemperature(Double averageTemperature)
     {
-        this.averagetemp = averagetemp;
+        this.averageTemperature = averageTemperature;
     }
 
-    public Double getAverageperc()
+    public Double getAveragePrecipitation()
     {
-        return averageperc;
+        return averagePrecipitation;
     }
 
-    public void setAverageperc(Double averageperc)
+    public void setAveragePrecipitation(Double averagePrecipitation)
     {
-        this.averageperc = averageperc;
+        this.averagePrecipitation = averagePrecipitation;
     }
 
-    public Double getAvgnewcovidcases()
+    public Double getAverageNewCovidCases()
     {
-        return avgnewcovidcases;
+        return averageNewCovidCases;
     }
 
-    public void setAvgnewcovidcases(Double avgnewcovidcases)
+    public void setAverageNewCovidCases(Double averageNewCovidCases)
     {
-        this.avgnewcovidcases = avgnewcovidcases;
+        this.averageNewCovidCases = averageNewCovidCases;
     }
 
     /**
@@ -513,35 +499,34 @@ public class City extends Auditable
     public String toString()
     {
         return "City{" +
-            "cityid=" + cityid +
-            ", citynamestate='" + citynamestate + '\'' +
-            ", statecode='" + statecode + '\'' +
+            "cityId=" + cityId +
+            ", cityName='" + cityName + '\'' +
+            ", stateCode='" + stateCode + '\'' +
             ", timezone='" + timezone + '\'' +
             ", latitude=" + latitude +
-            ", logitude=" + logitude +
+            ", longitude=" + longitude +
             ", fpis='" + fpis + '\'' +
             ", gnis='" + gnis + '\'' +
-            ", wikiimgurl='" + wikiimgurl + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
             ", website='" + website + '\'' +
             ", population=" + population +
-            ", densitymisq=" + densitymisq +
-            ", densitykmsq=" + densitykmsq +
-            ", averageage=" + averageage +
-            ", householdincome=" + householdincome +
-            ", individualincome=" + individualincome +
-            ", averagehouse=" + averagehouse +
+            ", populationDensity=" + populationDensity +
+            ", averageAge=" + averageAge +
+            ", householdIncome=" + householdIncome +
+            ", individualIncome=" + individualIncome +
+            ", averageHomeCost=" + averageHomeCost +
             ", rent=" + rent +
-            ", costoflivingindex=" + costoflivingindex +
-            ", acastatus='" + acastatus + '\'' +
-            ", averagetemp=" + averagetemp +
-            ", averageperc=" + averageperc +
-            ", avgnewcovidcases=" + avgnewcovidcases +
+            ", costOfLivingIndex=" + costOfLivingIndex +
+            ", acaStatus='" + acaStatus + '\'' +
+            ", averageTemperature=" + averageTemperature +
+            ", averagePrecipitation=" + averagePrecipitation +
+            ", averageNewCovidCases=" + averageNewCovidCases +
             ", zipcodes=" + zipcodes +
-            ", populationhist=" + populationhist +
-            ", historicalincome=" + historicalincome +
-            ", historicalaveragehouse=" + historicalaveragehouse +
-            ", covid=" + covid +
-            ", historicalweather=" + historicalweather +
+            ", populationHistory=" + populationHistory +
+            ", historicalIncome=" + historicalIncome +
+            ", historicalHomeCost=" + historicalHomeCost +
+            ", covid=" + historicalCovid +
+            ", historicalWeather=" + historicalWeather +
             ", users=" + users +
             '}';
     }

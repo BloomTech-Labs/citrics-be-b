@@ -88,104 +88,103 @@ public class CityServiceImpl implements CityService
     {
         City c = new City();
 
-        if (city.getCityid() != 0)
+        if (city.getCityId() != 0)
         {
-            cityrepo.findById(city.getCityid())
-                .orElseThrow(() -> new ResourceNotFoundException("City id " + city.getCityid() + " not found!"));
-            c.setCityid(city.getCityid());
+            cityrepo.findById(city.getCityId())
+                .orElseThrow(() -> new ResourceNotFoundException("City id " + city.getCityId() + " not found!"));
+            c.setCityId(city.getCityId());
         }
 
-        c.setCitynamestate(city.getCitynamestate());
-        c.setStatecode(city.getStatecode());
+        c.setCityName(city.getCityName());
+        c.setStateCode(city.getStateCode());
         c.setTimezone(city.getTimezone());
         c.setLatitude(city.getLatitude());
-        c.setLogitude(city.getLogitude());
+        c.setLongitude(city.getLongitude());
         c.setFpis(city.getFpis());
         c.setGnis(city.getGnis());
-        c.setWikiimgurl(city.getWikiimgurl());
+        c.setImageUrl(city.getImageUrl());
         c.setWebsite(city.getWebsite());
         c.setPopulation(city.getPopulation());
-        c.setDensitymisq(city.getDensitymisq());
-        c.setDensitykmsq(city.getDensitykmsq());
-        c.setAverageage(city.getAverageage());
-        c.setHouseholdincome(city.getHouseholdincome());
-        c.setIndividualincome(city.getIndividualincome());
-        c.setAveragehouse(city.getAveragehouse());
+        c.setPopulationDensity(city.getPopulationDensity());
+        c.setAverageAge(city.getAverageAge());
+        c.setHouseholdIncome(city.getHouseholdIncome());
+        c.setIndividualIncome(city.getIndividualIncome());
+        c.setAverageHomeCost(city.getAverageHomeCost());
         c.setRent(city.getRent());
-        c.setCostoflivingindex(city.getCostoflivingindex());
-        c.setAcastatus(city.getAcastatus());
+        c.setCostOfLivingIndex(city.getCostOfLivingIndex());
+        c.setAcaStatus(city.getAcaStatus());
 
         for (Zipcode z : city.getZipcodes())
         {
-            Zipcode zip = ziprepo.findById(z.getZipid())
-                .orElseThrow(() -> new ResourceNotFoundException("Zipcode id " + z.getZipid() + " not found!"));
+            Zipcode zip = ziprepo.findById(z.getZipId())
+                .orElseThrow(() -> new ResourceNotFoundException("Zipcode id " + z.getZipId() + " not found!"));
 
             c.getZipcodes()
                 .add(zip);
         }
 
-        for (PopulationHist p : city.getPopulationhist())
+        for (PopulationHistory p : city.getPopulationHistory())
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
              * cannot find property until DB is seeded
              */
-//            PopulationHist pop = poprepo.findById(p.getPopid())
+//            PopulationHistory pop = poprepo.findById(p.getPopid())
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
 
-            c.getPopulationhist()
-                .add(new PopulationHist(p.getYear(), p.getPop(), c));
+            c.getPopulationHistory()
+                .add(new PopulationHistory(p.getYear(), p.getPopulation(), c));
         }
 
-        for (HistoricalIncome i : city.getHistoricalincome())
+        for (HistoricalIncome i : city.getHistoricalIncome())
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
              * cannot find property until DB is seeded
              */
-//            HistoricalIncome inc = increpo.findById(i.getIncid())
-//                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
+//            HistoricalIncome inc = increpo.findById(i.getIncomeId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncomeId() + " not found!"));
 
-            c.getHistoricalincome()
-                .add(new HistoricalIncome(i.getYear(), i.getIndividualincome(), i.getHouseholdincome(), c));
+            c.getHistoricalIncome()
+                .add(new HistoricalIncome(i.getYear(), i.getIndividualIncome(), i.getHouseholdIncome(), c));
         }
 
-        for (HistoricalHousing h : city.getHistoricalaveragehouse())
+        for (HistoricalHomeCost h : city.getHistoricalHomeCost())
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
              * cannot find property until DB is seeded
              */
-//            HistoricalHousing ho = housrepo.findById(h.getHouseid())
-//                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
+//            HistoricalHomeCost ho = housrepo.findById(h.getHouseId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseId() + " not found!"));
 
-            c.getHistoricalaveragehouse()
-                .add(new HistoricalHousing(h.getYear(), h.getYear(), h.getHousingcost(), c));
+            c.getHistoricalHomeCost()
+                .add(new HistoricalHomeCost(h.getYear(), h.getYear(), h.getHomeCost(), c));
         }
 
-        for (HistoricalCovid co : city.getCovid())
+        for (HistoricalCovid co : city.getHistoricalCovid())
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
              * cannot find property until DB is seeded
              */
-//            HistoricalCovid cov = covrepo.findById(co.getCovidid())
-//                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
+//            HistoricalCovid cov = covrepo.findById(co.getCovidId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidId() + " not found!"));
 
-            c.getCovid()
+            c.getHistoricalCovid()
                 .add(new HistoricalCovid(co.getYear(), co.getMonth(), co.getDay(), co.getCases(), c));
         }
 
-        for (HistoricalWeather weather : city.getHistoricalweather())
+        for (HistoricalWeather weather : city.getHistoricalWeather())
         {
             /**
              * UNCOMMENT WHEN DB IS DONE SEEDING
              * cannot find property until DB is seeded
              */
-//            HistoricalWeather h = wearepo.findById(weather.getWeatherid())
-//                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
+//            HistoricalWeather h = wearepo.findById(weather.getWeatherId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherId() + " not found!"));
 
-            c.getHistoricalweather()
+            c.getHistoricalWeather()
                 .add(new HistoricalWeather(weather.getMonth(), weather.getPrecipitation(), weather.getTemperature(), c));
         }
 
@@ -196,9 +195,9 @@ public class CityServiceImpl implements CityService
 
         }
 
-        c.setAveragetemp(city.getAveragetemp());
-        c.setAverageperc(city.getAverageperc());
-        c.setAvgnewcovidcases(city.getAvgnewcovidcases());
+        c.setAverageTemperature(city.getAverageTemperature());
+        c.setAveragePrecipitation(city.getAveragePrecipitation());
+        c.setAverageNewCovidCases(city.getAverageNewCovidCases());
 
         return cityrepo.save(c);
     }
@@ -220,24 +219,23 @@ public class CityServiceImpl implements CityService
 
         City c = new City();
 
-        c.setCitynamestate(city.getCity() + ", " + city.getStatename());
-        c.setStatecode(city.getAbbrev());
+        c.setCityName(city.getCity() + ", " + city.getStatename());
+        c.setStateCode(city.getAbbrev());
         c.setTimezone(city.getTimezone());
         c.setLatitude(city.getLatitude());
-        c.setLogitude(city.getLongitude());
+        c.setLongitude(city.getLongitude());
         c.setFpis(city.getFIPS());
-        c.setWikiimgurl(city.getWiki_img_url());
+        c.setImageUrl(city.getWiki_img_url());
         c.setWebsite(city.getWebsite());
         c.setPopulation(city.getPop());
-        c.setDensitymisq(city.getDensity_mi_sq());
-        c.setDensitykmsq(city.getDensity_km_sq());
-        c.setAverageage(city.getAge());
-        c.setHouseholdincome(city.getHousehold());
-        c.setIndividualincome(city.getIndividual());
-        c.setAveragehouse(city.getHouse());
+        c.setPopulationDensity(city.getDensity_mi_sq());
+        c.setAverageAge(city.getAge());
+        c.setHouseholdIncome(city.getHousehold());
+        c.setIndividualIncome(city.getIndividual());
+        c.setAverageHomeCost(city.getHouse());
         c.setRent(city.getRent());
-        c.setCostoflivingindex(city.getCOLI());
-        c.setAcastatus(city.getACA_status());
+        c.setCostOfLivingIndex(city.getCOLI());
+        c.setAcaStatus(city.getACA_status());
 
         /**
          * Splits zipcode string into
@@ -300,8 +298,8 @@ public class CityServiceImpl implements CityService
             for (String s : split)
             {
                 String[] splits = s.split(":");
-                c.getPopulationhist()
-                    .add(new PopulationHist(Integer.parseInt(splits[0]),
+                c.getPopulationHistory()
+                    .add(new PopulationHistory(Integer.parseInt(splits[0]),
                         Double.parseDouble(splits[1]),
                         c));
             }
@@ -380,7 +378,7 @@ public class CityServiceImpl implements CityService
             {
                 List<Integer> list = h.get(key);
 
-                c.getHistoricalincome()
+                c.getHistoricalIncome()
                     .add(new HistoricalIncome(key,
                         list.get(1),
                         list.get(0),
@@ -427,8 +425,8 @@ public class CityServiceImpl implements CityService
                 int year = Integer.parseInt(second[0]);
                 int month = Integer.parseInt(second[1]);
 
-                c.getHistoricalaveragehouse()
-                    .add(new HistoricalHousing(year,
+                c.getHistoricalHomeCost()
+                    .add(new HistoricalHomeCost(year,
                         month,
                         (int) cost,
                         c));
@@ -471,7 +469,7 @@ public class CityServiceImpl implements CityService
                     int month = Integer.parseInt(second[1]);
                     int day = Integer.parseInt(second[2]);
 
-                    c.getCovid()
+                    c.getHistoricalCovid()
                         .add(new HistoricalCovid(year,
                             month,
                             day,
@@ -553,7 +551,7 @@ public class CityServiceImpl implements CityService
             for (String key : keys)
             {
                 List<Double> list = h.get(key);
-                c.getHistoricalweather()
+                c.getHistoricalWeather()
                     .add(new HistoricalWeather(key,
                         list.get(0),
                         list.get(1),
@@ -577,29 +575,29 @@ public class CityServiceImpl implements CityService
         double totalTemp = 0;
 
 
-        for (PopulationHist pop : c.getPopulationhist())
+        for (PopulationHistory pop : c.getPopulationHistory())
         {
-            totalHistPopulaion += pop.getPop();
+            totalHistPopulaion += pop.getPopulation();
         }
 
-        for (HistoricalIncome v : c.getHistoricalincome())
+        for (HistoricalIncome v : c.getHistoricalIncome())
         {
-            totalHistInd += v.getIndividualincome();
-            totalHistHouse += v.getHouseholdincome();
+            totalHistInd += v.getIndividualIncome();
+            totalHistHouse += v.getHouseholdIncome();
         }
 
-        for (HistoricalHousing h : c.getHistoricalaveragehouse())
+        for (HistoricalHomeCost h : c.getHistoricalHomeCost())
         {
-             totalHistoricalHousing += h.getHousingcost();
+             totalHistoricalHousing += h.getHomeCost();
         }
 
-        for (HistoricalCovid co : c.getCovid())
+        for (HistoricalCovid co : c.getHistoricalCovid())
         {
             totalCovidCount++;
             totalCovid += co.getCases();
         }
 
-        for (HistoricalWeather h : c.getHistoricalweather())
+        for (HistoricalWeather h : c.getHistoricalWeather())
         {
             totalPercCount++;
             totalTempCount++;
@@ -608,23 +606,23 @@ public class CityServiceImpl implements CityService
             totalTemp += h.getTemperature();
         }
 
-        c.setAveragetemp(totalTemp / totalTempCount);
-        c.setAverageperc(totalPerc / totalPercCount);
-        c.setAvgnewcovidcases(totalCovid / totalCovidCount);
+        c.setAverageTemperature(totalTemp / totalTempCount);
+        c.setAveragePrecipitation(totalPerc / totalPercCount);
+        c.setAverageNewCovidCases(totalCovid / totalCovidCount);
 
         return cityrepo.save(c);
     }
 
     /**
-     * Find city by citynamestate
+     * Find city by city name
      *
-     * @param name citynamestate
-     * @return city object match name or throws exception
+     * @param name city name
+     * @return city object matching name or throws exception
      */
     @Override
-    public City findByCName(String name)
+    public City findByCityName(String name)
     {
-        City c = cityrepo.findByCitynamestate(name);
+        City c = cityrepo.findByCityName(name);
         if (c == null)
         {
             throw new ResourceNotFoundException("City name " + name + " not found!");
@@ -644,8 +642,8 @@ public class CityServiceImpl implements CityService
 
         cityrepo.findAll()
             .iterator()
-            .forEachRemaining((city) -> cities.add(new CityIdName(city.getCityid(),
-                city.getCitynamestate())));
+            .forEachRemaining((city) -> cities.add(new CityIdName(city.getCityId(),
+                city.getCityName())));
 
         return cities;
     }
@@ -687,37 +685,35 @@ public class CityServiceImpl implements CityService
             totalCities++;
             City x = cities.get(i);
             totalLatitude += x.getLatitude();
-            totalLongitude += x.getLogitude();
+            totalLongitude += x.getLongitude();
             totalPopulation += x.getPopulation();
-            totalDensityMiSq += (c.getDensitymisq() != null) ? x.getDensitymisq() : 0;
-            totalDensityKmSq += (c.getDensitykmsq() != null) ? x.getDensitykmsq() : 0;
-            totalAge += x.getAverageage();
-            totalHousehold += x.getHouseholdincome();
-            totalIndividual += x.getIndividualincome();
-            totalHousing += x.getAveragehouse();
+            totalDensityMiSq += (c.getPopulationDensity() != null) ? x.getPopulationDensity() : 0;
+            totalAge += x.getAverageAge();
+            totalHousehold += x.getHouseholdIncome();
+            totalIndividual += x.getIndividualIncome();
+            totalHousing += x.getAverageHomeCost();
             totalRent += x.getRent();
-            totalTemp += x.getAveragetemp();
-            totalPerc += x.getAverageperc();
-            totalCov += x.getAvgnewcovidcases();
+            totalTemp += x.getAverageTemperature();
+            totalPerc += x.getAveragePrecipitation();
+            totalCov += x.getAverageNewCovidCases();
 
-            costOfLivingIndex += (x.getCostoflivingindex() != null) ? x.getCostoflivingindex() : 0;
+            costOfLivingIndex += (x.getCostOfLivingIndex() != null) ? x.getCostOfLivingIndex() : 0;
         }
 
-        c.setCitynamestate(cityNameState);
+        c.setCityName(cityNameState);
         c.setLatitude(totalLatitude / totalCities);
-        c.setLogitude(totalLongitude / totalCities);
+        c.setLongitude(totalLongitude / totalCities);
         c.setPopulation(totalPopulation / totalCities);
-        c.setDensitymisq(totalDensityMiSq / totalCities);
-        c.setDensitykmsq(totalDensityKmSq / totalCities);
-        c.setAverageage(totalAge / totalCities);
-        c.setHouseholdincome(totalHousehold / totalCities);
-        c.setIndividualincome(totalIndividual / totalCities);
-        c.setAveragehouse(totalHousing / totalCities);
+        c.setPopulationDensity(totalDensityMiSq / totalCities);
+        c.setAverageAge(totalAge / totalCities);
+        c.setHouseholdIncome(totalHousehold / totalCities);
+        c.setIndividualIncome(totalIndividual / totalCities);
+        c.setAverageHomeCost(totalHousing / totalCities);
         c.setRent(totalRent / totalCities);
-        c.setCostoflivingindex(costOfLivingIndex / totalCities);
-        c.setAveragetemp(totalTemp / totalCities);
-        c.setAverageperc(totalPerc / totalCities);
-        c.setAvgnewcovidcases(totalCov / totalCities);
+        c.setCostOfLivingIndex(costOfLivingIndex / totalCities);
+        c.setAverageTemperature(totalTemp / totalCities);
+        c.setAveragePrecipitation(totalPerc / totalCities);
+        c.setAverageNewCovidCases(totalCov / totalCities);
 
         return c;
     }
@@ -730,7 +726,7 @@ public class CityServiceImpl implements CityService
     @Override
     public City returnAverageCity()
     {
-        return findByCName("National Average, USA");
+        return findByCityName("National Average, USA");
     }
 
     /**
@@ -744,7 +740,7 @@ public class CityServiceImpl implements CityService
         City c = findCityById(id);
         UserCities us = new UserCities(user, c);
 
-        user.getFavcities().add(us);
+        user.getFavoriteCities().add(us);
         c.getUsers().add(us);
     }
 }

@@ -121,14 +121,14 @@ public class UserController
             User newuser) throws
                           URISyntaxException
     {
-        newuser.setUserid(0);
+        newuser.setUserId(0);
         newuser = userService.save(newuser);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{userid}")
-            .buildAndExpand(newuser.getUserid())
+            .buildAndExpand(newuser.getUserId())
             .toUri();
         responseHeaders.setLocation(newUserURI);
 
@@ -159,7 +159,7 @@ public class UserController
         @PathVariable
             long userid)
     {
-        updateUser.setUserid(userid);
+        updateUser.setUserId(userid);
         userService.save(updateUser);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -235,7 +235,7 @@ public class UserController
     {
         User u = userService.findByName(authentication.getName());
 
-        List<UserCities> list = u.getFavcities();
+        List<UserCities> list = u.getFavoriteCities();
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

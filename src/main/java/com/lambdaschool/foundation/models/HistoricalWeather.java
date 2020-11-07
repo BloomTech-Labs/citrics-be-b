@@ -1,26 +1,24 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Model for City's historical weather data
+ */
 @Entity
-@Table(name = "historicalweather")
+@Table(name = "historical_weather")
 public class HistoricalWeather extends Auditable
 {
-    /**
-     * Model for City's historical weather data
-     */
-
     /**
      * Weather data ID
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private long weatherid;
+    private long weatherId;
 
     /**
      * Month of entry
@@ -44,7 +42,7 @@ public class HistoricalWeather extends Auditable
      * City entry belongs to
      */
     @ManyToOne
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @NotNull
     @JsonIgnore
     private City city;
@@ -79,14 +77,14 @@ public class HistoricalWeather extends Auditable
      * Getters and setters for HistoricalWeather's fields
      *
      *******************************************************************************/
-    public long getWeatherid()
+    public long getWeatherId()
     {
-        return weatherid;
+        return weatherId;
     }
 
-    public void setWeatherid(long weatherid)
+    public void setWeatherId(long weatherId)
     {
-        this.weatherid = weatherid;
+        this.weatherId = weatherId;
     }
 
     public String getMonth()
