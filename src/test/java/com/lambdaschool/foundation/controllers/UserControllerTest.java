@@ -61,10 +61,10 @@ class UserControllerTest {
         userList = new ArrayList<>();
 
         User u1 = new User("Arthur");
-        u1.setUserid(1);
+        u1.setUserId(1);
         userList.add(u1);
         User u2 = new User("James");
-        u2.setUserid(2);
+        u2.setUserId(2);
         userList.add(u2);
 
     }

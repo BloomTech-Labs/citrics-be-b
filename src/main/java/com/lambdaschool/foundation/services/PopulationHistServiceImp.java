@@ -1,7 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
-import com.lambdaschool.foundation.models.PopulationHist;
+import com.lambdaschool.foundation.models.PopulationHistory;
 import com.lambdaschool.foundation.repository.PopulationHistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,9 @@ public class PopulationHistServiceImp implements PopulationHistService
     private PopulationHistRepository poprepo;
 
     @Override
-    public List<PopulationHist> findAll()
+    public List<PopulationHistory> findAll()
     {
-        List<PopulationHist> populations = new ArrayList<>();
+        List<PopulationHistory> populations = new ArrayList<>();
 
         poprepo.findAll()
             .iterator()
@@ -30,7 +30,7 @@ public class PopulationHistServiceImp implements PopulationHistService
     }
 
     @Override
-    public PopulationHist findById(long id)
+    public PopulationHistory findById(long id)
     {
         return poprepo.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + id + " not found!"));

@@ -1,26 +1,24 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Model for City's historical income data
+ */
 @Entity
-@Table(name = "historicalincome")
+@Table(name = "historical_income")
 public class HistoricalIncome extends Auditable
 {
-    /**
-     * Model for City's historical income data
-     */
-
     /**
      * Income ID
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private long incid;
+    private long incomeId;
 
     /**
      * Year of entry
@@ -32,19 +30,19 @@ public class HistoricalIncome extends Auditable
      * City's average individual income
      */
     @NotNull
-    private int individualincome;
+    private int individualIncome;
 
     /**
      * City's average household income
      */
     @NotNull
-    private int householdincome;
+    private int householdIncome;
 
     /**
      * City entry belongs to
      */
     @ManyToOne
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @NotNull
     @JsonIgnore
     private City city;
@@ -59,19 +57,19 @@ public class HistoricalIncome extends Auditable
     /**
      * Main constructor
      * @param year Year of entry
-     * @param individualincome Average individual income
-     * @param householdincome Average household income
+     * @param individualIncome Average individual income
+     * @param householdIncome Average household income
      * @param city City entry belongs to
      */
     public HistoricalIncome(
         @NotNull int year,
-        @NotNull int individualincome,
-        @NotNull int householdincome,
+        @NotNull int individualIncome,
+        @NotNull int householdIncome,
         @NotNull City city)
     {
         this.year = year;
-        this.individualincome = individualincome;
-        this.householdincome = householdincome;
+        this.individualIncome = individualIncome;
+        this.householdIncome = householdIncome;
         this.city = city;
     }
 
@@ -79,14 +77,14 @@ public class HistoricalIncome extends Auditable
      * Getters and setters for HistoricalIncome's fields
      *
      ****************************************************************************************/
-    public long getIncid()
+    public long getIncomeId()
     {
-        return incid;
+        return incomeId;
     }
 
-    public void setIncid(long incid)
+    public void setIncomeId(long incomeId)
     {
-        this.incid = incid;
+        this.incomeId = incomeId;
     }
 
     public int getYear()
@@ -99,24 +97,24 @@ public class HistoricalIncome extends Auditable
         this.year = year;
     }
 
-    public int getIndividualincome()
+    public int getIndividualIncome()
     {
-        return individualincome;
+        return individualIncome;
     }
 
-    public void setIndividualincome(int income)
+    public void setIndividualIncome(int income)
     {
-        this.individualincome = income;
+        this.individualIncome = income;
     }
 
-    public int getHouseholdincome()
+    public int getHouseholdIncome()
     {
-        return householdincome;
+        return householdIncome;
     }
 
-    public void setHouseholdincome(int householdincome)
+    public void setHouseholdIncome(int householdIncome)
     {
-        this.householdincome = householdincome;
+        this.householdIncome = householdIncome;
     }
 
     public City getCity()
@@ -138,8 +136,8 @@ public class HistoricalIncome extends Auditable
     {
         return "HistoricalIncome{" +
             "year=" + year +
-            ", individualincome=" + individualincome +
-            ", householdincome=" + householdincome +
+            ", individualIncome=" + individualIncome +
+            ", householdIncome=" + householdIncome +
             '}';
     }
 }

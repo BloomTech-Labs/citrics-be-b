@@ -6,23 +6,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * Table for Cities favorited by User
+ */
 @Entity
-@Table(name = "usercities")
+@Table(name = "user_cities")
 @IdClass(UserCitiesId.class)
 public class UserCities extends Auditable implements Serializable
 {
-
-    /**
-     * Table for Cities favorited by User
-     */
-
     /**
      * 1/2 of complex key, UserId
      */
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value = "cities", allowSetters = true)
     private User user;
 
@@ -32,7 +30,7 @@ public class UserCities extends Auditable implements Serializable
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @JsonIgnoreProperties(value = "users", allowSetters = true)
     private City city;
 
@@ -57,7 +55,7 @@ public class UserCities extends Auditable implements Serializable
     }
 
     /**
-     * Getters and setters for UserCities's fields
+     * Getters and setters for UserCities fields
      *
      **********************************************************************************/
     public User getUser()
@@ -98,8 +96,8 @@ public class UserCities extends Auditable implements Serializable
             return false;
         }
         UserCities that = (UserCities) o;
-        return ((user == null) ? 0 : user.getUserid()) == ((that.user == null) ? 0 : that.user.getUserid()) &&
-            ((city == null) ? 0 : city.getCityid()) == ((that.city == null) ? 0 : that.city.getCityid());
+        return ((user == null) ? 0 : user.getUserId()) == ((that.user == null) ? 0 : that.user.getUserId()) &&
+            ((city == null) ? 0 : city.getCityId()) == ((that.city == null) ? 0 : that.city.getCityId());
     }
 
     /**
