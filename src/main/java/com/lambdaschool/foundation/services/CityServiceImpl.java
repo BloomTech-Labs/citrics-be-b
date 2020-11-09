@@ -85,19 +85,153 @@ public class CityServiceImpl implements CityService
      * @param city new city to be saved
      * @return newly saved city
      */
+//    @Transactional
+//    @Override
+//    public City save(City city)
+//    {
+//        City c = new City();
+//
+////        if (city.getCityid() != 0)
+////        {
+////            cityrepo.findById(city.getCityid())
+////                .orElseThrow(() -> new ResourceNotFoundException("City id " + city.getCityid() + " not found!"));
+////            c.setCityid(city.getCityid());
+////        }
+////        c.setCityid(city.getCityid());
+//        c.setCitynamestate(city.getCitynamestate());
+//        c.setStatecode(city.getStatecode());
+//        c.setTimezone(city.getTimezone());
+//        c.setLatitude(city.getLatitude());
+//        c.setLogitude(city.getLogitude());
+//        c.setFpis(city.getFpis());
+//        c.setGnis(city.getGnis());
+//        c.setWikiimgurl(city.getWikiimgurl());
+//        c.setWebsite(city.getWebsite());
+//        c.setPopulation(city.getPopulation());
+//        c.setDensitymisq(city.getDensitymisq());
+//        c.setDensitykmsq(city.getDensitykmsq());
+//        c.setAverageage(city.getAverageage());
+//        c.setHouseholdincome(city.getHouseholdincome());
+//        c.setIndividualincome(city.getIndividualincome());
+//        c.setAveragehouse(city.getAveragehouse());
+//        c.setRent(city.getRent());
+//        c.setCostoflivingindex(city.getCostoflivingindex());
+//        c.setAcastatus(city.getAcastatus());
+//
+//        for (Zipcode z : city.getZipcodes())
+//        {
+//            Zipcode zip = ziprepo.findById(z.getZipid())
+//                .orElseThrow(() -> new ResourceNotFoundException("Zipcode id " + z.getZipid() + " not found!"));
+//
+//            c.getZipcodes()
+//                .add(zip);
+//        }
+//
+//        for (County county : city.getCounties())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+//            //            County count = countrepo.findById(county.getCountyid())
+////                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
+//
+//            c.getCounties()
+//                .add(county);
+//        }
+//
+//        for (PopulationHist p : city.getPopulationhist())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+////            PopulationHist pop = poprepo.findById(p.getPopid())
+////                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
+//
+//            c.getPopulationhist()
+//                .add(new PopulationHist(p.getYear(), p.getPop(), c));
+//        }
+//
+//        for (HistoricalIncome i : city.getHistoricalincome())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+////            HistoricalIncome inc = increpo.findById(i.getIncid())
+////                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
+//
+//            c.getHistoricalincome()
+//                .add(new HistoricalIncome(i.getYear(), i.getIndividualincome(), i.getHouseholdincome(), c));
+//        }
+//
+//        for (HistoricalHousing h : city.getHistoricalaveragehouse())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+////            HistoricalHousing ho = housrepo.findById(h.getHouseid())
+////                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
+//
+//            c.getHistoricalaveragehouse()
+//                .add(new HistoricalHousing(h.getYear(), h.getYear(), h.getHousingcost(), c));
+//        }
+//
+//        for (HistoricalCovid co : city.getCovid())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+////            HistoricalCovid cov = covrepo.findById(co.getCovidid())
+////                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
+//
+//            c.getCovid()
+//                .add(new HistoricalCovid(co.getYear(), co.getMonth(), co.getDay(), co.getCases(), c));
+//        }
+//
+//        for (HistoricalWeather weather : city.getHistoricalweather())
+//        {
+//            /**
+//             * UNCOMMENT WHEN DB IS DONE SEEDING
+//             * cannot find property until DB is seeded
+//             */
+////            HistoricalWeather h = wearepo.findById(weather.getWeatherid())
+////                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
+//
+//            c.getHistoricalweather()
+//                .add(new HistoricalWeather(weather.getMonth(), weather.getPrecipitation(), weather.getTemperature(), c));
+//        }
+//
+//        for (UserCities user : city.getUsers())
+//        {
+//            c.getUsers()
+//                .add(user);
+//
+//        }
+//
+//        c.setAveragetemp(city.getAveragetemp());
+//        c.setAverageperc(city.getAverageperc());
+//        c.setAvgnewcovidcases(city.getAvgnewcovidcases());
+//
+//        return cityrepo.save(c);
+//    }
+
     @Transactional
     @Override
     public City save(City city)
     {
         City c = new City();
 
-        if (city.getCityid() != 0)
-        {
-            cityrepo.findById(city.getCityid())
-                .orElseThrow(() -> new ResourceNotFoundException("City id " + city.getCityid() + " not found!"));
-            c.setCityid(city.getCityid());
-        }
-
+//        if (city.getCityid() != 0)
+//        {
+//            cityrepo.findById(city.getCityid())
+//                .orElseThrow(() -> new ResourceNotFoundException("City id " + city.getCityid() + " not found!"));
+//            c.setCityid(city.getCityid());
+//        }
+        c.setCityid(city.getCityid());
         c.setCitynamestate(city.getCitynamestate());
         c.setStatecode(city.getStatecode());
         c.setTimezone(city.getTimezone());
@@ -120,11 +254,9 @@ public class CityServiceImpl implements CityService
 
         for (Zipcode z : city.getZipcodes())
         {
-            Zipcode zip = ziprepo.findById(z.getZipid())
-                .orElseThrow(() -> new ResourceNotFoundException("Zipcode id " + z.getZipid() + " not found!"));
-
             c.getZipcodes()
-                .add(zip);
+                    .add(new Zipcode(z.getCode(),
+                            c));
         }
 
         for (County county : city.getCounties())
@@ -135,9 +267,11 @@ public class CityServiceImpl implements CityService
              */
             //            County count = countrepo.findById(county.getCountyid())
 //                .orElseThrow(() -> new ResourceNotFoundException("County id " + county.getCountyid() + " not found!"));
-
             c.getCounties()
-                .add(county);
+                    .add(new County(county.getName(),
+                            c));
+//            c.getCounties()
+//                    .add(county);
         }
 
         for (PopulationHist p : city.getPopulationhist())
@@ -150,7 +284,7 @@ public class CityServiceImpl implements CityService
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Population id " + p.getPopid() + " not found!"));
 
             c.getPopulationhist()
-                .add(new PopulationHist(p.getYear(), p.getPop(), c));
+                    .add(new PopulationHist(p.getYear(), p.getPop(), c));
         }
 
         for (HistoricalIncome i : city.getHistoricalincome())
@@ -163,7 +297,7 @@ public class CityServiceImpl implements CityService
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Income id " + i.getIncid() + " not found!"));
 
             c.getHistoricalincome()
-                .add(new HistoricalIncome(i.getYear(), i.getIndividualincome(), i.getHouseholdincome(), c));
+                    .add(new HistoricalIncome(i.getYear(), i.getIndividualincome(), i.getHouseholdincome(), c));
         }
 
         for (HistoricalHousing h : city.getHistoricalaveragehouse())
@@ -176,7 +310,7 @@ public class CityServiceImpl implements CityService
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + h.getHouseid() + " not found!"));
 
             c.getHistoricalaveragehouse()
-                .add(new HistoricalHousing(h.getYear(), h.getYear(), h.getHousingcost(), c));
+                    .add(new HistoricalHousing(h.getYear(), h.getYear(), h.getHousingcost(), c));
         }
 
         for (HistoricalCovid co : city.getCovid())
@@ -189,7 +323,7 @@ public class CityServiceImpl implements CityService
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Covid id " + co.getCovidid() + " not found!"));
 
             c.getCovid()
-                .add(new HistoricalCovid(co.getYear(), co.getMonth(), co.getDay(), co.getCases(), c));
+                    .add(new HistoricalCovid(co.getYear(), co.getMonth(), co.getDay(), co.getCases(), c));
         }
 
         for (HistoricalWeather weather : city.getHistoricalweather())
@@ -202,13 +336,13 @@ public class CityServiceImpl implements CityService
 //                .orElseThrow(() -> new ResourceNotFoundException("Historical Weather id " + weather.getWeatherid() + " not found!"));
 
             c.getHistoricalweather()
-                .add(new HistoricalWeather(weather.getMonth(), weather.getPrecipitation(), weather.getTemperature(), c));
+                    .add(new HistoricalWeather(weather.getMonth(), weather.getPrecipitation(), weather.getTemperature(), c));
         }
 
         for (UserCities user : city.getUsers())
         {
             c.getUsers()
-                .add(user);
+                    .add(user);
 
         }
 
