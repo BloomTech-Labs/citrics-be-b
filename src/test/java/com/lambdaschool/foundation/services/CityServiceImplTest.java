@@ -105,7 +105,7 @@ class CityServiceImplTest
         /**
          * Assert the expected results
          */
-        assertEquals("Test City 1, USA", c1.getCitynamestate());
+        assertEquals("Test City 1, USA", c1.getCityName());
     }
 
     @Test
@@ -162,7 +162,7 @@ class CityServiceImplTest
         /**
          * Assert the expected results
          */
-        assertEquals("Test City 1, USA", c2.getCitynamestate());
+        assertEquals("Test City 1, USA", c2.getCityName());
     }
 
     @Test
@@ -180,12 +180,12 @@ class CityServiceImplTest
          * because this is a custom repository method and may return null?
          * check with JM for clarification.
          */
-        Mockito.doReturn(c1).when(cityRepository).findByCitynamestate(any());
+        Mockito.doReturn(c1).when(cityRepository).findByCityName(any());
 
         /**
          * Executes the service call
          */
-        City c2 = cityService.findByCName("test");
+        City c2 = cityService.findByCityName("test");
 
         /**
          * Assert the expected results
@@ -250,6 +250,6 @@ class CityServiceImplTest
         /**
          * Assert the results
          */
-        assertEquals("National Average, USA", c2.getCitynamestate());
+        assertEquals("National Average, USA", c2.getCityName());
     }
 }

@@ -1,7 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
-import com.lambdaschool.foundation.models.HistoricalHousing;
+import com.lambdaschool.foundation.models.HistoricalHomeCost;
 import com.lambdaschool.foundation.repository.HistoricalHousingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,9 @@ public class HistoricalHousingServiceImp implements HistoricalHousingService
     private HistoricalHousingRepository histrepo;
 
     @Override
-    public List<HistoricalHousing> findAll()
+    public List<HistoricalHomeCost> findAll()
     {
-        List<HistoricalHousing> cost = new ArrayList<>();
+        List<HistoricalHomeCost> cost = new ArrayList<>();
 
         histrepo.findAll()
             .iterator()
@@ -30,7 +30,7 @@ public class HistoricalHousingServiceImp implements HistoricalHousingService
     }
 
     @Override
-    public HistoricalHousing findById(long id)
+    public HistoricalHomeCost findById(long id)
     {
         return histrepo.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Historical Housing id " + id + " not found!"));

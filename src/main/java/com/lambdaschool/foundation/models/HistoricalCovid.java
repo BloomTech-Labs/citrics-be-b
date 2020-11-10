@@ -1,26 +1,24 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Model for City's historical Covid-19 data
+ */
 @Entity
-@Table(name = "historicalcovid")
+@Table(name = "historical_covid")
 public class HistoricalCovid extends Auditable
 {
-    /**
-     * Model for City's historical Covid-19 data
-     */
-
     /**
      * Covid entry ID
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private long covidid;
+    private long covidId;
 
     /**
      * Year of entry's data
@@ -50,7 +48,7 @@ public class HistoricalCovid extends Auditable
      * City entry belongs to
      */
     @ManyToOne
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @NotNull
     @JsonIgnore
     private City city;
@@ -85,18 +83,18 @@ public class HistoricalCovid extends Auditable
     }
 
     /**
-     * Getters and Setters for HistoricalCovid's fields
+     * Getters and Setters for HistoricalCovid fields
      *
      **************************************************************************************/
 
-    public long getCovidid()
+    public long getCovidId()
     {
-        return covidid;
+        return covidId;
     }
 
-    public void setCovidid(long covidid)
+    public void setCovidId(long covidId)
     {
-        this.covidid = covidid;
+        this.covidId = covidId;
     }
 
     public int getYear()

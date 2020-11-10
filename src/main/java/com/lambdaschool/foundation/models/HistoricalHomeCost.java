@@ -1,26 +1,24 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Model for City's historical housing cost data
+ */
 @Entity
-@Table(name = "historicalhousing")
-public class HistoricalHousing extends Auditable
+@Table(name = "historical_home_cost")
+public class HistoricalHomeCost extends Auditable
 {
-    /**
-     * Model for City's historical housing cost data
-     */
-
     /**
      * Data entry ID
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private long houseid;
+    private long houseId;
 
     /**
      * Year of entry
@@ -35,16 +33,16 @@ public class HistoricalHousing extends Auditable
     private int month;
 
     /**
-     * Avereage housing cost of recorded data
+     * Average housing cost of recorded data
      */
     @NotNull
-    private int housingcost;
+    private int homeCost;
 
     /**
      * City entry belongs to
      */
     @ManyToOne()
-    @JoinColumn(name = "cityid")
+    @JoinColumn(name = "city_id")
     @NotNull
     @JsonIgnore
     private City city;
@@ -52,7 +50,7 @@ public class HistoricalHousing extends Auditable
     /**
      * Default constructor
      */
-    public HistoricalHousing()
+    public HistoricalHomeCost()
     {
     }
 
@@ -60,33 +58,33 @@ public class HistoricalHousing extends Auditable
      * Main constructor
      * @param year Year of entry
      * @param month Month of entry
-     * @param housingcost Cost at date of entry
+     * @param homeCost Cost at date of entry
      * @param city City entry belongs to
      */
-    public HistoricalHousing(
+    public HistoricalHomeCost(
         @NotNull int year,
         @NotNull int month,
-        @NotNull int housingcost,
+        @NotNull int homeCost,
         @NotNull City city)
     {
         this.year = year;
         this.month = month;
-        this.housingcost = housingcost;
+        this.homeCost = homeCost;
         this.city = city;
     }
 
     /**
-     * Getters and setters for HistoricalHousing's fields
+     * Getters and setters for HistoricalHomeCost's fields
      *
      ********************************************************************************/
-    public long getHouseid()
+    public long getHouseId()
     {
-        return houseid;
+        return houseId;
     }
 
-    public void setHouseid(long houseid)
+    public void setHouseId(long houseId)
     {
-        this.houseid = houseid;
+        this.houseId = houseId;
     }
 
     public int getYear()
@@ -99,14 +97,14 @@ public class HistoricalHousing extends Auditable
         this.year = year;
     }
 
-    public int getHousingcost()
+    public int getHomeCost()
     {
-        return housingcost;
+        return homeCost;
     }
 
-    public void setHousingcost(int housingcost)
+    public void setHomeCost(int homeCost)
     {
-        this.housingcost = housingcost;
+        this.homeCost = homeCost;
     }
 
     public City getCity()
@@ -131,15 +129,15 @@ public class HistoricalHousing extends Auditable
 
     /**
      * Override default toString()
-     * @return String of HistoricalHousing object
+     * @return String of HistoricalHomeCost object
      */
     @Override
     public String toString()
     {
-        return "HistoricalHousing{" +
+        return "HistoricalHomeCost{" +
             "year=" + year +
             ", month=" + month +
-            ", housingcost=" + housingcost +
+            ", homeCost=" + homeCost +
             '}';
     }
 }

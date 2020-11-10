@@ -15,7 +15,6 @@ import java.util.Set;
 @Table(name = "cities")
 public class City extends Auditable
 {
-
     /**
      * Generate City id
      */
@@ -101,7 +100,7 @@ public class City extends Auditable
     private Double individualincome;
 
     /**
-     * City's average housing cost
+     * City's average home cost
      */
     private Double averagehouse;
 
@@ -127,7 +126,7 @@ public class City extends Auditable
     private Double averagetemp;
 
     /**
-     * City's average percipitation
+     * City's average precipitation
      * calculated from historical weather data
      */
     private Double averageperc;

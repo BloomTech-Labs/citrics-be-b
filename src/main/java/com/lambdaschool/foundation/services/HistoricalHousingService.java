@@ -1,12 +1,12 @@
 package com.lambdaschool.foundation.services;
 
-import com.lambdaschool.foundation.models.HistoricalHousing;
+import com.lambdaschool.foundation.models.HistoricalHomeCost;
 
 import java.util.List;
 
 public interface HistoricalHousingService
 {
-    List<HistoricalHousing> findAll();
+    List<HistoricalHomeCost> findAll();
 
-    HistoricalHousing findById(long id);
+    HistoricalHomeCost findById(long id);
 }
