@@ -9,5 +9,4 @@ public interface ZipcodeService
     List<Zipcode> findAll();
 
     Zipcode findById(long id);
-
 }
