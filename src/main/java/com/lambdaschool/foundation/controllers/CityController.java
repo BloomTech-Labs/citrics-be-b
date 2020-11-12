@@ -21,11 +21,14 @@ public class CityController
     /**
      * Conenction to city services
      */
-    @Autowired
-    private CityService cityService;
+    private final CityService cityService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public CityController(CityService cityService, UserService userService) {
+        this.cityService = cityService;
+        this.userService = userService;
+    }
 
     /**
      *  /all endpont (Not enough memory in free tier of
