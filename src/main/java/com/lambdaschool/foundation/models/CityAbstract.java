@@ -50,7 +50,7 @@ public class CityAbstract
     }
 
     /**
-     * Main constructon
+     * Main constructor
      * @param cityId database id of city
      * @param cityName name of city
      * @param stateCode postal code of state of city
