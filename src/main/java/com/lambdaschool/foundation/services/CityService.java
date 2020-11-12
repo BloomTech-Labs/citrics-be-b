@@ -1,7 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.models.City;
-import com.lambdaschool.foundation.models.CityIdName;
+import com.lambdaschool.foundation.models.CityAbstract;
 import com.lambdaschool.foundation.models.DSCity;
 import com.lambdaschool.foundation.models.User;
 
@@ -47,7 +47,7 @@ public interface CityService
      * Finds all cities ids and names
      * @return List of city id and names
      */
-    List<CityIdName> findAllIds();
+    List<CityAbstract> findAllIds();
 
     /**
      * Finds the average value for all fields in cities excluding the historical data

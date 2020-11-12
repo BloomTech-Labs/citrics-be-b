@@ -636,14 +636,17 @@ public class CityServiceImpl implements CityService
      * @return List of City name's and Id's
      */
     @Override
-    public List<CityIdName> findAllIds()
+    public List<CityAbstract> findAllIds()
     {
-        List<CityIdName> cities = new ArrayList<>();
+        List<CityAbstract> cities = new ArrayList<>();
 
         cityrepo.findAll()
             .iterator()
-            .forEachRemaining((city) -> cities.add(new CityIdName(city.getCityId(),
-                city.getCityName())));
+            .forEachRemaining((city) -> cities.add(new
+                    CityAbstract(city.getCityId(), city.getCityName(),
+                    city.getStateCode(), city.getPopulation(),
+                    city.getAverageHomeCost(), city.getRent(),
+                    city.getCostOfLivingIndex())));
 
         return cities;
     }
@@ -703,7 +706,7 @@ public class CityServiceImpl implements CityService
         c.setCityName(cityNameState);
         c.setLatitude(totalLatitude / totalCities);
         c.setLongitude(totalLongitude / totalCities);
-        c.setPopulation(totalPopulation / totalCities);
+        c.setPopulation((long) (totalPopulation / totalCities));
         c.setPopulationDensity(totalDensityMiSq / totalCities);
         c.setAverageAge(totalAge / totalCities);
         c.setHouseholdIncome(totalHousehold / totalCities);

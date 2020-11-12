@@ -2,7 +2,7 @@ package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.config.H2ServerConfiguration;
 import com.lambdaschool.foundation.models.City;
-import com.lambdaschool.foundation.models.CityIdName;
+import com.lambdaschool.foundation.models.CityAbstract;
 import com.lambdaschool.foundation.models.DSCity;
 import com.lambdaschool.foundation.repository.CityRepository;
 import org.junit.jupiter.api.Test;
@@ -207,8 +207,8 @@ class CityServiceImplTest
          * When Mockito calls the CityService.findAllIds() it returns the dummy
          * cities as a list. findAllIds() calls the findAll() method from the repository
          * which returns a list of City objects, so even though findAllIds() returns
-         * a CityIdName object because it relies on a passthrough method from the repository
-         * we must mock a return list of City Objects or else we get an error when a CityIdName
+         * a CityAbstract object because it relies on a passthrough method from the repository
+         * we must mock a return list of City Objects or else we get an error when a CityAbstract
          * is attemped to be type casted as a City object in the inner function. Would like some
          * clarification from JM
          */
@@ -217,7 +217,7 @@ class CityServiceImplTest
         /**
          * Executes the service call
          */
-        List<CityIdName> cities = cityService.findAllIds();
+        List<CityAbstract> cities = cityService.findAllIds();
 
         /**
          * Assert the expected results
