@@ -13,7 +13,8 @@ for city in cities_data:
     url = thisCity['wikiimgurl']
     if type(url) != type('') or len(url) > 254:
         thisCity['wikiimgurl'] = \
-            'https://creazilla-store.fra1.digitaloceanspaces.com/three_d_models/64104/generic-skyscrapers-3d-model-11682-md.png'
+            'https://creazilla-store.fra1.digitaloceanspaces.com/' + \
+            'three_d_models/64104/generic-skyscrapers-3d-model-11682-md.png'
     print(len(cities))
 
 with open('database.json', 'w') as file:
