@@ -72,7 +72,7 @@ public class City extends Auditable
     /**
      * City's average population
      */
-    private Double population;
+    private Long population;
 
     /**
      * City's population density per square kilometer
@@ -299,12 +299,12 @@ public class City extends Auditable
         this.website = website;
     }
 
-    public Double getPopulation()
+    public Long getPopulation()
     {
         return population;
     }
 
-    public void setPopulation(Double population)
+    public void setPopulation(Long population)
     {
         this.population = population;
     }

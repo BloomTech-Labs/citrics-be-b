@@ -79,7 +79,7 @@ public class DSCity {
     /**
      * City's population
      */
-    private Double pop;
+    private Long pop;
 
     /**
      * City's density per square mile
@@ -288,12 +288,12 @@ public class DSCity {
         this.website = website;
     }
 
-    public Double getPop()
+    public Long getPop()
     {
         return pop;
     }
 
-    public void setPop(Double pop)
+    public void setPop(Long pop)
     {
         this.pop = pop;
     }

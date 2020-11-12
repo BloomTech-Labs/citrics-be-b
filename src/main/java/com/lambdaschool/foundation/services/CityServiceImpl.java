@@ -703,7 +703,7 @@ public class CityServiceImpl implements CityService
         c.setCityName(cityNameState);
         c.setLatitude(totalLatitude / totalCities);
         c.setLongitude(totalLongitude / totalCities);
-        c.setPopulation(totalPopulation / totalCities);
+        c.setPopulation((long) (totalPopulation / totalCities));
         c.setPopulationDensity(totalDensityMiSq / totalCities);
         c.setAverageAge(totalAge / totalCities);
         c.setHouseholdIncome(totalHousehold / totalCities);
