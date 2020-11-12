@@ -1,17 +1,15 @@
 package com.lambdaschool.foundation.controllers;
 
 import com.lambdaschool.foundation.models.City;
-import com.lambdaschool.foundation.models.CityIdName;
+import com.lambdaschool.foundation.models.CityAbstract;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.CityService;
 import com.lambdaschool.foundation.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -63,7 +61,7 @@ public class CityController
     @GetMapping(value = "/allid", produces = "application/json")
     public ResponseEntity<?> listAllCityIds()
     {
-        List<CityIdName> myList = cityService.findAllIds();
+        List<CityAbstract> myList = cityService.findAllIds();
 
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }

@@ -2,7 +2,7 @@ package com.lambdaschool.foundation.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.foundation.models.City;
-import com.lambdaschool.foundation.models.CityIdName;
+import com.lambdaschool.foundation.models.CityAbstract;
 import com.lambdaschool.foundation.repository.UserRepository;
 import com.lambdaschool.foundation.services.CityService;
 import com.lambdaschool.foundation.services.HelperFunctions;
@@ -73,7 +73,7 @@ class CityControllerTest
      * Lists used for testing
      */
     List<City> cities = new ArrayList<>();
-    List<CityIdName> cityIdNames = new ArrayList<>();
+    List<CityAbstract> cityAbstracts = new ArrayList<>();
 
     @BeforeEach
     void setUp()
@@ -83,13 +83,13 @@ class CityControllerTest
          */
         City c1 = new City("Test City 1, USA");
         City c2 = new City("Test City 2, USA");
-        CityIdName c3 = new CityIdName(1, "Test City 3, USA");
-        CityIdName c4 = new CityIdName(1, "Test City 4, USA");
+//        CityAbstract c3 = new CityAbstract(1, "Test City 3, USA");
+//        CityAbstract c4 = new CityAbstract(1, "Test City 4, USA");
 
         cities.add(c1);
         cities.add(c2);
-        cityIdNames.add(c3);
-        cityIdNames.add(c4);
+//        cityAbstracts.add(c3);
+//        cityAbstracts.add(c4);
     }
 
     @AfterEach
@@ -148,15 +148,15 @@ class CityControllerTest
          * Maps list of City's names + id's to string
          */
         ObjectMapper mapper = new ObjectMapper();
-        String res = mapper.writeValueAsString(cityIdNames);
+        String res = mapper.writeValueAsString(cityAbstracts);
 
         /**
-         * Tells Mockito to return the cityIdNames list when CityServices.findAllIds() is called
+         * Tells Mockito to return the cityAbstracts list when CityServices.findAllIds() is called
          */
-        Mockito.when(service.findAllIds()).thenReturn(cityIdNames);
+        Mockito.when(service.findAllIds()).thenReturn(cityAbstracts);
 
         /**
-         * Mocks a GET network request asserts the JSON returned == cityIdNames (mapped as string)
+         * Mocks a GET network request asserts the JSON returned == cityAbstracts (mapped as string)
          */
         this.mockMvc.perform(get("/cities/allid")).andDo(print()).andExpect(status().isOk())
             .andExpect(content().json(res));

@@ -3,7 +3,7 @@ package com.lambdaschool.foundation.models;
 /**
  * special class for city id + name schema
  */
-public class CityIdName
+public class CityAbstract
 {
     /**
      * city id, already established, pulled from existing data in DB
@@ -45,7 +45,7 @@ public class CityIdName
     /**
      * Default constructor
      */
-    public CityIdName()
+    public CityAbstract()
     {
     }
 
@@ -59,9 +59,9 @@ public class CityIdName
      * @param rent average rent of city
      * @param costOfLivingIndex cost of living index of city
      */
-    public CityIdName(long cityId, String cityName, String stateCode,
-                      Long population, Double averageHomeCost, Double rent,
-                      Double costOfLivingIndex) {
+    public CityAbstract(long cityId, String cityName, String stateCode,
+                        Long population, Double averageHomeCost, Double rent,
+                        Double costOfLivingIndex) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.stateCode = stateCode;
@@ -154,7 +154,7 @@ public class CityIdName
     @Override
     public String toString()
     {
-        return "CityIdName{" +
+        return "CityAbstract{" +
             "cityId=" + cityId +
             ", cityName='" + cityName + "'" +
             ", stateCode'" + stateCode + "'" +

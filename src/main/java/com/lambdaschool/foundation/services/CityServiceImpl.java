@@ -636,14 +636,14 @@ public class CityServiceImpl implements CityService
      * @return List of City name's and Id's
      */
     @Override
-    public List<CityIdName> findAllIds()
+    public List<CityAbstract> findAllIds()
     {
-        List<CityIdName> cities = new ArrayList<>();
+        List<CityAbstract> cities = new ArrayList<>();
 
         cityrepo.findAll()
             .iterator()
             .forEachRemaining((city) -> cities.add(new
-                    CityIdName(city.getCityId(), city.getCityName(),
+                    CityAbstract(city.getCityId(), city.getCityName(),
                     city.getStateCode(), city.getPopulation(),
                     city.getAverageHomeCost(), city.getRent(),
                     city.getCostOfLivingIndex())));
