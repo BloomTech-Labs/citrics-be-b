@@ -16,6 +16,33 @@ public class CityIdName
     private String cityName;
 
     /**
+     * state postal code, already established, pulled from existing data in DB
+     */
+    private String stateCode;
+
+    /**
+     *  city population, already established, pulled from existing data in DB
+     */
+
+    private Long population;
+
+    /**
+     * average home cost, already established, pulled from existing data in DB
+     */
+    private Double averageHomeCost;
+
+    /**
+     * average rent, already established, pulled from existing data in DB
+     */
+    private Double rent;
+
+    /**
+     * cost of living index, already established, pulled from existing data in
+     * DB
+     */
+    private Double costOfLivingIndex;
+
+    /**
      * Default constructor
      */
     public CityIdName()
@@ -23,16 +50,25 @@ public class CityIdName
     }
 
     /**
-     * Main constructor
-     * @param cityId id of city in local DB
-     * @param cityName name of city in local DB
+     * Main constructon
+     * @param cityId database id of city
+     * @param cityName name of city
+     * @param stateCode postal code of state of city
+     * @param population population of city
+     * @param averageHomeCost average home cost of city
+     * @param rent average rent of city
+     * @param costOfLivingIndex cost of living index of city
      */
-    public CityIdName(
-        long cityId,
-        String cityName)
-    {
+    public CityIdName(long cityId, String cityName, String stateCode,
+                      Long population, Double averageHomeCost, Double rent,
+                      Double costOfLivingIndex) {
         this.cityId = cityId;
         this.cityName = cityName;
+        this.stateCode = stateCode;
+        this.population = population;
+        this.averageHomeCost = averageHomeCost;
+        this.rent = rent;
+        this.costOfLivingIndex = costOfLivingIndex;
     }
 
     /**
@@ -71,6 +107,46 @@ public class CityIdName
         this.cityName = cityName;
     }
 
+    public String getStateCode() {
+        return stateCode;
+    }
+
+    public void setStateCode(String stateCode) {
+        this.stateCode = stateCode;
+    }
+
+    public Long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(Long population) {
+        this.population = population;
+    }
+
+    public Double getAverageHomeCost() {
+        return averageHomeCost;
+    }
+
+    public void setAverageHomeCost(Double averageHomeCost) {
+        this.averageHomeCost = averageHomeCost;
+    }
+
+    public Double getRent() {
+        return rent;
+    }
+
+    public void setRent(Double rent) {
+        this.rent = rent;
+    }
+
+    public Double getCostOfLivingIndex() {
+        return costOfLivingIndex;
+    }
+
+    public void setCostOfLivingIndex(Double costOfLivingIndex) {
+        this.costOfLivingIndex = costOfLivingIndex;
+    }
+
     /**
      * Override default toString method
      * @return String representation of object
@@ -80,7 +156,12 @@ public class CityIdName
     {
         return "CityIdName{" +
             "cityId=" + cityId +
-            ", cityName='" + cityName + '\'' +
+            ", cityName='" + cityName + "'" +
+            ", stateCode'" + stateCode + "'" +
+            ", population" + population +
+            ", averageHomeCost" + averageHomeCost +
+            ", rent" + rent +
+            ", costOfLivingIndex" + costOfLivingIndex +
             '}';
     }
 }

@@ -642,8 +642,11 @@ public class CityServiceImpl implements CityService
 
         cityrepo.findAll()
             .iterator()
-            .forEachRemaining((city) -> cities.add(new CityIdName(city.getCityId(),
-                city.getCityName())));
+            .forEachRemaining((city) -> cities.add(new
+                    CityIdName(city.getCityId(), city.getCityName(),
+                    city.getStateCode(), city.getPopulation(),
+                    city.getAverageHomeCost(), city.getRent(),
+                    city.getCostOfLivingIndex())));
 
         return cities;
     }
