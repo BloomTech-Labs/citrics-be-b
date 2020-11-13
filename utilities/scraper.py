@@ -7,6 +7,7 @@ historical_housing = []
 
 # cities table
 file = open('data.sql', 'w')
+file.write('BEGIN;\n')
 file.write(
     'INSERT INTO CITIES (CITY_ID, CREATED_BY, CREATED_DATE,  LAST_MODIFIED_BY,\n' +
     ' LAST_MODIFIED_DATE, ACA_STATUS, AVERAGE_AGE, AVERAGE_HOME_COST,\n' +
@@ -35,8 +36,10 @@ for i in range(1, len(cities) + 1):
         month['city_id'] = i
     historical_housing.extend(months)
 file.write(';\n')
+file.write('COMMIT;\n')
 
 # historical house prices
+file.write('BEGIN;\n')
 file.write(
     'INSERT INTO historical_home_cost (house_id, CREATED_BY, CREATED_DATE,\n'
     'LAST_MODIFIED_BY, LAST_MODIFIED_DATE, city_id, year, month, home_cost)\n'
@@ -51,5 +54,6 @@ for i in range(1, len(historical_housing) + 1):
     file.write('(%i, CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP,\n' % i)
     file.write(insert);
 file.write(';\n')
+file.write('COMMIT;\n')
 
 file.close()
