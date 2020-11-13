@@ -295,14 +295,15 @@ public class CityServiceImpl implements CityService
 
             String[] split = raw.split(",");
 
-            for (String s : split)
-            {
-                String[] splits = s.split(":");
-                c.getPopulationHistory()
-                    .add(new PopulationHistory(Integer.parseInt(splits[0]),
-                        Double.parseDouble(splits[1]),
-                        c));
-            }
+//            migrating population from double to int broke it
+//            for (String s : split)
+//            {
+//                String[] splits = s.split(":");
+//                c.getPopulationHistory()
+//                    .add(new PopulationHistory(Integer.parseInt(splits[0]),
+//                        Double.parseDouble(splits[1]),
+//                        c));
+//            }
 
         }
 

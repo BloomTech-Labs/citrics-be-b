@@ -26,8 +26,7 @@ public class PopulationHistory extends Auditable
     /**
      * City's average population
      */
-    @NotNull
-    private double population;
+    private long population;
 
     /**
      * City entry belongs to
@@ -52,9 +51,9 @@ public class PopulationHistory extends Auditable
      * @param city City entry belongs to
      */
     public PopulationHistory(
-        @NotNull int year,
-        @NotNull double population,
-        @NotNull City city)
+            @NotNull int year,
+            long population,
+            @NotNull City city)
     {
         this.year = year;
         this.population = population;
@@ -85,12 +84,12 @@ public class PopulationHistory extends Auditable
         this.year = year;
     }
 
-    public double getPopulation()
+    public long getPopulation()
     {
         return population;
     }
 
-    public void setPopulation(double pop)
+    public void setPopulation(long pop)
     {
         this.population = pop;
     }
