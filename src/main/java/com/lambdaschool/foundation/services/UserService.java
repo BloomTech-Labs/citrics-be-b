@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lambdaschool.foundation.models.User;
 
 import java.util.List;
@@ -67,12 +68,12 @@ public interface UserService
      * Regarding Role and Useremail items, this process only allows adding those. Deleting and editing those lists
      * is done through a separate endpoint.
      *
-     * @param user just the user fields to be updated.
+     * @param newValues just the user fields to be updated.
      * @param id   The primary key (long) of the user to update
      * @return the complete user object that got updated
      */
     User update(
-        User user,
+        JsonNode newValues,
         long id);
 
     /**

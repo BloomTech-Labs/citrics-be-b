@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.services;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.repository.UserRepository;
@@ -101,7 +102,7 @@ public class UserServiceImpl
     @Transactional
     @Override
     public User update(
-        User user,
+        JsonNode newValues,
         long id)
     {
         User currentUser = findUserById(id);
@@ -111,6 +112,7 @@ public class UserServiceImpl
 //        if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername()))
         if (true)
         {
+            currentUser.update(newValues);
             return userRepository.save(currentUser);
         } else
         {

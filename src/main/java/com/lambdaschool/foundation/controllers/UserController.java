@@ -1,5 +1,6 @@
 package com.lambdaschool.foundation.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.models.UserCities;
 import com.lambdaschool.foundation.services.UserService;
@@ -171,23 +172,22 @@ public class UserController
     /**
      * Updates the user record associated with the given id with the provided data. Only the provided fields are affected.
      * Roles are handled through different endpoints
-     * If an email list is given, it replaces the original emai list.
      * <br> Example: <a href="http://localhost:2019/users/user/7">http://localhost:2019/users/user/7</a>
      *
-     * @param updateUser An object containing values for just the fields that are being updated. All other fields are left NULL.
+     * @param newValues An object containing values for just the fields that are being updated. All other fields are left NULL.
      * @param id         The primary key of the user you wish to update.
      * @return A status of OK
-     * @see UserService#update(User, long) UserService.update(User, long)
+     * @see UserService#update(JsonNode, long) UserService.update(User, long)
      */
     @PatchMapping(value = "/user/{id}",
         consumes = "application/json")
     public ResponseEntity<?> updateUser(
         @RequestBody
-            User updateUser,
+                JsonNode newValues,
         @PathVariable
             long id)
     {
-        userService.update(updateUser,
+        userService.update(newValues,
             id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
