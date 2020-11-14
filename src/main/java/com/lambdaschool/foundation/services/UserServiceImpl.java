@@ -3,7 +3,6 @@ package com.lambdaschool.foundation.services;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,17 +20,20 @@ public class UserServiceImpl
     /**
      * Connects this service to the User table.
      */
-    @Autowired
-    private UserRepository userrepos;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private HelperFunctions helperFunctions;
+    private final HelperFunctions helperFunctions;
+
+    public UserServiceImpl(UserRepository userRepository, HelperFunctions helperFunctions) {
+        this.userRepository = userRepository;
+        this.helperFunctions = helperFunctions;
+    }
 
     @Override
     public User findUserById(long id) throws
                                       ResourceNotFoundException
     {
-        return userrepos.findById(id)
+        return userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
     }
 
@@ -39,7 +41,7 @@ public class UserServiceImpl
     public List<User> findByNameContaining(String username)
     {
 
-        return userrepos.findByUsernameContainingIgnoreCase(username.toLowerCase());
+        return userRepository.findByUsernameContainingIgnoreCase(username.toLowerCase());
     }
 
     @Override
@@ -50,7 +52,7 @@ public class UserServiceImpl
          * findAll returns an iterator set.
          * iterate over the iterator set and add each element to an array list.
          */
-        userrepos.findAll()
+        userRepository.findAll()
             .iterator()
             .forEachRemaining(list::add);
         return list;
@@ -60,15 +62,15 @@ public class UserServiceImpl
     @Override
     public void delete(long id)
     {
-        userrepos.findById(id)
+        userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
-        userrepos.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
     public User findByName(String name)
     {
-        User uu = userrepos.findByUsername(name.toLowerCase());
+        User uu = userRepository.findByUsername(name.toLowerCase());
         if (uu == null)
         {
             throw new ResourceNotFoundException("User name " + name + " not found!");
@@ -85,7 +87,7 @@ public class UserServiceImpl
 
         if (user.getUserId() != 0)
         {
-            userrepos.findById(user.getUserId())
+            userRepository.findById(user.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User id " + user.getUserId() + " not found!"));
             newUser.setUserId(user.getUserId());
         }
@@ -93,7 +95,7 @@ public class UserServiceImpl
         newUser.setUsername(user.getUsername()
             .toLowerCase());
 
-        return userrepos.save(newUser);
+        return userRepository.save(newUser);
     }
 
     @Transactional
@@ -109,17 +111,9 @@ public class UserServiceImpl
 //        if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername()))
         if (true)
         {
-            if (user.getUsername() != null)
-            {
-                currentUser.setUsername(user.getUsername()
-                    .toLowerCase());
-            }
-
-            return userrepos.save(currentUser);
+            return userRepository.save(currentUser);
         } else
         {
-            // note we should never get to this line but is needed for the compiler
-            // to recognize that this exception can be thrown
             throw new ResourceNotFoundException("This user is not authorized to make change");
         }
     }
@@ -128,6 +122,6 @@ public class UserServiceImpl
     @Override
     public void deleteAll()
     {
-        userrepos.deleteAll();
+        userRepository.deleteAll();
     }
 }
