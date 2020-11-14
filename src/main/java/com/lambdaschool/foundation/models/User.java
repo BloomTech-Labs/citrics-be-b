@@ -49,6 +49,16 @@ public class User
     private Double maxRent;
 
     /**
+     * minimum house cost preference
+     */
+    private Double minHouseCost;
+
+    /**
+     * maximum house cost preference
+     */
+    private Double maxHouseCost;
+
+    /**
      * cost of living preference
      */
     private Integer costOfLiving;
@@ -81,13 +91,15 @@ public class User
 
     public User(long userId, @NotNull String username, Integer minPopulation,
                 Integer maxPopulation, Double minRent, Double maxRent,
-                Integer costOfLiving) {
+                Double minHouseCost, Double maxHouseCost, Integer costOfLiving) {
         this.userId = userId;
         this.username = username;
         this.minPopulation = minPopulation;
         this.maxPopulation = maxPopulation;
         this.minRent = minRent;
         this.maxRent = maxRent;
+        this.minHouseCost = minHouseCost;
+        this.maxHouseCost = maxHouseCost;
         this.costOfLiving = costOfLiving;
     }
 
@@ -189,6 +201,22 @@ public class User
 
     public void setMaxRent(Double maxRent) {
         this.maxRent = maxRent;
+    }
+
+    public Double getMinHouseCost() {
+        return minHouseCost;
+    }
+
+    public void setMinHouseCost(Double minHouseCost) {
+        this.minHouseCost = minHouseCost;
+    }
+
+    public Double getMaxHouseCost() {
+        return maxHouseCost;
+    }
+
+    public void setMaxHouseCost(Double maxHouseCost) {
+        this.maxHouseCost = maxHouseCost;
     }
 
     public Integer getCostOfLiving() {
