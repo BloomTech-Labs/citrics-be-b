@@ -67,6 +67,17 @@ public class User
     private Integer costOfLiving;
 
     /**
+     * about me information about user
+     */
+    private String aboutMe;
+
+    /**
+     * url of profile picture
+     */
+    @Lob
+    private String profilePicture;
+
+    /**
     *The list that holds the users favorite cities
     */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -92,9 +103,24 @@ public class User
         setUsername(username);
     }
 
+    /**
+     * Full constructor
+     * @param userId user numeric id
+     * @param username username
+     * @param minPopulation minimum population preference
+     * @param maxPopulation maximum population preference
+     * @param minRent minimum rent preference
+     * @param maxRent maximum rent preference
+     * @param minHouseCost minimum housing cost preference
+     * @param maxHouseCost maximum housing cost preference
+     * @param costOfLiving cost of living preference
+     * @param aboutMe about me text
+     * @param profilePicture url of profile picture
+     */
     public User(long userId, @NotNull String username, Integer minPopulation,
                 Integer maxPopulation, Double minRent, Double maxRent,
-                Double minHouseCost, Double maxHouseCost, Integer costOfLiving) {
+                Double minHouseCost, Double maxHouseCost, Integer costOfLiving,
+                String aboutMe, String profilePicture) {
         this.userId = userId;
         this.username = username;
         this.minPopulation = minPopulation;
@@ -104,6 +130,8 @@ public class User
         this.minHouseCost = minHouseCost;
         this.maxHouseCost = maxHouseCost;
         this.costOfLiving = costOfLiving;
+        this.aboutMe = aboutMe;
+        this.profilePicture = profilePicture;
     }
 
     /**
@@ -230,6 +258,22 @@ public class User
         this.costOfLiving = costOfLiving;
     }
 
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     /**
      * Update User with fields from a partially complete User object. Fields not
      * completed in the new Object
@@ -250,6 +294,10 @@ public class User
                 maxHouseCost, data, "maxHouseCost");
         costOfLiving = optionallyReplace(
                 costOfLiving, data, "costOfLiving");
+        aboutMe = optionallyReplace(
+                aboutMe, data, "aboutMe");
+        profilePicture = optionallyReplace(
+                profilePicture, data, "profilePicture");
     }
 
 //     Keeping this commented out code for future feature User Authentication
