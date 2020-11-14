@@ -2,12 +2,13 @@ package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.lambdaschool.foundation.Utility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.lambdaschool.foundation.Utility.optionallyReplace;
 
 /**
  * The entity allowing interaction with the users table
@@ -235,19 +236,19 @@ public class User
      * @param data JSON data with new values
      */
     public void update(JsonNode data) {
-        minPopulation = Utility.optionallyReplace(
+        minPopulation = optionallyReplace(
                 minPopulation, data, "minPopulation");
-        maxPopulation = Utility.optionallyReplace(
+        maxPopulation = optionallyReplace(
                 maxPopulation, data, "maxPopulation");
-        minRent = Utility.optionallyReplace(
+        minRent = optionallyReplace(
                 minRent, data, "minRent");
-        maxRent = Utility.optionallyReplace(
+        maxRent = optionallyReplace(
                 maxRent, data, "maxRent");
-        minHouseCost = Utility.optionallyReplace(
+        minHouseCost = optionallyReplace(
                 minHouseCost, data, "minHouseCost");
-        maxHouseCost = Utility.optionallyReplace(
+        maxHouseCost = optionallyReplace(
                 maxHouseCost, data, "maxHouseCost");
-        costOfLiving = Utility.optionallyReplace(
+        costOfLiving = optionallyReplace(
                 costOfLiving, data, "costOfLiving");
     }
 
