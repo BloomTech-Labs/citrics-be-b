@@ -26,8 +26,11 @@ public class UserController
     /**
      * Using the User service to process user data
      */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Returns a list of all users
