@@ -29,6 +29,31 @@ public class User
     private String username;
 
     /**
+     * minimum population preference
+     */
+    private Integer minPopulation;
+
+    /**
+     * maximum population preference
+     */
+    private Integer maxPopulation;
+
+    /**
+     * minimum rent preference
+     */
+    private Double minRent;
+
+    /**
+     * maximum rent preference
+     */
+    private Double maxRent;
+
+    /**
+     * cost of living preference
+     */
+    private Integer costOfLiving;
+
+    /**
     *The list that holds the users favorite cities
     */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,6 +77,18 @@ public class User
     public User(String username)
     {
         setUsername(username);
+    }
+
+    public User(long userId, @NotNull String username, Integer minPopulation,
+                Integer maxPopulation, Double minRent, Double maxRent,
+                Integer costOfLiving) {
+        this.userId = userId;
+        this.username = username;
+        this.minPopulation = minPopulation;
+        this.maxPopulation = maxPopulation;
+        this.minRent = minRent;
+        this.maxRent = maxRent;
+        this.costOfLiving = costOfLiving;
     }
 
     /**
@@ -120,6 +157,46 @@ public class User
             ", username='" + username + '\'' +
             ", favCities=" + favoriteCities +
             '}';
+    }
+
+    public Integer getMinPopulation() {
+        return minPopulation;
+    }
+
+    public void setMinPopulation(Integer minPopulation) {
+        this.minPopulation = minPopulation;
+    }
+
+    public Integer getMaxPopulation() {
+        return maxPopulation;
+    }
+
+    public void setMaxPopulation(Integer maxPopulation) {
+        this.maxPopulation = maxPopulation;
+    }
+
+    public Double getMinRent() {
+        return minRent;
+    }
+
+    public void setMinRent(Double minRent) {
+        this.minRent = minRent;
+    }
+
+    public Double getMaxRent() {
+        return maxRent;
+    }
+
+    public void setMaxRent(Double maxRent) {
+        this.maxRent = maxRent;
+    }
+
+    public Integer getCostOfLiving() {
+        return costOfLiving;
+    }
+
+    public void setCostOfLiving(Integer costOfLiving) {
+        this.costOfLiving = costOfLiving;
     }
 
     /**
