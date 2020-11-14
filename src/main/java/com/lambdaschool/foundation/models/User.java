@@ -1,6 +1,8 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.lambdaschool.foundation.Utility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -228,13 +230,32 @@ public class User
     }
 
     /**
-     * Keeping this commented out code for future feature User Authentication
-     *
-     * Internally, user security requires a list of authorities, roles, that the user has. This method is a simple way to provide those.
-     * Note that SimpleGrantedAuthority requests the format ROLE_role name all in capital letters!
-     *
-     * @return The list of authorities, roles, this user object has
+     * Update User with fields from a partially complete User object. Fields not
+     * completed in the new Object
+     * @param data JSON data with new values
      */
+    public void update(JsonNode data) {
+        minPopulation = Utility.optionallyReplace(
+                minPopulation, data, "minPopulation");
+        maxPopulation = Utility.optionallyReplace(
+                maxPopulation, data, "maxPopulation");
+        minRent = Utility.optionallyReplace(
+                minRent, data, "minRent");
+        maxRent = Utility.optionallyReplace(
+                maxRent, data, "maxRent");
+        minHouseCost = Utility.optionallyReplace(
+                minHouseCost, data, "minHouseCost");
+        maxHouseCost = Utility.optionallyReplace(
+                maxHouseCost, data, "maxHouseCost");
+        costOfLiving = Utility.optionallyReplace(
+                costOfLiving, data, "costOfLiving");
+    }
+
+//     Keeping this commented out code for future feature User Authentication
+//     Internally, user security requires a list of authorities, roles, that the user has. This method is a simple way to provide those.
+//     Note that SimpleGrantedAuthority requests the format ROLE_role name all in capital letters!
+//      @return The list of authorities, roles, this user object has
+//
 //    @JsonIgnore
 //    public List<SimpleGrantedAuthority> getAuthority()
 //    {
