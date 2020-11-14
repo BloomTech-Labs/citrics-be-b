@@ -1,9 +1,9 @@
 package com.lambdaschool.foundation.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.models.UserCities;
 import com.lambdaschool.foundation.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -26,8 +25,11 @@ public class UserController
     /**
      * Using the User service to process user data
      */
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Returns a list of all users
@@ -103,14 +105,12 @@ public class UserController
     }
 
     /**
-     * Given a complete User Object, create a new User record and accompanying useremail records
-     * and user role records.
-     * <br> Example: <a href="http://localhost:2019/users/user">http://localhost:2019/users/user</a>
+     * Given a complete User Object, create a new User record and user role
+     * records.
      *
-     * @param newuser A complete new user to add including emails and roles.
+     * @param newUser A complete new user to add including emails and roles.
      *                roles must already exist.
      * @return A location header with the URI to the newly created user and a status of CREATED
-     * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see UserService#save(User) UserService.save(User)
      */
     @PostMapping(value = "/user",
@@ -118,17 +118,16 @@ public class UserController
     public ResponseEntity<?> addNewUser(
         @Valid
         @RequestBody
-            User newuser) throws
-                          URISyntaxException
+            User newUser)
     {
-        newuser.setUserId(0);
-        newuser = userService.save(newuser);
+        newUser.setUserId(0);
+        newUser = userService.save(newUser);
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{userid}")
-            .buildAndExpand(newuser.getUserId())
+            .buildAndExpand(newUser.getUserId())
             .toUri();
         responseHeaders.setLocation(newUserURI);
 
@@ -140,7 +139,7 @@ public class UserController
     /**
      * Given a complete User Object
      * Given the user id, primary key, is in the User table,
-     * replace the User record and Useremail records.
+     * replace the User record.
      * Roles are handled through different endpoints
      * <br> Example: <a href="http://localhost:2019/users/user/15">http://localhost:2019/users/user/15</a>
      *
@@ -168,23 +167,22 @@ public class UserController
     /**
      * Updates the user record associated with the given id with the provided data. Only the provided fields are affected.
      * Roles are handled through different endpoints
-     * If an email list is given, it replaces the original emai list.
      * <br> Example: <a href="http://localhost:2019/users/user/7">http://localhost:2019/users/user/7</a>
      *
-     * @param updateUser An object containing values for just the fields that are being updated. All other fields are left NULL.
+     * @param newValues An object containing values for just the fields that are being updated. All other fields are left NULL.
      * @param id         The primary key of the user you wish to update.
      * @return A status of OK
-     * @see UserService#update(User, long) UserService.update(User, long)
+     * @see UserService#update(JsonNode, long) UserService.update(User, long)
      */
     @PatchMapping(value = "/user/{id}",
         consumes = "application/json")
     public ResponseEntity<?> updateUser(
         @RequestBody
-            User updateUser,
+                JsonNode newValues,
         @PathVariable
             long id)
     {
-        userService.update(updateUser,
+        userService.update(newValues,
             id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -213,6 +211,7 @@ public class UserController
      * @return JSON of the current user. Status of OK
      * @see UserService#findByName(String) UserService.findByName(authenticated user)
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @GetMapping(value = "/getuserinfo",
         produces = {"application/json"})
     public ResponseEntity<?> getCurrentUserInfo(Authentication authentication)
@@ -223,13 +222,13 @@ public class UserController
     }
 
     /**
-     * /favs endpoint
+     * /favorites endpoint
      * gets all of current users fav cities
-     * extracts user from tokoen
+     * extracts user from token
      * @param authentication used to extract user from token
      * @return list of current user's fav cities
      */
-    @GetMapping(value = "/favs",
+    @GetMapping(value = "/favorites",
     produces = "application/json")
     public ResponseEntity<?> getUsersCities(Authentication authentication)
     {

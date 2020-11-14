@@ -189,9 +189,9 @@ class UserControllerTest {
                           Exception {
         String apiUrl = "/users/user/{id}";
 
-        Mockito.when(userService.update(any(User.class),
-            any(Long.class)))
-            .thenReturn(userList.get(0));
+//        Mockito.when(userService.update(any(User.class),
+//            any(Long.class)))
+//            .thenReturn(userList.get(0));
 
         RequestBuilder rb = MockMvcRequestBuilders.put(apiUrl,
             2L)
@@ -209,9 +209,9 @@ class UserControllerTest {
                       Exception {
         String apiUrl = "/users/user/{id}";
 
-        Mockito.when(userService.update(any(User.class),
-            any(Long.class)))
-            .thenReturn(userList.get(0));
+//        Mockito.when(userService.update(any(User.class),
+//            any(Long.class)))
+//            .thenReturn(userList.get(0));
 
         RequestBuilder rb = MockMvcRequestBuilders.put(apiUrl,
             2L)
