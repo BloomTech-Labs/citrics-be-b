@@ -1,119 +1,106 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "population_history")
-public class PopulationHistory extends Auditable
-{
-    /**
-     * Model for City's historical population data
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private long populationId;
+public class PopulationHistory extends Auditable {
 
-    /**
-     * Year of entry
-     */
-    @NotNull
-    private int year;
+  /**
+   * Model for City's historical population data
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @JsonIgnore
+  private long populationId;
 
-    /**
-     * City's average population
-     */
-    private long population;
+  /**
+   * Year of entry
+   */
+  @NotNull
+  private int year;
 
-    /**
-     * City entry belongs to
-     */
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    @NotNull
-    @JsonIgnore
-    private City city;
+  /**
+   * City's average population
+   */
+  private long population;
 
-    /**
-     * Default constructor
-     */
-    public PopulationHistory()
-    {
-    }
+  /**
+   * City entry belongs to
+   */
+  @ManyToOne
+  @JoinColumn(name = "city_id")
+  @NotNull
+  @JsonIgnore
+  private City city;
 
-    /**
-     * Main constructor
-     * @param year Year of entry
-     * @param population Average population
-     * @param city City entry belongs to
-     */
-    public PopulationHistory(
-            @NotNull int year,
-            long population,
-            @NotNull City city)
-    {
-        this.year = year;
-        this.population = population;
-        this.city = city;
-    }
+  /**
+   * Default constructor
+   */
+  public PopulationHistory() {}
 
-    /**
-     * Getters and setters for PopulationHistory's fields
-     *
-     **********************************************************************************************/
-    public long getPopulationId()
-    {
-        return populationId;
-    }
+  /**
+   * Main constructor
+   * @param year Year of entry
+   * @param population Average population
+   * @param city City entry belongs to
+   */
+  public PopulationHistory(
+    @NotNull int year,
+    long population,
+    @NotNull City city
+  ) {
+    this.year = year;
+    this.population = population;
+    this.city = city;
+  }
 
-    public void setPopulationId(long populationId)
-    {
-        this.populationId = populationId;
-    }
+  /**
+   * Getters and setters for PopulationHistory's fields
+   *
+   **********************************************************************************************/
+  public long getPopulationId() {
+    return populationId;
+  }
 
-    public int getYear()
-    {
-        return year;
-    }
+  public void setPopulationId(long populationId) {
+    this.populationId = populationId;
+  }
 
-    public void setYear(int year)
-    {
-        this.year = year;
-    }
+  public int getYear() {
+    return year;
+  }
 
-    public long getPopulation()
-    {
-        return population;
-    }
+  public void setYear(int year) {
+    this.year = year;
+  }
 
-    public void setPopulation(long pop)
-    {
-        this.population = pop;
-    }
+  public long getPopulation() {
+    return population;
+  }
 
-    public City getCity()
-    {
-        return city;
-    }
+  public void setPopulation(long pop) {
+    this.population = pop;
+  }
 
-    public void setCity(City city)
-    {
-        this.city = city;
-    }
+  public City getCity() {
+    return city;
+  }
 
-    /**
-     * Override default toString()
-     * @return String of PopulationHistory object
-     */
-    @Override
-    public String toString()
-    {
-        return "PopulationHistory{" +
-            "year=" + year +
-            ", population=" + population +
-            '}';
-    }
+  public void setCity(City city) {
+    this.city = city;
+  }
+
+  /**
+   * Override default toString()
+   * @return String of PopulationHistory object
+   */
+  @Override
+  public String toString() {
+    return (
+      "PopulationHistory{" + "year=" + year + ", population=" + population + '}'
+    );
+  }
 }

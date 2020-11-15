@@ -1,7 +1,6 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,155 +9,146 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "historical_covid")
-public class HistoricalCovid extends Auditable
-{
-    /**
-     * Covid entry ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private long covidId;
+public class HistoricalCovid extends Auditable {
 
-    /**
-     * Year of entry's data
-     */
-    @NotNull
-    private int year;
+  /**
+   * Covid entry ID
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @JsonIgnore
+  private long covidId;
 
-    /**
-     * Month of entry's data
-     */
-    @NotNull
-    private int month;
+  /**
+   * Year of entry's data
+   */
+  @NotNull
+  private int year;
 
-    /**
-     * Day of entry's data
-     */
-    @NotNull
-    private int day;
+  /**
+   * Month of entry's data
+   */
+  @NotNull
+  private int month;
 
-    /**
-     * Cases recorded on entry's date
-     */
-    @NotNull
-    private int cases;
+  /**
+   * Day of entry's data
+   */
+  @NotNull
+  private int day;
 
-    /**
-     * City entry belongs to
-     */
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    @NotNull
-    @JsonIgnore
-    private City city;
+  /**
+   * Cases recorded on entry's date
+   */
+  @NotNull
+  private int cases;
 
-    /**
-     * Default constructor
-     */
-    public HistoricalCovid()
-    {
-    }
+  /**
+   * City entry belongs to
+   */
+  @ManyToOne
+  @JoinColumn(name = "city_id")
+  @NotNull
+  @JsonIgnore
+  private City city;
 
-    /**
-     * Main constructor
-     * @param year Year of entry
-     * @param month Month of entry
-     * @param day Day of entry
-     * @param cases Cases recorded date of entry
-     * @param city City entry belongs to
-     */
-    public HistoricalCovid(
-        @NotNull int year,
-        @NotNull int month,
-        @NotNull int day,
-        @NotNull int cases,
-        @NotNull City city)
-    {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.cases = cases;
-        this.city = city;
-    }
+  /**
+   * Default constructor
+   */
+  public HistoricalCovid() {}
 
-    /**
-     * Getters and Setters for HistoricalCovid fields
-     *
-     **************************************************************************************/
+  /**
+   * Main constructor
+   * @param year Year of entry
+   * @param month Month of entry
+   * @param day Day of entry
+   * @param cases Cases recorded date of entry
+   * @param city City entry belongs to
+   */
+  public HistoricalCovid(
+    @NotNull int year,
+    @NotNull int month,
+    @NotNull int day,
+    @NotNull int cases,
+    @NotNull City city
+  ) {
+    this.year = year;
+    this.month = month;
+    this.day = day;
+    this.cases = cases;
+    this.city = city;
+  }
 
-    public long getCovidId()
-    {
-        return covidId;
-    }
+  /**
+   * Getters and Setters for HistoricalCovid fields
+   *
+   **************************************************************************************/
 
-    public void setCovidId(long covidId)
-    {
-        this.covidId = covidId;
-    }
+  public long getCovidId() {
+    return covidId;
+  }
 
-    public int getYear()
-    {
-        return year;
-    }
+  public void setCovidId(long covidId) {
+    this.covidId = covidId;
+  }
 
-    public void setYear(int year)
-    {
-        this.year = year;
-    }
+  public int getYear() {
+    return year;
+  }
 
-    public int getMonth()
-    {
-        return month;
-    }
+  public void setYear(int year) {
+    this.year = year;
+  }
 
-    public void setMonth(int month)
-    {
-        this.month = month;
-    }
+  public int getMonth() {
+    return month;
+  }
 
-    public int getDay()
-    {
-        return day;
-    }
+  public void setMonth(int month) {
+    this.month = month;
+  }
 
-    public void setDay(int day)
-    {
-        this.day = day;
-    }
+  public int getDay() {
+    return day;
+  }
 
-    public int getCases()
-    {
-        return cases;
-    }
+  public void setDay(int day) {
+    this.day = day;
+  }
 
-    public void setCases(int cases)
-    {
-        this.cases = cases;
-    }
+  public int getCases() {
+    return cases;
+  }
 
-    public City getCity()
-    {
-        return city;
-    }
+  public void setCases(int cases) {
+    this.cases = cases;
+  }
 
-    public void setCity(City city)
-    {
-        this.city = city;
-    }
+  public City getCity() {
+    return city;
+  }
 
-    /**
-     * Override default toString()
-     * @return String of HistoricalCovid object
-     */
-    @Override
-    public String toString()
-    {
-        return "HistoricalCovid{" +
-            "year=" + year +
-            ", month=" + month +
-            ", day=" + day +
-            ", cases=" + cases +
-            '}';
-    }
+  public void setCity(City city) {
+    this.city = city;
+  }
+
+  /**
+   * Override default toString()
+   * @return String of HistoricalCovid object
+   */
+  @Override
+  public String toString() {
+    return (
+      "HistoricalCovid{" +
+      "year=" +
+      year +
+      ", month=" +
+      month +
+      ", day=" +
+      day +
+      ", cases=" +
+      cases +
+      '}'
+    );
+  }
 }
