@@ -3,165 +3,175 @@ package com.lambdaschool.foundation.models;
 /**
  * special class for city id + name schema
  */
-public class CityAbstract
-{
-    /**
-     * city id, already established, pulled from existing data in DB
-     */
-    private long cityId;
+public class CityAbstract {
 
-    /**
-     * city name, already established, pulled from existing data in DB
-     */
-    private String cityName;
+  /**
+   * city id, already established, pulled from existing data in DB
+   */
+  private long cityId;
 
-    /**
-     * state postal code, already established, pulled from existing data in DB
-     */
-    private String stateCode;
+  /**
+   * city name, already established, pulled from existing data in DB
+   */
+  private String cityName;
 
-    /**
-     *  city population, already established, pulled from existing data in DB
-     */
+  /**
+   * state postal code, already established, pulled from existing data in DB
+   */
+  private String stateCode;
 
-    private Long population;
+  /**
+   *  city population, already established, pulled from existing data in DB
+   */
 
-    /**
-     * average home cost, already established, pulled from existing data in DB
-     */
-    private Double averageHomeCost;
+  private Long population;
 
-    /**
-     * average rent, already established, pulled from existing data in DB
-     */
-    private Double rent;
+  /**
+   * average home cost, already established, pulled from existing data in DB
+   */
+  private Double averageHomeCost;
 
-    /**
-     * cost of living index, already established, pulled from existing data in
-     * DB
-     */
-    private Double costOfLivingIndex;
+  /**
+   * average rent, already established, pulled from existing data in DB
+   */
+  private Double rent;
 
-    /**
-     * Default constructor
-     */
-    public CityAbstract()
-    {
-    }
+  /**
+   * cost of living index, already established, pulled from existing data in
+   * DB
+   */
+  private Double costOfLivingIndex;
 
-    /**
-     * Main constructor
-     * @param cityId database id of city
-     * @param cityName name of city
-     * @param stateCode postal code of state of city
-     * @param population population of city
-     * @param averageHomeCost average home cost of city
-     * @param rent average rent of city
-     * @param costOfLivingIndex cost of living index of city
-     */
-    public CityAbstract(long cityId, String cityName, String stateCode,
-                        Long population, Double averageHomeCost, Double rent,
-                        Double costOfLivingIndex) {
-        this.cityId = cityId;
-        this.cityName = cityName;
-        this.stateCode = stateCode;
-        this.population = population;
-        this.averageHomeCost = averageHomeCost;
-        this.rent = rent;
-        this.costOfLivingIndex = costOfLivingIndex;
-    }
+  /**
+   * Default constructor
+   */
+  public CityAbstract() {}
 
-    /**
-     * Getter for cityId
-     * @return cityId
-     */
-    public long getCityId()
-    {
-        return cityId;
-    }
+  /**
+   * Main constructor
+   * @param cityId database id of city
+   * @param cityName name of city
+   * @param stateCode postal code of state of city
+   * @param population population of city
+   * @param averageHomeCost average home cost of city
+   * @param rent average rent of city
+   * @param costOfLivingIndex cost of living index of city
+   */
+  public CityAbstract(
+    long cityId,
+    String cityName,
+    String stateCode,
+    Long population,
+    Double averageHomeCost,
+    Double rent,
+    Double costOfLivingIndex
+  ) {
+    this.cityId = cityId;
+    this.cityName = cityName;
+    this.stateCode = stateCode;
+    this.population = population;
+    this.averageHomeCost = averageHomeCost;
+    this.rent = rent;
+    this.costOfLivingIndex = costOfLivingIndex;
+  }
 
-    /**
-     * Setter for cityId
-     * @param cityId cityId
-     */
-    public void setCityId(long cityId)
-    {
-        this.cityId = cityId;
-    }
+  /**
+   * Getter for cityId
+   * @return cityId
+   */
+  public long getCityId() {
+    return cityId;
+  }
 
-    /**
-     * Getter for cityName
-     * @return CityName
-     */
-    public String getCityName()
-    {
-        return cityName;
-    }
+  /**
+   * Setter for cityId
+   * @param cityId cityId
+   */
+  public void setCityId(long cityId) {
+    this.cityId = cityId;
+  }
 
-    /**
-     * Setter for cityName
-     * @param cityName CityName
-     */
-    public void setCityName(String cityName)
-    {
-        this.cityName = cityName;
-    }
+  /**
+   * Getter for cityName
+   * @return CityName
+   */
+  public String getCityName() {
+    return cityName;
+  }
 
-    public String getStateCode() {
-        return stateCode;
-    }
+  /**
+   * Setter for cityName
+   * @param cityName CityName
+   */
+  public void setCityName(String cityName) {
+    this.cityName = cityName;
+  }
 
-    public void setStateCode(String stateCode) {
-        this.stateCode = stateCode;
-    }
+  public String getStateCode() {
+    return stateCode;
+  }
 
-    public Long getPopulation() {
-        return population;
-    }
+  public void setStateCode(String stateCode) {
+    this.stateCode = stateCode;
+  }
 
-    public void setPopulation(Long population) {
-        this.population = population;
-    }
+  public Long getPopulation() {
+    return population;
+  }
 
-    public Double getAverageHomeCost() {
-        return averageHomeCost;
-    }
+  public void setPopulation(Long population) {
+    this.population = population;
+  }
 
-    public void setAverageHomeCost(Double averageHomeCost) {
-        this.averageHomeCost = averageHomeCost;
-    }
+  public Double getAverageHomeCost() {
+    return averageHomeCost;
+  }
 
-    public Double getRent() {
-        return rent;
-    }
+  public void setAverageHomeCost(Double averageHomeCost) {
+    this.averageHomeCost = averageHomeCost;
+  }
 
-    public void setRent(Double rent) {
-        this.rent = rent;
-    }
+  public Double getRent() {
+    return rent;
+  }
 
-    public Double getCostOfLivingIndex() {
-        return costOfLivingIndex;
-    }
+  public void setRent(Double rent) {
+    this.rent = rent;
+  }
 
-    public void setCostOfLivingIndex(Double costOfLivingIndex) {
-        this.costOfLivingIndex = costOfLivingIndex;
-    }
+  public Double getCostOfLivingIndex() {
+    return costOfLivingIndex;
+  }
 
-    /**
-     * Override default toString method
-     * @return String representation of object
-     */
-    @Override
-    public String toString()
-    {
-        return "CityAbstract{" +
-            "cityId=" + cityId +
-            ", cityName='" + cityName + "'" +
-            ", stateCode'" + stateCode + "'" +
-            ", population" + population +
-            ", averageHomeCost" + averageHomeCost +
-            ", rent" + rent +
-            ", costOfLivingIndex" + costOfLivingIndex +
-            '}';
-    }
+  public void setCostOfLivingIndex(Double costOfLivingIndex) {
+    this.costOfLivingIndex = costOfLivingIndex;
+  }
+
+  /**
+   * Override default toString method
+   * @return String representation of object
+   */
+  @Override
+  public String toString() {
+    return (
+      "CityAbstract{" +
+      "cityId=" +
+      cityId +
+      ", cityName='" +
+      cityName +
+      "'" +
+      ", stateCode'" +
+      stateCode +
+      "'" +
+      ", population" +
+      population +
+      ", averageHomeCost" +
+      averageHomeCost +
+      ", rent" +
+      rent +
+      ", costOfLivingIndex" +
+      costOfLivingIndex +
+      '}'
+    );
+  }
 }
