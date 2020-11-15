@@ -1,7 +1,6 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,134 +9,126 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "historical_home_cost")
-public class HistoricalHomeCost extends Auditable
-{
-    /**
-     * Data entry ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private long houseId;
+public class HistoricalHomeCost extends Auditable {
 
-    /**
-     * Year of entry
-     */
-    @NotNull
-    private int year;
+  /**
+   * Data entry ID
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @JsonIgnore
+  private long houseId;
 
-    /**
-     * Month of entry
-     */
-    @NotNull
-    private int month;
+  /**
+   * Year of entry
+   */
+  @NotNull
+  private int year;
 
-    /**
-     * Average housing cost of recorded data
-     */
-    @NotNull
-    private int homeCost;
+  /**
+   * Month of entry
+   */
+  @NotNull
+  private int month;
 
-    /**
-     * City entry belongs to
-     */
-    @ManyToOne()
-    @JoinColumn(name = "city_id")
-    @NotNull
-    @JsonIgnore
-    private City city;
+  /**
+   * Average housing cost of recorded data
+   */
+  @NotNull
+  private int homeCost;
 
-    /**
-     * Default constructor
-     */
-    public HistoricalHomeCost()
-    {
-    }
+  /**
+   * City entry belongs to
+   */
+  @ManyToOne
+  @JoinColumn(name = "city_id")
+  @NotNull
+  @JsonIgnore
+  private City city;
 
-    /**
-     * Main constructor
-     * @param year Year of entry
-     * @param month Month of entry
-     * @param homeCost Cost at date of entry
-     * @param city City entry belongs to
-     */
-    public HistoricalHomeCost(
-        @NotNull int year,
-        @NotNull int month,
-        @NotNull int homeCost,
-        @NotNull City city)
-    {
-        this.year = year;
-        this.month = month;
-        this.homeCost = homeCost;
-        this.city = city;
-    }
+  /**
+   * Default constructor
+   */
+  public HistoricalHomeCost() {}
 
-    /**
-     * Getters and setters for HistoricalHomeCost's fields
-     *
-     ********************************************************************************/
-    public long getHouseId()
-    {
-        return houseId;
-    }
+  /**
+   * Main constructor
+   * @param year Year of entry
+   * @param month Month of entry
+   * @param homeCost Cost at date of entry
+   * @param city City entry belongs to
+   */
+  public HistoricalHomeCost(
+    @NotNull int year,
+    @NotNull int month,
+    @NotNull int homeCost,
+    @NotNull City city
+  ) {
+    this.year = year;
+    this.month = month;
+    this.homeCost = homeCost;
+    this.city = city;
+  }
 
-    public void setHouseId(long houseId)
-    {
-        this.houseId = houseId;
-    }
+  /**
+   * Getters and setters for HistoricalHomeCost's fields
+   *
+   ********************************************************************************/
+  public long getHouseId() {
+    return houseId;
+  }
 
-    public int getYear()
-    {
-        return year;
-    }
+  public void setHouseId(long houseId) {
+    this.houseId = houseId;
+  }
 
-    public void setYear(int year)
-    {
-        this.year = year;
-    }
+  public int getYear() {
+    return year;
+  }
 
-    public int getHomeCost()
-    {
-        return homeCost;
-    }
+  public void setYear(int year) {
+    this.year = year;
+  }
 
-    public void setHomeCost(int homeCost)
-    {
-        this.homeCost = homeCost;
-    }
+  public int getHomeCost() {
+    return homeCost;
+  }
 
-    public City getCity()
-    {
-        return city;
-    }
+  public void setHomeCost(int homeCost) {
+    this.homeCost = homeCost;
+  }
 
-    public void setCity(City city)
-    {
-        this.city = city;
-    }
+  public City getCity() {
+    return city;
+  }
 
-    public int getMonth()
-    {
-        return month;
-    }
+  public void setCity(City city) {
+    this.city = city;
+  }
 
-    public void setMonth(int month)
-    {
-        this.month = month;
-    }
+  public int getMonth() {
+    return month;
+  }
 
-    /**
-     * Override default toString()
-     * @return String of HistoricalHomeCost object
-     */
-    @Override
-    public String toString()
-    {
-        return "HistoricalHomeCost{" +
-            "year=" + year +
-            ", month=" + month +
-            ", homeCost=" + homeCost +
-            '}';
-    }
+  public void setMonth(int month) {
+    this.month = month;
+  }
+
+  /**
+   * Override default toString()
+   * @return String of HistoricalHomeCost object
+   */
+  @Override
+  public String toString() {
+    return (
+      "HistoricalHomeCost{" +
+      "year=" +
+      year +
+      ", month=" +
+      month +
+      ", homeCost=" +
+      homeCost +
+      '}'
+    );
+  }
 }

@@ -1,7 +1,6 @@
 package com.lambdaschool.foundation.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -10,134 +9,127 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "historical_weather")
-public class HistoricalWeather extends Auditable
-{
-    /**
-     * Weather data ID
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
-    private long weatherId;
+public class HistoricalWeather extends Auditable {
 
-    /**
-     * Month of entry
-     */
-    @NotNull
-    private String month;
+  /**
+   * Weather data ID
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @JsonIgnore
+  private long weatherId;
 
-    /**
-     * City's average recorded precipitation
-     */
-    @NotNull
-    private Double precipitation;
+  /**
+   * Month of entry
+   */
+  @NotNull
+  private String month;
 
-    /**
-     * City's average recorded temperature
-     */
-    @NotNull
-    private Double temperature;
+  /**
+   * City's average recorded precipitation
+   */
+  @NotNull
+  private Double precipitation;
 
-    /**
-     * City entry belongs to
-     */
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    @NotNull
-    @JsonIgnore
-    private City city;
+  /**
+   * City's average recorded temperature
+   */
+  @NotNull
+  private Double temperature;
 
-    /**
-     * Default constructor
-     */
-    public HistoricalWeather()
-    {
-    }
+  /**
+   * City entry belongs to
+   */
+  @ManyToOne
+  @JoinColumn(name = "city_id")
+  @NotNull
+  @JsonIgnore
+  private City city;
 
-    /**
-     * Main constructor
-     * @param month Month of entry
-     * @param precipitation Average precipitation
-     * @param temperature Average temperature
-     * @param city City entry belongs to
-     */
-    public HistoricalWeather(
-        @NotNull String month,
-        @NotNull Double precipitation,
-        @NotNull Double temperature,
-        @NotNull City city)
-    {
-        this.month = month;
-        this.precipitation = precipitation;
-        this.temperature = temperature;
-        this.city = city;
-    }
+  /**
+   * Default constructor
+   */
+  public HistoricalWeather() {}
 
-    /**
-     * Getters and setters for HistoricalWeather's fields
-     *
-     *******************************************************************************/
-    public long getWeatherId()
-    {
-        return weatherId;
-    }
+  /**
+   * Main constructor
+   * @param month Month of entry
+   * @param precipitation Average precipitation
+   * @param temperature Average temperature
+   * @param city City entry belongs to
+   */
+  public HistoricalWeather(
+    @NotNull String month,
+    @NotNull Double precipitation,
+    @NotNull Double temperature,
+    @NotNull City city
+  ) {
+    this.month = month;
+    this.precipitation = precipitation;
+    this.temperature = temperature;
+    this.city = city;
+  }
 
-    public void setWeatherId(long weatherId)
-    {
-        this.weatherId = weatherId;
-    }
+  /**
+   * Getters and setters for HistoricalWeather's fields
+   *
+   *******************************************************************************/
+  public long getWeatherId() {
+    return weatherId;
+  }
 
-    public String getMonth()
-    {
-        return month;
-    }
+  public void setWeatherId(long weatherId) {
+    this.weatherId = weatherId;
+  }
 
-    public void setMonth(String month)
-    {
-        this.month = month;
-    }
+  public String getMonth() {
+    return month;
+  }
 
-    public Double getPrecipitation()
-    {
-        return precipitation;
-    }
+  public void setMonth(String month) {
+    this.month = month;
+  }
 
-    public void setPrecipitation(Double precipitation)
-    {
-        this.precipitation = precipitation;
-    }
+  public Double getPrecipitation() {
+    return precipitation;
+  }
 
-    public Double getTemperature()
-    {
-        return temperature;
-    }
+  public void setPrecipitation(Double precipitation) {
+    this.precipitation = precipitation;
+  }
 
-    public void setTemperature(Double temperature)
-    {
-        this.temperature = temperature;
-    }
+  public Double getTemperature() {
+    return temperature;
+  }
 
-    public City getCity()
-    {
-        return city;
-    }
+  public void setTemperature(Double temperature) {
+    this.temperature = temperature;
+  }
 
-    public void setCity(City city)
-    {
-        this.city = city;
-    }
+  public City getCity() {
+    return city;
+  }
 
-    /**
-     * Override default toString()
-     * @return String of HistoricalWeather object
-     */
-    @Override
-    public String toString()
-    {
-        return "HistoricalWeather{" +
-            "month='" + month + '\'' +
-            ", precipitation=" + precipitation +
-            ", temperature=" + temperature +
-            '}';
-    }
+  public void setCity(City city) {
+    this.city = city;
+  }
+
+  /**
+   * Override default toString()
+   * @return String of HistoricalWeather object
+   */
+  @Override
+  public String toString() {
+    return (
+      "HistoricalWeather{" +
+      "month='" +
+      month +
+      '\'' +
+      ", precipitation=" +
+      precipitation +
+      ", temperature=" +
+      temperature +
+      '}'
+    );
+  }
 }
