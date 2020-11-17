@@ -20,28 +20,28 @@ public class CityServiceImpl implements CityService {
    * Connections to needed repositories
    */
   @Autowired
-  private CityRepository cityrepo;
+  private CityRepository cityRepository;
 
   @Autowired
-  private ZipcodeRepository ziprepo;
+  private ZipcodeRepository zipcodeRepository;
 
   @Autowired
-  private PopulationHistRepository poprepo;
+  private PopulationHistRepository populationHistRepository;
 
   @Autowired
-  private HistoricalIncomeRepository increpo;
+  private HistoricalIncomeRepository historicalIncomeRepository;
 
   @Autowired
-  private HistoricalHousingRepository housrepo;
+  private HistoricalHousingRepository historicalHousingRepository;
 
   @Autowired
-  private HistoricalCovidRepository covrepo;
+  private HistoricalCovidRepository historicalCovidRepository;
 
   @Autowired
-  private HistoricalWeatherRepository wearepo;
+  private HistoricalWeatherRepository historicalWeatherRepository;
 
   @Autowired
-  private UserRepository userrepo;
+  private UserRepository userRepository;
 
   /**
    * Find all cities in DB
@@ -52,7 +52,7 @@ public class CityServiceImpl implements CityService {
   public List<City> findAll() {
     List<City> list = new ArrayList<>();
 
-    cityrepo.findAll().iterator().forEachRemaining(list::add);
+    cityRepository.findAll().iterator().forEachRemaining(list::add);
 
     return list;
   }
@@ -66,7 +66,7 @@ public class CityServiceImpl implements CityService {
    */
   @Override
   public City findCityById(long id) throws ResourceNotFoundException {
-    return cityrepo
+    return cityRepository
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException("City id " + id + " not found!")
@@ -85,7 +85,7 @@ public class CityServiceImpl implements CityService {
     City c = new City();
 
     if (city.getCityId() != 0) {
-      cityrepo
+      cityRepository
         .findById(city.getCityId())
         .orElseThrow(
           () ->
@@ -116,7 +116,7 @@ public class CityServiceImpl implements CityService {
     c.setAcaStatus(city.getAcaStatus());
 
     for (Zipcode z : city.getZipcodes()) {
-      Zipcode zip = ziprepo
+      Zipcode zip = zipcodeRepository
         .findById(z.getZipId())
         .orElseThrow(
           () ->
@@ -225,7 +225,7 @@ public class CityServiceImpl implements CityService {
     c.setAveragePrecipitation(city.getAveragePrecipitation());
     c.setAverageNewCovidCases(city.getAverageNewCovidCases());
 
-    return cityrepo.save(c);
+    return cityRepository.save(c);
   }
 
   /**
@@ -561,7 +561,7 @@ public class CityServiceImpl implements CityService {
     c.setAveragePrecipitation(totalPerc / totalPercCount);
     c.setAverageNewCovidCases(totalCovid / totalCovidCount);
 
-    return cityrepo.save(c);
+    return cityRepository.save(c);
   }
 
   /**
@@ -572,7 +572,7 @@ public class CityServiceImpl implements CityService {
    */
   @Override
   public City findByCityName(String name) {
-    City c = cityrepo.findByCityName(name);
+    City c = cityRepository.findByCityName(name);
     if (c == null) {
       throw new ResourceNotFoundException("City name " + name + " not found!");
     }
@@ -588,7 +588,7 @@ public class CityServiceImpl implements CityService {
   public List<CityAbstract> findAllIds() {
     List<CityAbstract> cities = new ArrayList<>();
 
-    cityrepo
+    cityRepository
       .findAll()
       .iterator()
       .forEachRemaining(
@@ -636,7 +636,7 @@ public class CityServiceImpl implements CityService {
     double totalPerc = 0;
     double totalCov = 0;
 
-    cityrepo.findAll().iterator().forEachRemaining(cities::add);
+    cityRepository.findAll().iterator().forEachRemaining(cities::add);
 
     for (int i = 0; i < cities.size(); i++) {
       totalCities++;
