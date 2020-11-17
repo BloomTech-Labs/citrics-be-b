@@ -93,24 +93,7 @@ public class CityServiceImpl implements CityService {
 
     for (City city : cityList) {
       // continue loop (don't add city) if it fails any filter criteria
-      if (currentUser.getMinPopulation() != null)
-        if (city.getPopulation() < currentUser.getMinPopulation())
-          continue;
-      if (currentUser.getMaxPopulation() != null)
-        if (city.getPopulation() > currentUser.getMaxPopulation())
-          continue;
-      if (currentUser.getMinRent() != null)
-        if (city.getRent() < currentUser.getMinRent())
-          continue;
-      if (currentUser.getMaxRent() != null)
-        if (city.getRent() > currentUser.getMaxRent())
-          continue;
-      if (currentUser.getMaxHouseCost() != null)
-        if (city.getAverageHomeCost() < currentUser.getMinHouseCost())
-          continue;
-      if (currentUser.getMaxHouseCost() != null)
-        if (city.getAverageHomeCost() > currentUser.getMaxHouseCost())
-          continue;
+      if (filter(currentUser, city)) continue;
 
       matchList.add(city.getCityId());
       // if we have a maximum, check if we have reached it
