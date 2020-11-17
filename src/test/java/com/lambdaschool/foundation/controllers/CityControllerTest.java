@@ -175,7 +175,7 @@ class CityControllerTest
         /**
          * Tells Mockito to return City at index 0 of cities when CityService.findAverageCity() is called
          */
-        Mockito.when(service.findAverageCity()).thenReturn(cities.get(0));
+//        Mockito.when(service.findAverageCity()).thenReturn(cities.get(0));
 
         /**
          * Mocks a Get network request and asserts the JSON returned == cities[0]

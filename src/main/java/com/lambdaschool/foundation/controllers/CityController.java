@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class CityController {
 
   /**
-   * Conenction to city services
+   * Connection to city services
    */
   private final CityService cityService;
 
@@ -28,7 +28,7 @@ public class CityController {
   }
 
   //    /**
-  //     *  /all endpont (Not enough memory in free tier of
+  //     *  /all endpoint (Not enough memory in free tier of
   //     *  Heroku to use with fully populated DB. Disabled until
   //     *  resources are available)
   //     * @return list of all cities
@@ -42,9 +42,9 @@ public class CityController {
   //    }
 
   /**
-   * /city/{cityid} endpoint
-   * @param id cityid
-   * @return city object matching cityid or throws exception
+   * /city/{id} endpoint
+   * @param id city id
+   * @return city object matching city id or throws exception
    */
   @GetMapping(value = "/city/{id}", produces = "application/json")
   public ResponseEntity<?> getCityById(@PathVariable Long id) {
@@ -54,7 +54,7 @@ public class CityController {
 
   /**
    * /allid endpoint
-   * @return list of all City name's and id's
+   * @return list of all City abstracts
    */
   @GetMapping(value = "/allid", produces = "application/json")
   public ResponseEntity<?> listAllCityIds() {
@@ -64,31 +64,25 @@ public class CityController {
   }
 
   /**
-   * /avg endpoint
-   * @return City with average fields of all cities
    */
-  @GetMapping(value = "/avg", produces = "application/json")
-  public ResponseEntity<?> getAverageCity() {
-    City c = cityService.returnAverageCity();
 
-    return new ResponseEntity<>(c, HttpStatus.OK);
   }
 
   /**
-   * /fav/{cityid} endpoint
+   * /fav/{cityId} endpoint
    * this adds city to users fav cities
    * extracts user from token
-   * @param cityid cityid to be added to favs
+   * @param cityId city id to be added to favs
    * @param authentication used to extract user from token
    * @return null, 201 status
    */
-  @PostMapping(value = "/fav/{cityid}")
+  @PostMapping(value = "/fav/{cityId}")
   public ResponseEntity<?> addFavCity(
-    @PathVariable long cityid,
+    @PathVariable long cityId,
     Authentication authentication
   ) {
     User u = userService.findByName(authentication.getName());
-    cityService.saveFavCity(cityid, u);
+    cityService.saveFavCity(cityId, u);
 
     return new ResponseEntity<>(null, HttpStatus.CREATED);
   }
