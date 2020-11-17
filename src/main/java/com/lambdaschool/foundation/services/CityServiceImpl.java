@@ -77,6 +77,51 @@ public class CityServiceImpl implements CityService {
   }
 
   /**
+   * Find all cities ids of cities matching the current user's filter
+   * @param maxLength Maximum length or return list, if 0 there is no maximum
+   * @return List of city ids of cities matching the current user's filter
+   */
+  @Override
+  public List<Long> findIdByFilter(int maxLength) {
+    // TODO use authenticated user
+    long id = 1;
+    List<Long> matchList = new ArrayList<>();
+    List<City> cityList = findAll();
+    User currentUser = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "User id " + id + " not found!"));
+
+    for (City city : cityList) {
+      // continue loop (don't add city) if it fails any filter criteria
+      if (currentUser.getMinPopulation() != null)
+        if (city.getPopulation() < currentUser.getMinPopulation())
+          continue;
+      if (currentUser.getMaxPopulation() != null)
+        if (city.getPopulation() > currentUser.getMaxPopulation())
+          continue;
+      if (currentUser.getMinRent() != null)
+        if (city.getRent() < currentUser.getMinRent())
+          continue;
+      if (currentUser.getMaxRent() != null)
+        if (city.getRent() > currentUser.getMaxRent())
+          continue;
+      if (currentUser.getMaxHouseCost() != null)
+        if (city.getAverageHomeCost() < currentUser.getMinHouseCost())
+          continue;
+      if (currentUser.getMaxHouseCost() != null)
+        if (city.getAverageHomeCost() > currentUser.getMaxHouseCost())
+          continue;
+
+      matchList.add(city.getCityId());
+      // if we have a maximum, check if we have reached it
+      if (maxLength != 0 && matchList.size() == maxLength)
+        break;
+    }
+
+    return matchList;
+  }
+
+  /**
    * Saves new city to DB
    * Had to modify last minute to accept new city schema returned by DS
    * @param city new city to be saved

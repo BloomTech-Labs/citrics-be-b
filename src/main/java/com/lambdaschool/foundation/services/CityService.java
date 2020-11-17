@@ -21,6 +21,13 @@ public interface CityService {
   City findCityById(long id);
 
   /**
+   * Find all cities ids of cities matching the current user's filter
+   * @param maxLength Maximum length or return list, if 0 there is no maximum
+   * @return List of city ids of cities matching the current user's filter
+   */
+  List<Long> findIdByFilter(int maxLength);
+
+  /**
    * Saves new city
    * @param city new city to be saved
    * @return newly saved City
