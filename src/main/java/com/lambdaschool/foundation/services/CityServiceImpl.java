@@ -122,6 +122,65 @@ public class CityServiceImpl implements CityService {
   }
 
   /**
+   * Find all city abstracts matching the current user's filter
+   * @param maxLength Maximum length or return list, if 0 there is no maximum
+   * @return List of city abstracts of cities matching the current user's filter
+   */
+  @Override
+  public List<CityAbstract> findAbstractByFilter(int maxLength) {
+    // TODO use authenticated user
+    long id = 1;
+    List<CityAbstract> matchList = new ArrayList<>();
+    List<City> cityList = findAll();
+    User currentUser = userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "User id " + id + " not found!"));
+
+    for (City city : cityList) {
+      // continue loop (don't add city) if it fails any filter criteria
+      if (filter(currentUser, city)) continue;
+
+      matchList.add(
+              new CityAbstract(
+                      city.getCityId(),
+                      city.getCityName(),
+                      city.getStateCode(),
+                      city.getPopulation(),
+                      city.getAverageHomeCost(),
+                      city.getRent(),
+                      city.getCostOfLivingIndex()));
+      // if we have a maximum, check if we have reached it
+      if (maxLength != 0 && matchList.size() == maxLength)
+        break;
+    }
+
+    return matchList;
+  }
+
+  private boolean filter(User currentUser, City city) {
+    if (currentUser.getMinPopulation() != null)
+      if (city.getPopulation() < currentUser.getMinPopulation())
+        return true;
+    if (currentUser.getMaxPopulation() != null)
+      if (city.getPopulation() > currentUser.getMaxPopulation())
+        return true;
+    if (currentUser.getMinRent() != null)
+      if (city.getRent() < currentUser.getMinRent())
+        return true;
+    if (currentUser.getMaxRent() != null)
+      if (city.getRent() > currentUser.getMaxRent())
+        return true;
+    if (currentUser.getMinHouseCost() != null)
+      if (city.getAverageHomeCost() < currentUser.getMinHouseCost())
+        return true;
+    if (currentUser.getMaxHouseCost() != null)
+      //noinspection RedundantIfStatement
+      if (city.getAverageHomeCost() > currentUser.getMaxHouseCost())
+        return true;
+    return false;
+  }
+
+  /**
    * Saves new city to DB
    * Had to modify last minute to accept new city schema returned by DS
    * @param city new city to be saved
