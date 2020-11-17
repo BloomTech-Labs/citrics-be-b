@@ -19,29 +19,32 @@ public class CityServiceImpl implements CityService {
   /**
    * Connections to needed repositories
    */
-  @Autowired
-  private CityRepository cityRepository;
+  private final CityRepository cityRepository;
 
-  @Autowired
-  private ZipcodeRepository zipcodeRepository;
+  private final ZipcodeRepository zipcodeRepository;
 
-  @Autowired
-  private PopulationHistRepository populationHistRepository;
+  private final PopulationHistRepository populationHistRepository;
 
-  @Autowired
-  private HistoricalIncomeRepository historicalIncomeRepository;
+  private final HistoricalIncomeRepository historicalIncomeRepository;
 
-  @Autowired
-  private HistoricalHousingRepository historicalHousingRepository;
+  private final HistoricalHousingRepository historicalHousingRepository;
 
-  @Autowired
-  private HistoricalCovidRepository historicalCovidRepository;
+  private final HistoricalCovidRepository historicalCovidRepository;
 
-  @Autowired
-  private HistoricalWeatherRepository historicalWeatherRepository;
+  private final HistoricalWeatherRepository historicalWeatherRepository;
 
-  @Autowired
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
+
+  public CityServiceImpl(CityRepository cityRepository, ZipcodeRepository zipcodeRepository, PopulationHistRepository populationHistRepository, HistoricalIncomeRepository historicalIncomeRepository, HistoricalHousingRepository historicalHousingRepository, HistoricalCovidRepository historicalCovidRepository, HistoricalWeatherRepository historicalWeatherRepository, UserRepository userRepository) {
+    this.cityRepository = cityRepository;
+    this.zipcodeRepository = zipcodeRepository;
+    this.populationHistRepository = populationHistRepository;
+    this.historicalIncomeRepository = historicalIncomeRepository;
+    this.historicalHousingRepository = historicalHousingRepository;
+    this.historicalCovidRepository = historicalCovidRepository;
+    this.historicalWeatherRepository = historicalWeatherRepository;
+    this.userRepository = userRepository;
+  }
 
   /**
    * Find all cities in DB
