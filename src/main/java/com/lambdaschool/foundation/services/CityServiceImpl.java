@@ -1,14 +1,11 @@
 package com.lambdaschool.foundation.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.*;
-import com.lambdaschool.foundation.repository.*;
+import com.lambdaschool.foundation.repository.CityRepository;
+import com.lambdaschool.foundation.repository.UserRepository;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,29 +16,35 @@ public class CityServiceImpl implements CityService {
   /**
    * Connections to needed repositories
    */
-  @Autowired
-  private CityRepository cityrepo;
+  private final CityRepository cityRepository;
 
-  @Autowired
-  private ZipcodeRepository ziprepo;
+  //  private final ZipcodeRepository zipcodeRepository;
+  //
+  //  private final PopulationHistRepository populationHistRepository;
+  //
+  //  private final HistoricalIncomeRepository historicalIncomeRepository;
+  //
+  //  private final HistoricalHousingRepository historicalHousingRepository;
+  //
+  //  private final HistoricalCovidRepository historicalCovidRepository;
+  //
+  //  private final HistoricalWeatherRepository historicalWeatherRepository;
 
-  @Autowired
-  private PopulationHistRepository poprepo;
+  private final UserRepository userRepository;
 
-  @Autowired
-  private HistoricalIncomeRepository increpo;
-
-  @Autowired
-  private HistoricalHousingRepository housrepo;
-
-  @Autowired
-  private HistoricalCovidRepository covrepo;
-
-  @Autowired
-  private HistoricalWeatherRepository wearepo;
-
-  @Autowired
-  private UserRepository userrepo;
+  public CityServiceImpl(
+    CityRepository cityRepository,
+    UserRepository userRepository
+  ) {
+    this.cityRepository = cityRepository;
+    //    this.zipcodeRepository = zipcodeRepository;
+    //    this.populationHistRepository = populationHistRepository;
+    //    this.historicalIncomeRepository = historicalIncomeRepository;
+    //    this.historicalHousingRepository = historicalHousingRepository;
+    //    this.historicalCovidRepository = historicalCovidRepository;
+    //    this.historicalWeatherRepository = historicalWeatherRepository;
+    this.userRepository = userRepository;
+  }
 
   /**
    * Find all cities in DB
@@ -52,25 +55,118 @@ public class CityServiceImpl implements CityService {
   public List<City> findAll() {
     List<City> list = new ArrayList<>();
 
-    cityrepo.findAll().iterator().forEachRemaining(list::add);
+    cityRepository.findAll().iterator().forEachRemaining(list::add);
 
     return list;
   }
 
   /**
-   * find city by cityid
+   * find city by city id
    *
    * @param id local id of city
    * @return City object matching the city id or
-   * @throws ResourceNotFoundException
+   * @throws ResourceNotFoundException no such city found
    */
   @Override
   public City findCityById(long id) throws ResourceNotFoundException {
-    return cityrepo
+    return cityRepository
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException("City id " + id + " not found!")
       );
+  }
+
+  /**
+   * Find all cities ids of cities matching the current user's filter
+   * @param maxLength Maximum length or return list, if 0 there is no maximum
+   * @return List of city ids of cities matching the current user's filter
+   */
+  @Override
+  public List<Long> findIdByFilter(int maxLength) {
+    // TODO use authenticated user
+    long id = 1;
+    List<Long> matchList = new ArrayList<>();
+    List<City> cityList = findAll();
+    User currentUser = userRepository
+      .findById(id)
+      .orElseThrow(
+        () -> new ResourceNotFoundException("User id " + id + " not found!")
+      );
+
+    for (City city : cityList) {
+      // continue loop (don't add city) if it fails any filter criteria
+      if (filter(currentUser, city)) continue;
+
+      matchList.add(city.getCityId());
+      // if we have a maximum, check if we have reached it
+      if (maxLength != 0 && matchList.size() == maxLength) break;
+    }
+
+    return matchList;
+  }
+
+  /**
+   * Find all city abstracts matching the current user's filter
+   * @param maxLength Maximum length or return list, if 0 there is no maximum
+   * @return List of city abstracts of cities matching the current user's filter
+   */
+  @Override
+  public List<CityAbstract> findAbstractByFilter(int maxLength) {
+    // TODO use authenticated user
+    long id = 1;
+    List<CityAbstract> matchList = new ArrayList<>();
+    List<City> cityList = findAll();
+    User currentUser = userRepository
+      .findById(id)
+      .orElseThrow(
+        () -> new ResourceNotFoundException("User id " + id + " not found!")
+      );
+
+    for (City city : cityList) {
+      // continue loop (don't add city) if it fails any filter criteria
+      if (filter(currentUser, city)) continue;
+
+      matchList.add(
+        new CityAbstract(
+          city.getCityId(),
+          city.getCityName(),
+          city.getStateCode(),
+          city.getPopulation(),
+          city.getAverageHomeCost(),
+          city.getRent(),
+          city.getCostOfLivingIndex(),
+          city.getImageUrl(),
+          city.getWebsite()
+        )
+      );
+      // if we have a maximum, check if we have reached it
+      if (maxLength != 0 && matchList.size() == maxLength) break;
+    }
+
+    return matchList;
+  }
+
+  private boolean filter(User currentUser, City city) {
+    if (currentUser.getMinPopulation() != null) if (
+      city.getPopulation() < currentUser.getMinPopulation()
+    ) return true;
+    if (currentUser.getMaxPopulation() != null) if (
+      city.getPopulation() > currentUser.getMaxPopulation()
+    ) return true;
+    if (currentUser.getMinRent() != null) if (
+      city.getRent() < currentUser.getMinRent()
+    ) return true;
+    if (currentUser.getMaxRent() != null) if (
+      city.getRent() > currentUser.getMaxRent()
+    ) return true;
+    if (currentUser.getMinHouseCost() != null) if (
+      city.getAverageHomeCost() < currentUser.getMinHouseCost()
+    ) return true;
+    if (
+      currentUser.getMaxHouseCost() != null
+    ) //noinspection RedundantIfStatement
+    if (city.getAverageHomeCost() > currentUser.getMaxHouseCost()) return true;
+    return false;
   }
 
   /**
@@ -85,7 +181,7 @@ public class CityServiceImpl implements CityService {
     City c = new City();
 
     if (city.getCityId() != 0) {
-      cityrepo
+      cityRepository
         .findById(city.getCityId())
         .orElseThrow(
           () ->
@@ -115,21 +211,21 @@ public class CityServiceImpl implements CityService {
     c.setCostOfLivingIndex(city.getCostOfLivingIndex());
     c.setAcaStatus(city.getAcaStatus());
 
-    for (Zipcode z : city.getZipcodes()) {
-      Zipcode zip = ziprepo
-        .findById(z.getZipId())
-        .orElseThrow(
-          () ->
-            new ResourceNotFoundException(
-              "Zipcode id " + z.getZipId() + " not found!"
-            )
-        );
-
-      c.getZipcodes().add(zip);
-    }
+    //    for (Zipcode z : city.getZipcodes()) {
+    //      Zipcode zip = zipcodeRepository
+    //        .findById(z.getZipId())
+    //        .orElseThrow(
+    //          () ->
+    //            new ResourceNotFoundException(
+    //              "Zipcode id " + z.getZipId() + " not found!"
+    //            )
+    //        );
+    //
+    //      c.getZipcodes().add(zip);
+    //    }
 
     for (PopulationHistory p : city.getPopulationHistory()) {
-      /**
+      /*
        * UNCOMMENT WHEN DB IS DONE SEEDING
        * cannot find property until DB is seeded
        */
@@ -142,7 +238,7 @@ public class CityServiceImpl implements CityService {
     }
 
     for (HistoricalIncome i : city.getHistoricalIncome()) {
-      /**
+      /*
        * UNCOMMENT WHEN DB IS DONE SEEDING
        * cannot find property until DB is seeded
        */
@@ -162,7 +258,7 @@ public class CityServiceImpl implements CityService {
     }
 
     for (HistoricalHomeCost h : city.getHistoricalHomeCost()) {
-      /**
+      /*
        * UNCOMMENT WHEN DB IS DONE SEEDING
        * cannot find property until DB is seeded
        */
@@ -177,7 +273,7 @@ public class CityServiceImpl implements CityService {
     }
 
     for (HistoricalCovid co : city.getHistoricalCovid()) {
-      /**
+      /*
        * UNCOMMENT WHEN DB IS DONE SEEDING
        * cannot find property until DB is seeded
        */
@@ -198,7 +294,7 @@ public class CityServiceImpl implements CityService {
     }
 
     for (HistoricalWeather weather : city.getHistoricalWeather()) {
-      /**
+      /*
        * UNCOMMENT WHEN DB IS DONE SEEDING
        * cannot find property until DB is seeded
        */
@@ -225,344 +321,340 @@ public class CityServiceImpl implements CityService {
     c.setAveragePrecipitation(city.getAveragePrecipitation());
     c.setAverageNewCovidCases(city.getAverageNewCovidCases());
 
-    return cityrepo.save(c);
+    return cityRepository.save(c);
   }
 
-  /**
-   * Saves new city from DS API schema
-   * Had to modify last minute to accept new city schema returned by DS
-   * @param city JSON City to be saved
-   * @return newly saved City object
-   */
-  @Transactional
-  @Override
-  public City saveDs(DSCity city) throws Exception {
-    /**
-     * Takes DScity model and converts it to City
-     */
-
-    City c = new City();
-
-    c.setCityName(city.getCity() + ", " + city.getStatename());
-    c.setStateCode(city.getAbbrev());
-    c.setTimezone(city.getTimezone());
-    c.setLatitude(city.getLatitude());
-    c.setLongitude(city.getLongitude());
-    c.setFpis(city.getFIPS());
-    c.setImageUrl(city.getWiki_img_url());
-    c.setWebsite(city.getWebsite());
-    c.setPopulation(city.getPop());
-    c.setPopulationDensity(city.getDensity_mi_sq());
-    c.setAverageAge(city.getAge());
-    c.setHouseholdIncome(city.getHousehold());
-    c.setIndividualIncome(city.getIndividual());
-    c.setAverageHomeCost(city.getHouse());
-    c.setRent(city.getRent());
-    c.setCostOfLivingIndex(city.getCOLI());
-    c.setAcaStatus(city.getACA_status());
-
-    /**
-     * Splits zipcode string into
-     * an actual list of strings
-     */
-    if (city.getZiplist() != null) {
-      String rawZip = city.getZiplist();
-      String[] split = rawZip.split(" ");
-
-      for (String s : split) {
-        c.getZipcodes().add(new Zipcode(s, c));
-      }
-    }
-
-    /**
-     * Splits historical population list string
-     * into an actual list of historical populations
-     */
-    if (city.getPop_hist() != null) {
-      DSHistoricalPop p = city.getPop_hist();
-
-      ObjectMapper mapper = new ObjectMapper();
-
-      String raw = mapper.writeValueAsString(p);
-      raw = raw.replace("{", "");
-      raw = raw.replace("}", "");
-      raw = raw.replace("\"", "");
-      raw = raw.replace("city:", "");
-      raw = raw.replace(city.getCity() + ", " + city.getStatename() + ",", "");
-      raw = raw.replace("Braintree ", "");
-      raw = raw.replace("Town,", "");
-      raw = raw.replace("Nashville-Davidson,", "");
-      //            raw = raw.replace(city.getStatename() + ",",
-      //                "");
-      raw = raw.replace("POP", "");
-      raw = raw.replace("_", "");
-      raw = raw.replace("census", "");
-      raw = raw.replace("est", "");
-
-      raw = raw.trim();
-
-      String[] split = raw.split(",");
-      //            migrating population from double to int broke it
-      //            for (String s : split)
-      //            {
-      //                String[] splits = s.split(":");
-      //                c.getPopulationHistory()
-      //                    .add(new PopulationHistory(Integer.parseInt(splits[0]),
-      //                        Double.parseDouble(splits[1]),
-      //                        c));
-      //            }
-
-    }
-
-    /**
-     * Splits historical income string
-     * into an actual list of historical incomes
-     */
-    if (city.getIncome_hist() != null) {
-      DSHistoricalIncome i = city.getIncome_hist();
-
-      ObjectMapper mapper = new ObjectMapper();
-
-      String raw = mapper.writeValueAsString(i);
-      raw = raw.replace("{", "");
-      raw = raw.replace("}", "");
-      raw = raw.replace("\"", "");
-      raw = raw.replace("_Med", "");
-      raw = raw.replace("_Inc", "");
-
-      String[] split = raw.split(",");
-
-      List<String> house = new ArrayList<>();
-      List<String> ind = new ArrayList<>();
-
-      for (String s : split) {
-        if (s.contains("Hou")) {
-          house.add(s);
-        } else if (s.contains("Ind")) {
-          ind.add(s);
-        }
-      }
-
-      Hashtable<Integer, List<Integer>> h = new Hashtable<>();
-
-      for (String s : house) {
-        s = s.replace("_Hou", "");
-        String[] splits = s.split(":");
-        int year = Integer.parseInt(splits[0]);
-        int cost = Integer.parseInt(splits[1]);
-
-        List<Integer> list = new ArrayList<>();
-        list.add(cost);
-        h.put(year, list);
-      }
-
-      for (String s : ind) {
-        s = s.replace("_Ind", "");
-        String[] splits = s.split(":");
-        int year = Integer.parseInt(splits[0]);
-        int cost = Integer.parseInt(splits[1]);
-
-        List<Integer> list = h.get(year);
-        list.add(cost);
-      }
-
-      Set<Integer> keys = h.keySet();
-
-      for (Integer key : keys) {
-        List<Integer> list = h.get(key);
-
-        c
-          .getHistoricalIncome()
-          .add(new HistoricalIncome(key, list.get(1), list.get(0), c));
-      }
-    }
-
-    /**
-     * Splits historical hosuing string
-     * into an actual list of historical housing
-     */
-    if (city.getHome_hist() != null) {
-      DSHistoricalHousing h = city.getHome_hist();
-
-      ObjectMapper mapper = new ObjectMapper();
-
-      String raw = mapper.writeValueAsString(h);
-
-      raw = raw.replace("{", "");
-      raw = raw.replace("}", "");
-      raw = raw.replace("\"", "");
-      String[] split = raw.split(",");
-
-      for (String s : split) {
-        String[] first = s.split(":");
-
-        double cost;
-
-        try {
-          cost = Double.parseDouble(first[1]);
-        } catch (NumberFormatException nfe) {
-          cost = 0;
-        }
-
-        String[] second = first[0].split("_");
-
-        int year = Integer.parseInt(second[0]);
-        int month = Integer.parseInt(second[1]);
-
-        c
-          .getHistoricalHomeCost()
-          .add(new HistoricalHomeCost(year, month, (int) cost, c));
-      }
-    }
-
-    /**
-     * Splits historical covid string
-     * into an actual list of historical covid cases
-     */
-    if (city.getJhcovid() != null) {
-      DSHistoricalCovid cov = city.getJhcovid();
-
-      ObjectMapper mapper = new ObjectMapper();
-
-      String raw = mapper.writeValueAsString(cov);
-      raw = raw.replace("{", "");
-      raw = raw.replace("}", "");
-      raw = raw.replace("\"", "");
-
-      String[] split = raw.split(",");
-
-      for (String s : split) {
-        if (
-          s.contains("C") || s.contains(city.getStatename()) || s.contains("U")
-        ) {
-          continue;
-        } else {
-          String[] first = s.split(":");
-          int cases = (int) Double.parseDouble(first[1]);
-
-          String[] second = first[0].split("_");
-
-          int year = Integer.parseInt(second[0]);
-          int month = Integer.parseInt(second[1]);
-          int day = Integer.parseInt(second[2]);
-
-          c
-            .getHistoricalCovid()
-            .add(new HistoricalCovid(year, month, day, cases, c));
-        }
-      }
-    }
-
-    /**
-     * Splits historical weather string
-     * into actual list of historical weather
-     */
-    if (city.getWeather_hist() != null) {
-      DSHistoricalWeather w = city.getWeather_hist();
-
-      ObjectMapper mapper = new ObjectMapper();
-
-      String raw = mapper.writeValueAsString(w);
-      raw = raw.replace("{", "");
-      raw = raw.replace("}", "");
-      raw = raw.replace("\"", "");
-
-      String[] split = raw.split(",");
-
-      List<String> perc = new ArrayList<>();
-      List<String> temp = new ArrayList<>();
-      Hashtable<String, List<Double>> h = new Hashtable<>();
-
-      for (String s : split) {
-        if (s.contains("prec")) {
-          perc.add(s);
-        } else if (s.contains("temp")) {
-          temp.add(s);
-        }
-      }
-
-      for (String s : perc) {
-        String[] first = s.split(":");
-
-        double value = Double.parseDouble(first[1]);
-
-        String[] second = first[0].split("_");
-        String month = second[0];
-
-        List<Double> list = new ArrayList<>();
-        list.add(value);
-
-        h.put(month, list);
-      }
-
-      for (String s : temp) {
-        String[] first = s.split(":");
-
-        double value = Double.parseDouble(first[1]);
-
-        String[] second = first[0].split("_");
-        String month = second[0];
-
-        List<Double> list = h.get(month);
-        list.add(value);
-      }
-
-      Set<String> keys = h.keySet();
-
-      for (String key : keys) {
-        List<Double> list = h.get(key);
-        c
-          .getHistoricalWeather()
-          .add(new HistoricalWeather(key, list.get(0), list.get(1), c));
-      }
-    }
-
-    /**
-     * Calculates historical data averages
-     */
-    double totalHistPopulaion = 0;
-    double totalHistInd = 0;
-    double totalHistHouse = 0;
-    double totalHistoricalHousing = 0;
-    int totalCovidCount = 0;
-    double totalCovid = 0;
-    int totalPercCount = 0;
-    double totalPerc = 0;
-    int totalTempCount = 0;
-    double totalTemp = 0;
-
-    for (PopulationHistory pop : c.getPopulationHistory()) {
-      totalHistPopulaion += pop.getPopulation();
-    }
-
-    for (HistoricalIncome v : c.getHistoricalIncome()) {
-      totalHistInd += v.getIndividualIncome();
-      totalHistHouse += v.getHouseholdIncome();
-    }
-
-    for (HistoricalHomeCost h : c.getHistoricalHomeCost()) {
-      totalHistoricalHousing += h.getHomeCost();
-    }
-
-    for (HistoricalCovid co : c.getHistoricalCovid()) {
-      totalCovidCount++;
-      totalCovid += co.getCases();
-    }
-
-    for (HistoricalWeather h : c.getHistoricalWeather()) {
-      totalPercCount++;
-      totalTempCount++;
-
-      totalPerc += h.getPrecipitation();
-      totalTemp += h.getTemperature();
-    }
-
-    c.setAverageTemperature(totalTemp / totalTempCount);
-    c.setAveragePrecipitation(totalPerc / totalPercCount);
-    c.setAverageNewCovidCases(totalCovid / totalCovidCount);
-
-    return cityrepo.save(c);
-  }
+  //  /**
+  //   * Saves new city from DS API schema
+  //   * Had to modify last minute to accept new city schema returned by DS
+  //   * @param city JSON City to be saved
+  //   * @return newly saved City object
+  //   */
+  //  @Transactional
+  //  @Override
+  //  public City saveDs(DSCity city) throws Exception {
+  //    City c = new City();
+  //
+  //    c.setCityName(city.getCity() + ", " + city.getStatename());
+  //    c.setStateCode(city.getAbbrev());
+  //    c.setTimezone(city.getTimezone());
+  //    c.setLatitude(city.getLatitude());
+  //    c.setLongitude(city.getLongitude());
+  //    c.setFpis(city.getFIPS());
+  //    c.setImageUrl(city.getWiki_img_url());
+  //    c.setWebsite(city.getWebsite());
+  //    c.setPopulation(city.getPop());
+  //    c.setPopulationDensity(city.getDensity_mi_sq());
+  //    c.setAverageAge(city.getAge());
+  //    c.setHouseholdIncome(city.getHousehold());
+  //    c.setIndividualIncome(city.getIndividual());
+  //    c.setAverageHomeCost(city.getHouse());
+  //    c.setRent(city.getRent());
+  //    c.setCostOfLivingIndex(city.getCOLI());
+  //    c.setAcaStatus(city.getACA_status());
+  //
+  //    /*
+  //     * Splits zipcode string into
+  //     * an actual list of strings
+  //     */
+  //    if (city.getZiplist() != null) {
+  //      String rawZip = city.getZiplist();
+  //      String[] split = rawZip.split(" ");
+  //
+  //      for (String s : split) {
+  //        c.getZipcodes().add(new Zipcode(s, c));
+  //      }
+  //    }
+  //
+  //    /*
+  //     * Splits historical population list string
+  //     * into an actual list of historical populations
+  //     */
+  //    if (city.getPop_hist() != null) {
+  //      DSHistoricalPop p = city.getPop_hist();
+  //
+  //      ObjectMapper mapper = new ObjectMapper();
+  //
+  ////      String raw = mapper.writeValueAsString(p);
+  ////      raw = raw.replace("{", "");
+  ////      raw = raw.replace("}", "");
+  ////      raw = raw.replace("\"", "");
+  ////      raw = raw.replace("city:", "");
+  ////      raw = raw.replace(city.getCity() + ", " + city.getStatename() + ",", "");
+  ////      raw = raw.replace("Braintree ", "");
+  ////      raw = raw.replace("Town,", "");
+  ////      raw = raw.replace("Nashville-Davidson,", "");
+  ////      //            raw = raw.replace(city.getStatename() + ",",
+  ////      //                "");
+  ////      raw = raw.replace("POP", "");
+  ////      raw = raw.replace("_", "");
+  ////      raw = raw.replace("census", "");
+  ////      raw = raw.replace("est", "");
+  ////
+  ////      raw = raw.trim();
+  ////
+  //      //String[] split = raw.split(",");
+  //      //            migrating population from double to int broke it
+  //      //            for (String s : split)
+  //      //            {
+  //      //                String[] splits = s.split(":");
+  //      //                c.getPopulationHistory()
+  //      //                    .add(new PopulationHistory(Integer.parseInt(splits[0]),
+  //      //                        Double.parseDouble(splits[1]),
+  //      //                        c));
+  //      //            }
+  //
+  //    }
+  //
+  //    /**
+  //     * Splits historical income string
+  //     * into an actual list of historical incomes
+  //     */
+  //    if (city.getIncome_hist() != null) {
+  //      DSHistoricalIncome i = city.getIncome_hist();
+  //
+  //      ObjectMapper mapper = new ObjectMapper();
+  //
+  //      String raw = mapper.writeValueAsString(i);
+  //      raw = raw.replace("{", "");
+  //      raw = raw.replace("}", "");
+  //      raw = raw.replace("\"", "");
+  //      raw = raw.replace("_Med", "");
+  //      raw = raw.replace("_Inc", "");
+  //
+  //      String[] split = raw.split(",");
+  //
+  //      List<String> house = new ArrayList<>();
+  //      List<String> ind = new ArrayList<>();
+  //
+  //      for (String s : split) {
+  //        if (s.contains("Hou")) {
+  //          house.add(s);
+  //        } else if (s.contains("Ind")) {
+  //          ind.add(s);
+  //        }
+  //      }
+  //
+  //      Hashtable<Integer, List<Integer>> h = new Hashtable<>();
+  //
+  //      for (String s : house) {
+  //        s = s.replace("_Hou", "");
+  //        String[] splits = s.split(":");
+  //        int year = Integer.parseInt(splits[0]);
+  //        int cost = Integer.parseInt(splits[1]);
+  //
+  //        List<Integer> list = new ArrayList<>();
+  //        list.add(cost);
+  //        h.put(year, list);
+  //      }
+  //
+  //      for (String s : ind) {
+  //        s = s.replace("_Ind", "");
+  //        String[] splits = s.split(":");
+  //        int year = Integer.parseInt(splits[0]);
+  //        int cost = Integer.parseInt(splits[1]);
+  //
+  //        List<Integer> list = h.get(year);
+  //        list.add(cost);
+  //      }
+  //
+  //      Set<Integer> keys = h.keySet();
+  //
+  //      for (Integer key : keys) {
+  //        List<Integer> list = h.get(key);
+  //
+  //        c
+  //          .getHistoricalIncome()
+  //          .add(new HistoricalIncome(key, list.get(1), list.get(0), c));
+  //      }
+  //    }
+  //
+  //    /**
+  //     * Splits historical hosuing string
+  //     * into an actual list of historical housing
+  //     */
+  //    if (city.getHome_hist() != null) {
+  //      DSHistoricalHousing h = city.getHome_hist();
+  //
+  //      ObjectMapper mapper = new ObjectMapper();
+  //
+  //      String raw = mapper.writeValueAsString(h);
+  //
+  //      raw = raw.replace("{", "");
+  //      raw = raw.replace("}", "");
+  //      raw = raw.replace("\"", "");
+  //      String[] split = raw.split(",");
+  //
+  //      for (String s : split) {
+  //        String[] first = s.split(":");
+  //
+  //        double cost;
+  //
+  //        try {
+  //          cost = Double.parseDouble(first[1]);
+  //        } catch (NumberFormatException nfe) {
+  //          cost = 0;
+  //        }
+  //
+  //        String[] second = first[0].split("_");
+  //
+  //        int year = Integer.parseInt(second[0]);
+  //        int month = Integer.parseInt(second[1]);
+  //
+  //        c
+  //          .getHistoricalHomeCost()
+  //          .add(new HistoricalHomeCost(year, month, (int) cost, c));
+  //      }
+  //    }
+  //
+  //    /**
+  //     * Splits historical covid string
+  //     * into an actual list of historical covid cases
+  //     */
+  //    if (city.getJhcovid() != null) {
+  //      DSHistoricalCovid cov = city.getJhcovid();
+  //
+  //      ObjectMapper mapper = new ObjectMapper();
+  //
+  //      String raw = mapper.writeValueAsString(cov);
+  //      raw = raw.replace("{", "");
+  //      raw = raw.replace("}", "");
+  //      raw = raw.replace("\"", "");
+  //
+  //      String[] split = raw.split(",");
+  //
+  //      for (String s : split) {
+  //        if (
+  //          s.contains("C") || s.contains(city.getStatename()) || s.contains("U")
+  //        ) {
+  //          continue;
+  //        } else {
+  //          String[] first = s.split(":");
+  //          int cases = (int) Double.parseDouble(first[1]);
+  //
+  //          String[] second = first[0].split("_");
+  //
+  //          int year = Integer.parseInt(second[0]);
+  //          int month = Integer.parseInt(second[1]);
+  //          int day = Integer.parseInt(second[2]);
+  //
+  //          c
+  //            .getHistoricalCovid()
+  //            .add(new HistoricalCovid(year, month, day, cases, c));
+  //        }
+  //      }
+  //    }
+  //
+  //    /**
+  //     * Splits historical weather string
+  //     * into actual list of historical weather
+  //     */
+  //    if (city.getWeather_hist() != null) {
+  //      DSHistoricalWeather w = city.getWeather_hist();
+  //
+  //      ObjectMapper mapper = new ObjectMapper();
+  //
+  //      String raw = mapper.writeValueAsString(w);
+  //      raw = raw.replace("{", "");
+  //      raw = raw.replace("}", "");
+  //      raw = raw.replace("\"", "");
+  //
+  //      String[] split = raw.split(",");
+  //
+  //      List<String> perc = new ArrayList<>();
+  //      List<String> temp = new ArrayList<>();
+  //      Hashtable<String, List<Double>> h = new Hashtable<>();
+  //
+  //      for (String s : split) {
+  //        if (s.contains("prec")) {
+  //          perc.add(s);
+  //        } else if (s.contains("temp")) {
+  //          temp.add(s);
+  //        }
+  //      }
+  //
+  //      for (String s : perc) {
+  //        String[] first = s.split(":");
+  //
+  //        double value = Double.parseDouble(first[1]);
+  //
+  //        String[] second = first[0].split("_");
+  //        String month = second[0];
+  //
+  //        List<Double> list = new ArrayList<>();
+  //        list.add(value);
+  //
+  //        h.put(month, list);
+  //      }
+  //
+  //      for (String s : temp) {
+  //        String[] first = s.split(":");
+  //
+  //        double value = Double.parseDouble(first[1]);
+  //
+  //        String[] second = first[0].split("_");
+  //        String month = second[0];
+  //
+  //        List<Double> list = h.get(month);
+  //        list.add(value);
+  //      }
+  //
+  //      Set<String> keys = h.keySet();
+  //
+  //      for (String key : keys) {
+  //        List<Double> list = h.get(key);
+  //        c
+  //          .getHistoricalWeather()
+  //          .add(new HistoricalWeather(key, list.get(0), list.get(1), c));
+  //      }
+  //    }
+  //
+  //    /**
+  //     * Calculates historical data averages
+  //     */
+  //    double totalHistPopulaion = 0;
+  //    double totalHistInd = 0;
+  //    double totalHistHouse = 0;
+  //    double totalHistoricalHousing = 0;
+  //    int totalCovidCount = 0;
+  //    double totalCovid = 0;
+  //    int totalPercCount = 0;
+  //    double totalPerc = 0;
+  //    int totalTempCount = 0;
+  //    double totalTemp = 0;
+  //
+  //    for (PopulationHistory pop : c.getPopulationHistory()) {
+  //      totalHistPopulaion += pop.getPopulation();
+  //    }
+  //
+  //    for (HistoricalIncome v : c.getHistoricalIncome()) {
+  //      totalHistInd += v.getIndividualIncome();
+  //      totalHistHouse += v.getHouseholdIncome();
+  //    }
+  //
+  //    for (HistoricalHomeCost h : c.getHistoricalHomeCost()) {
+  //      totalHistoricalHousing += h.getHomeCost();
+  //    }
+  //
+  //    for (HistoricalCovid co : c.getHistoricalCovid()) {
+  //      totalCovidCount++;
+  //      totalCovid += co.getCases();
+  //    }
+  //
+  //    for (HistoricalWeather h : c.getHistoricalWeather()) {
+  //      totalPercCount++;
+  //      totalTempCount++;
+  //
+  //      totalPerc += h.getPrecipitation();
+  //      totalTemp += h.getTemperature();
+  //    }
+  //
+  //    c.setAverageTemperature(totalTemp / totalTempCount);
+  //    c.setAveragePrecipitation(totalPerc / totalPercCount);
+  //    c.setAverageNewCovidCases(totalCovid / totalCovidCount);
+  //
+  //    return cityRepository.save(c);
+  //  }
 
   /**
    * Find city by city name
@@ -572,7 +664,7 @@ public class CityServiceImpl implements CityService {
    */
   @Override
   public City findByCityName(String name) {
-    City c = cityrepo.findByCityName(name);
+    City c = cityRepository.findByCityName(name);
     if (c == null) {
       throw new ResourceNotFoundException("City name " + name + " not found!");
     }
@@ -588,7 +680,7 @@ public class CityServiceImpl implements CityService {
   public List<CityAbstract> findAllIds() {
     List<CityAbstract> cities = new ArrayList<>();
 
-    cityrepo
+    cityRepository
       .findAll()
       .iterator()
       .forEachRemaining(
@@ -601,90 +693,91 @@ public class CityServiceImpl implements CityService {
               city.getPopulation(),
               city.getAverageHomeCost(),
               city.getRent(),
-              city.getCostOfLivingIndex()
+              city.getCostOfLivingIndex(),
+              city.getImageUrl(),
+              city.getWebsite()
             )
           )
       );
-
     return cities;
   }
 
-  /**
-   * Find the average value for all city fields
-   * excludes historical data
-   * @return a City with the field averages of all cities
-   */
-  @Override
-  public City findAverageCity() {
-    List<City> cities = new ArrayList<>();
+  //  /**
+  //   * Find the average value for all city fields
+  //   * excludes historical data
+  //   * @return a City with the field averages of all cities
+  //   */
+  //  @Override
+  //  public City findAverageCity() {
+  //    List<City> cities = new ArrayList<>();
+  //
+  //    City c = new City();
+  //    int totalCities = 0;
+  //    String cityNameState = "National Average, USA";
+  //    double totalLatitude = 0;
+  //    double totalLongitude = 0;
+  //    double totalPopulation = 0;
+  //    double totalDensityMiSq = 0;
+  //    double totalDensityKmSq = 0;
+  //    double totalAge = 0;
+  //    double totalHousehold = 0;
+  //    double totalIndividual = 0;
+  //    double totalHousing = 0;
+  //    double totalRent = 0;
+  //    double costOfLivingIndex = 0;
+  //    double totalTemp = 0;
+  //    double totalPerc = 0;
+  //    double totalCov = 0;
+  //
+  //    cityRepository.findAll().iterator().forEachRemaining(cities::add);
+  //
+  //    for (int i = 0; i < cities.size(); i++) {
+  //      totalCities++;
+  //      City x = cities.get(i);
+  //      totalLatitude += x.getLatitude();
+  //      totalLongitude += x.getLongitude();
+  //      totalPopulation += x.getPopulation();
+  //      totalDensityMiSq +=
+  //        (c.getPopulationDensity() != null) ? x.getPopulationDensity() : 0;
+  //      totalAge += x.getAverageAge();
+  //      totalHousehold += x.getHouseholdIncome();
+  //      totalIndividual += x.getIndividualIncome();
+  //      totalHousing += x.getAverageHomeCost();
+  //      totalRent += x.getRent();
+  //      totalTemp += x.getAverageTemperature();
+  //      totalPerc += x.getAveragePrecipitation();
+  //      totalCov += x.getAverageNewCovidCases();
+  //
+  //      costOfLivingIndex +=
+  //        (x.getCostOfLivingIndex() != null) ? x.getCostOfLivingIndex() : 0;
+  //    }
+  //
+  //    c.setCityName(cityNameState);
+  //    c.setLatitude(totalLatitude / totalCities);
+  //    c.setLongitude(totalLongitude / totalCities);
+  //    c.setPopulation((long) (totalPopulation / totalCities));
+  //    c.setPopulationDensity(totalDensityMiSq / totalCities);
+  //    c.setAverageAge(totalAge / totalCities);
+  //    c.setHouseholdIncome(totalHousehold / totalCities);
+  //    c.setIndividualIncome(totalIndividual / totalCities);
+  //    c.setAverageHomeCost(totalHousing / totalCities);
+  //    c.setRent(totalRent / totalCities);
+  //    c.setCostOfLivingIndex(costOfLivingIndex / totalCities);
+  //    c.setAverageTemperature(totalTemp / totalCities);
+  //    c.setAveragePrecipitation(totalPerc / totalCities);
+  //    c.setAverageNewCovidCases(totalCov / totalCities);
+  //
+  //    return c;
+  //  }
 
-    City c = new City();
-    int totalCities = 0;
-    String cityNameState = "National Average, USA";
-    double totalLatitude = 0;
-    double totalLongitude = 0;
-    double totalPopulation = 0;
-    double totalDensityMiSq = 0;
-    double totalDensityKmSq = 0;
-    double totalAge = 0;
-    double totalHousehold = 0;
-    double totalIndividual = 0;
-    double totalHousing = 0;
-    double totalRent = 0;
-    double costOfLivingIndex = 0;
-    double totalTemp = 0;
-    double totalPerc = 0;
-    double totalCov = 0;
-
-    cityrepo.findAll().iterator().forEachRemaining(cities::add);
-
-    for (int i = 0; i < cities.size(); i++) {
-      totalCities++;
-      City x = cities.get(i);
-      totalLatitude += x.getLatitude();
-      totalLongitude += x.getLongitude();
-      totalPopulation += x.getPopulation();
-      totalDensityMiSq +=
-        (c.getPopulationDensity() != null) ? x.getPopulationDensity() : 0;
-      totalAge += x.getAverageAge();
-      totalHousehold += x.getHouseholdIncome();
-      totalIndividual += x.getIndividualIncome();
-      totalHousing += x.getAverageHomeCost();
-      totalRent += x.getRent();
-      totalTemp += x.getAverageTemperature();
-      totalPerc += x.getAveragePrecipitation();
-      totalCov += x.getAverageNewCovidCases();
-
-      costOfLivingIndex +=
-        (x.getCostOfLivingIndex() != null) ? x.getCostOfLivingIndex() : 0;
-    }
-
-    c.setCityName(cityNameState);
-    c.setLatitude(totalLatitude / totalCities);
-    c.setLongitude(totalLongitude / totalCities);
-    c.setPopulation((long) (totalPopulation / totalCities));
-    c.setPopulationDensity(totalDensityMiSq / totalCities);
-    c.setAverageAge(totalAge / totalCities);
-    c.setHouseholdIncome(totalHousehold / totalCities);
-    c.setIndividualIncome(totalIndividual / totalCities);
-    c.setAverageHomeCost(totalHousing / totalCities);
-    c.setRent(totalRent / totalCities);
-    c.setCostOfLivingIndex(costOfLivingIndex / totalCities);
-    c.setAverageTemperature(totalTemp / totalCities);
-    c.setAveragePrecipitation(totalPerc / totalCities);
-    c.setAverageNewCovidCases(totalCov / totalCities);
-
-    return c;
-  }
-
-  /**
-   * Finds the average city object stored in DB
-   * @return National Average City
-   */
-  @Override
-  public City returnAverageCity() {
-    return findByCityName("National Average, USA");
-  }
+  //  /**
+  //   * Finds the average city object stored in DB
+  //   * @return National Average City
+  //   */
+  //  @Override
+  //  public City returnAverageCity() {
+  //    return findByCityName("National Average, USA");
+  //  }
 
   /**
    * Saves the city by id to current users fav cities
