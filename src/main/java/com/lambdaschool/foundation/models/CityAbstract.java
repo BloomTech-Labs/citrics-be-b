@@ -69,7 +69,17 @@ public class CityAbstract {
    * @param imageUrl city image URL
    * @param website city website
    */
-    public CityAbstract(long cityId, String cityName, String stateCode, Long population, Double averageHomeCost, Double rent, Double costOfLivingIndex, String imageUrl, String website) {
+  public CityAbstract(
+    long cityId,
+    String cityName,
+    String stateCode,
+    Long population,
+    Double averageHomeCost,
+    Double rent,
+    Double costOfLivingIndex,
+    String imageUrl,
+    String website
+  ) {
     this.cityId = cityId;
     this.cityName = cityName;
     this.stateCode = stateCode;
@@ -175,7 +185,8 @@ public class CityAbstract {
    */
   @Override
   public String toString() {
-    return ("CityAbstract{" +
+    return (
+      "CityAbstract{" +
       "cityId=" +
       cityId +
       ", cityName='" +

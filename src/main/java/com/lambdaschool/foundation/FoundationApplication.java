@@ -13,52 +13,45 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing
 @SpringBootApplication
 @EnableScheduling
-public class FoundationApplication
-{
-    /**
-     * Connect to the system environment where environment variables live.
-     */
-    private static Environment env;
+public class FoundationApplication {
 
-    /**
-     * If an environment variable is not found, set this to true
-     */
-    private static boolean stop = false;
+  /**
+   * Connect to the system environment where environment variables live.
+   */
+  private static Environment env;
 
-    /**
-     * If an application relies on an environment variable, check to make sure that environment variable is available!
-     * If the environment variable is not available, you could set a default value, or as is done here, stop execution of the program
-     *
-     * @param envvar The system environment where environment variable live
-     */
-    private static void checkEnvironmentVariable(String envvar)
-    {
-        if (System.getenv(envvar) == null)
-        {
-            stop = true;
-        }
+  /**
+   * If an environment variable is not found, set this to true
+   */
+  private static boolean stop = false;
+
+  /**
+   * If an application relies on an environment variable, check to make sure that environment variable is available!
+   * If the environment variable is not available, you could set a default value, or as is done here, stop execution of the program
+   *
+   * @param envvar The system environment where environment variable live
+   */
+  private static void checkEnvironmentVariable(String envvar) {
+    if (System.getenv(envvar) == null) {
+      stop = true;
     }
+  }
 
-    /**
-     * Main method to start the application.
-     *
-     * @param args Not used in this application.
-     */
-    public static void main(String[] args)
-    {
-        // Check to see if the environment variables exists. If they do not, stop execution of application.
-//        checkEnvironmentVariable("OAUTHCLIENTID");
-//        checkEnvironmentVariable("OAUTHCLIENTSECRET");
-//        checkEnvironmentVariable("OKTA_CLIENT_ID:");
+  /**
+   * Main method to start the application.
+   *
+   * @param args Not used in this application.
+   */
+  public static void main(String[] args) {
+    // Check to see if the environment variables exists. If they do not, stop execution of application.
+    //        checkEnvironmentVariable("OAUTHCLIENTID");
+    //        checkEnvironmentVariable("OAUTHCLIENTSECRET");
+    //        checkEnvironmentVariable("OKTA_CLIENT_ID:");
 
-
-        if (!stop)
-        {
-            SpringApplication.run(FoundationApplication.class,
-                args);
-        } else
-        {
-            System.out.println("Environment Variables NOT SET CORRECTLY");
-        }
+    if (!stop) {
+      SpringApplication.run(FoundationApplication.class, args);
+    } else {
+      System.out.println("Environment Variables NOT SET CORRECTLY");
     }
+  }
 }
