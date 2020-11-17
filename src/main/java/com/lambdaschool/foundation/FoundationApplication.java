@@ -18,7 +18,6 @@ public class FoundationApplication
     /**
      * Connect to the system environment where environment variables live.
      */
-    @Autowired
     private static Environment env;
 
     /**
