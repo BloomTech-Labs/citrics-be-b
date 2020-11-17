@@ -43,6 +43,16 @@ public class CityAbstract {
   private Double costOfLivingIndex;
 
   /**
+   * url of city image
+   */
+  private String imageUrl;
+
+  /**
+   * url of city website
+   */
+  private String website;
+
+  /**
    * Default constructor
    */
   public CityAbstract() {}
@@ -56,16 +66,10 @@ public class CityAbstract {
    * @param averageHomeCost average home cost of city
    * @param rent average rent of city
    * @param costOfLivingIndex cost of living index of city
+   * @param imageUrl city image URL
+   * @param website city website
    */
-  public CityAbstract(
-    long cityId,
-    String cityName,
-    String stateCode,
-    Long population,
-    Double averageHomeCost,
-    Double rent,
-    Double costOfLivingIndex
-  ) {
+    public CityAbstract(long cityId, String cityName, String stateCode, Long population, Double averageHomeCost, Double rent, Double costOfLivingIndex, String imageUrl, String website) {
     this.cityId = cityId;
     this.cityName = cityName;
     this.stateCode = stateCode;
@@ -73,6 +77,8 @@ public class CityAbstract {
     this.averageHomeCost = averageHomeCost;
     this.rent = rent;
     this.costOfLivingIndex = costOfLivingIndex;
+    this.imageUrl = imageUrl;
+    this.website = website;
   }
 
   /**
@@ -147,29 +153,48 @@ public class CityAbstract {
     this.costOfLivingIndex = costOfLivingIndex;
   }
 
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
   /**
    * Override default toString method
    * @return String representation of object
    */
   @Override
   public String toString() {
-    return (
-      "CityAbstract{" +
+    return ("CityAbstract{" +
       "cityId=" +
       cityId +
       ", cityName='" +
       cityName +
       "'" +
-      ", stateCode'" +
+      ", stateCode='" +
       stateCode +
       "'" +
-      ", population" +
+      ", population=" +
       population +
-      ", averageHomeCost" +
+      ", averageHomeCost=" +
       averageHomeCost +
-      ", rent" +
+      ", rent=" +
       rent +
-      ", costOfLivingIndex" +
+      ", costOfLivingIndex=" +
+      costOfLivingIndex +
+      ", rent=" +
+      rent +
+      ", costOfLivingIndex=" +
       costOfLivingIndex +
       '}'
     );

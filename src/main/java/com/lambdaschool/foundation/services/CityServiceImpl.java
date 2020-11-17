@@ -129,7 +129,9 @@ public class CityServiceImpl implements CityService {
                       city.getPopulation(),
                       city.getAverageHomeCost(),
                       city.getRent(),
-                      city.getCostOfLivingIndex()));
+                      city.getCostOfLivingIndex(),
+                      city.getImageUrl(),
+                      city.getWebsite()));
       // if we have a maximum, check if we have reached it
       if (maxLength != 0 && matchList.size() == maxLength)
         break;
@@ -685,11 +687,9 @@ public class CityServiceImpl implements CityService {
               city.getPopulation(),
               city.getAverageHomeCost(),
               city.getRent(),
-              city.getCostOfLivingIndex()
-            )
-          )
-      );
-
+              city.getCostOfLivingIndex(),
+              city.getImageUrl(),
+              city.getWebsite())));
     return cities;
   }
 
