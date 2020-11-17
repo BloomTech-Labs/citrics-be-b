@@ -64,8 +64,25 @@ public class CityController {
   }
 
   /**
+   * /filterid endpoint - returns city ids matching filter
+   * @return list of all ids matching filter
    */
+  @GetMapping(value = "/filterid/{maxLength}", produces = "application/json")
+  public ResponseEntity<?> filterCityIds(@PathVariable int maxLength) {
+    List<Long> myList = cityService.findIdByFilter(maxLength);
 
+    return new ResponseEntity<>(myList, HttpStatus.OK);
+  }
+
+  /**
+   * /filterabstracts endpoint - returns city abstracts matching filter
+   * @return list of all City abstracts matching filter
+   */
+  @GetMapping(value = "/filterabstracts/{maxLength}", produces = "application/json")
+  public ResponseEntity<?> filterAbstracts(@PathVariable int maxLength) {
+    List<CityAbstract> myList = cityService.findAbstractByFilter(maxLength);
+
+    return new ResponseEntity<>(myList, HttpStatus.OK);
   }
 
   /**
