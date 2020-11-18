@@ -162,9 +162,7 @@ public class CityServiceImpl implements CityService {
     if (currentUser.getMinHouseCost() != null) if (
       city.getAverageHomeCost() < currentUser.getMinHouseCost()
     ) return true;
-    if (
-      currentUser.getMaxHouseCost() != null
-    ) if ( //noinspection RedundantIfStatement
+    if (currentUser.getMaxHouseCost() != null) if ( //noinspection RedundantIfStatement
       city.getAverageHomeCost() > currentUser.getMaxHouseCost()
     ) return true;
     return false;
