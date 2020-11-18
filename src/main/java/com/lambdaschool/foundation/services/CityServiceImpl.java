@@ -162,10 +162,9 @@ public class CityServiceImpl implements CityService {
     if (currentUser.getMinHouseCost() != null) if (
       city.getAverageHomeCost() < currentUser.getMinHouseCost()
     ) return true;
-    if (
-      currentUser.getMaxHouseCost() != null
-    ) //noinspection RedundantIfStatement
-    if (city.getAverageHomeCost() > currentUser.getMaxHouseCost()) return true;
+    if (currentUser.getMaxHouseCost() != null) if ( //noinspection RedundantIfStatement
+      city.getAverageHomeCost() > currentUser.getMaxHouseCost()
+    ) return true;
     return false;
   }
 
@@ -788,10 +787,10 @@ public class CityServiceImpl implements CityService {
   public void saveFavoriteCity(long cityId, long userId) {
     City city = findCityById(cityId);
     User user = userRepository
-            .findById(userId)
-            .orElseThrow(
-                  () -> new ResourceNotFoundException("User id " + userId + " not found!")
-            );
+      .findById(userId)
+      .orElseThrow(
+        () -> new ResourceNotFoundException("User id " + userId + " not found!")
+      );
 
     UserCities userCity = new UserCities(user, city);
 
@@ -808,10 +807,10 @@ public class CityServiceImpl implements CityService {
   public void deleteFavoriteCity(long cityId, long userId) {
     City city = findCityById(cityId);
     User user = userRepository
-            .findById(userId)
-            .orElseThrow(
-                    () -> new ResourceNotFoundException("User id " + userId + " not found!")
-            );
+      .findById(userId)
+      .orElseThrow(
+        () -> new ResourceNotFoundException("User id " + userId + " not found!")
+      );
 
     UserCities userCity = new UserCities(user, city);
 

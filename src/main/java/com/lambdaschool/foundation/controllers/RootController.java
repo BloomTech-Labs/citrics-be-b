@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RootController
-{
-    @GetMapping(value = "/",
-        produces = "application/json")
-    public ResponseEntity<?> sayHello()
-    {
-        return new ResponseEntity<>("Hello From the Labs27 Citrics-C team! Please review documentation for valid endpoint.",
-            HttpStatus.OK);
-    }
+public class RootController {
+
+  @GetMapping(value = "/", produces = "application/json")
+  public ResponseEntity<?> sayHello() {
+    return new ResponseEntity<>(
+      "Hello From the Labs27 Citrics-C team! Please review documentation for valid endpoint.",
+      HttpStatus.OK
+    );
+  }
 }
