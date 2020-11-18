@@ -60,22 +60,10 @@ public interface CityService {
    */
   List<CityAbstract> findAllIds();
 
-  //  /**
-  //   * Finds the average value for all fields in cities excluding the historical data
-  //   * @return a City object with the average of all city fields in the DB
-  //   */
-  //  City findAverageCity();
-  //
-  //  /**
-  //   * Finds the average city object stored in DB
-  //   * @return
-  //   */
-  //  City returnAverageCity();
-
   /**
    * Saves city to current users fav cities list
-   * @param id city id of city to be saved
-   * @param user user extracted by controller
+   * @param cityId city id of city to be saved
+   * @param userId user extracted by controller
    */
-  void saveFavCity(long id, User user);
+  void saveFavoriteCity(long cityId, long userId);
 }

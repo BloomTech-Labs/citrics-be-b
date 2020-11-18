@@ -780,16 +780,22 @@ public class CityServiceImpl implements CityService {
   //  }
 
   /**
-   * Saves the city by id to current users fav cities
-   * @param id cityid of city to be saved
-   * @param user user extracted by controller
+   * Saves city to current users fav cities list
+   * @param cityId city id of city to be saved
+   * @param userId user extracted by controller
    */
   @Override
-  public void saveFavCity(long id, User user) {
-    City c = findCityById(id);
-    UserCities us = new UserCities(user, c);
+  public void saveFavoriteCity(long cityId, long userId) {
+    City city = findCityById(cityId);
+    User user = userRepository
+            .findById(userId)
+            .orElseThrow(
+                  () -> new ResourceNotFoundException("User id " + userId + " not found!")
+            );
 
-    user.getFavoriteCities().add(us);
-    c.getUsers().add(us);
+    UserCities userCity = new UserCities(user, city);
+
+    user.getFavoriteCities().add((userCity));
+    city.getUsers().add(userCity);
   }
 }
