@@ -3,11 +3,10 @@ package com.lambdaschool.foundation.controllers;
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.CityAbstract;
 import com.lambdaschool.foundation.services.CityService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cities")
@@ -20,11 +19,12 @@ public class CityController {
 
   // private final UserService userService;
 
-  public CityController(CityService cityService
-                        //UserService userService
-                        ) {
+  public CityController(
+    CityService cityService
+    //UserService userService
+  ) {
     this.cityService = cityService;
- //   this.userService = userService;
+    //   this.userService = userService;
   }
 
   //    /**
@@ -83,10 +83,10 @@ public class CityController {
    */
   @PostMapping(value = "/favorite/{cityId}")
   public ResponseEntity<?> addFavoriteCity(
-          @PathVariable long cityId
-//    Authentication authentication
+    @PathVariable long cityId
+    //    Authentication authentication
   ) {
-//    User user = userService.findByName(authentication.getName());
+    //    User user = userService.findByName(authentication.getName());
     long userId = 1;
     cityService.saveFavoriteCity(cityId, userId);
 
@@ -102,10 +102,10 @@ public class CityController {
    */
   @DeleteMapping(value = "/favorite/{cityId}")
   public ResponseEntity<?> deleteFavoriteCity(
-          @PathVariable long cityId
-//    Authentication authentication
+    @PathVariable long cityId
+    //    Authentication authentication
   ) {
-//    User user = userService.findByName(authentication.getName());
+    //    User user = userService.findByName(authentication.getName());
     long userId = 1;
     cityService.deleteFavoriteCity(cityId, userId);
 
