@@ -75,34 +75,20 @@ public class CityController {
   }
 
   /**
-   * /filterabstracts endpoint - returns city abstracts matching filter
-   * @return list of all City abstracts matching filter
-   */
-  @GetMapping(
-    value = "/filterabstracts/{maxLength}",
-    produces = "application/json"
-  )
-  public ResponseEntity<?> filterAbstracts(@PathVariable int maxLength) {
-    List<CityAbstract> myList = cityService.findAbstractByFilter(maxLength);
-
-    return new ResponseEntity<>(myList, HttpStatus.OK);
-  }
-
-  /**
-   * /fav/{cityId} endpoint
+   * /favorite/{cityId} endpoint
    * this adds city to users fav cities
    * extracts user from token
    * @param cityId city id to be added to favs
-   * @param authentication used to extract user from token
    * @return null, 201 status
    */
-  @PostMapping(value = "/fav/{cityId}")
-  public ResponseEntity<?> addFavCity(
-    @PathVariable long cityId,
-    Authentication authentication
+  @PostMapping(value = "/favorite/{cityId}")
+  public ResponseEntity<?> addFavoriteCity(
+    @PathVariable long cityId
+//    Authentication authentication
   ) {
-    User u = userService.findByName(authentication.getName());
-    cityService.saveFavCity(cityId, u);
+//    User user = userService.findByName(authentication.getName());
+    long userId = 1;
+    cityService.saveFavoriteCity(cityId, userId);
 
     return new ResponseEntity<>(null, HttpStatus.CREATED);
   }
