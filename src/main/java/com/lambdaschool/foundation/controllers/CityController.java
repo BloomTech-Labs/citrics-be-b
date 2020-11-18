@@ -2,14 +2,12 @@ package com.lambdaschool.foundation.controllers;
 
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.CityAbstract;
-import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.CityService;
-import com.lambdaschool.foundation.services.UserService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cities")
@@ -20,11 +18,13 @@ public class CityController {
    */
   private final CityService cityService;
 
-  private final UserService userService;
+  // private final UserService userService;
 
-  public CityController(CityService cityService, UserService userService) {
+  public CityController(CityService cityService
+                        //UserService userService
+                        ) {
     this.cityService = cityService;
-    this.userService = userService;
+ //   this.userService = userService;
   }
 
   //    /**
@@ -75,35 +75,40 @@ public class CityController {
   }
 
   /**
-   * /filterabstracts endpoint - returns city abstracts matching filter
-   * @return list of all City abstracts matching filter
+   * /favorite/{cityId} endpoint
+   * this adds city to users favorite cities
+   * extracts user from token
+   * @param cityId city id to be added to favorites
+   * @return null, 201 status
    */
-  @GetMapping(
-    value = "/filterabstracts/{maxLength}",
-    produces = "application/json"
-  )
-  public ResponseEntity<?> filterAbstracts(@PathVariable int maxLength) {
-    List<CityAbstract> myList = cityService.findAbstractByFilter(maxLength);
+  @PostMapping(value = "/favorite/{cityId}")
+  public ResponseEntity<?> addFavoriteCity(
+          @PathVariable long cityId
+//    Authentication authentication
+  ) {
+//    User user = userService.findByName(authentication.getName());
+    long userId = 1;
+    cityService.saveFavoriteCity(cityId, userId);
 
-    return new ResponseEntity<>(myList, HttpStatus.OK);
+    return new ResponseEntity<>(null, HttpStatus.CREATED);
   }
 
   /**
-   * /fav/{cityId} endpoint
-   * this adds city to users fav cities
+   * /favorite/{cityId} endpoint
+   * this deletes the city from the users favorite cities
    * extracts user from token
-   * @param cityId city id to be added to favs
-   * @param authentication used to extract user from token
-   * @return null, 201 status
+   * @param cityId city id to be added to favorites
+   * @return null, 204 status
    */
-  @PostMapping(value = "/fav/{cityId}")
-  public ResponseEntity<?> addFavCity(
-    @PathVariable long cityId,
-    Authentication authentication
+  @DeleteMapping(value = "/favorite/{cityId}")
+  public ResponseEntity<?> deleteFavoriteCity(
+          @PathVariable long cityId
+//    Authentication authentication
   ) {
-    User u = userService.findByName(authentication.getName());
-    cityService.saveFavCity(cityId, u);
+//    User user = userService.findByName(authentication.getName());
+    long userId = 1;
+    cityService.deleteFavoriteCity(cityId, userId);
 
-    return new ResponseEntity<>(null, HttpStatus.CREATED);
+    return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
   }
 }
