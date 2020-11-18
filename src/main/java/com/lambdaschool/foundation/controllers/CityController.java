@@ -2,14 +2,12 @@ package com.lambdaschool.foundation.controllers;
 
 import com.lambdaschool.foundation.models.City;
 import com.lambdaschool.foundation.models.CityAbstract;
-import com.lambdaschool.foundation.models.User;
 import com.lambdaschool.foundation.services.CityService;
-import com.lambdaschool.foundation.services.UserService;
-import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cities")
@@ -20,11 +18,13 @@ public class CityController {
    */
   private final CityService cityService;
 
-  private final UserService userService;
+  // private final UserService userService;
 
-  public CityController(CityService cityService, UserService userService) {
+  public CityController(CityService cityService
+                        //UserService userService
+                        ) {
     this.cityService = cityService;
-    this.userService = userService;
+ //   this.userService = userService;
   }
 
   //    /**
@@ -76,14 +76,14 @@ public class CityController {
 
   /**
    * /favorite/{cityId} endpoint
-   * this adds city to users fav cities
+   * this adds city to users favorite cities
    * extracts user from token
-   * @param cityId city id to be added to favs
+   * @param cityId city id to be added to favorites
    * @return null, 201 status
    */
   @PostMapping(value = "/favorite/{cityId}")
   public ResponseEntity<?> addFavoriteCity(
-    @PathVariable long cityId
+          @PathVariable long cityId
 //    Authentication authentication
   ) {
 //    User user = userService.findByName(authentication.getName());
@@ -91,5 +91,24 @@ public class CityController {
     cityService.saveFavoriteCity(cityId, userId);
 
     return new ResponseEntity<>(null, HttpStatus.CREATED);
+  }
+
+  /**
+   * /favorite/{cityId} endpoint
+   * this deletes the city from the users favorite cities
+   * extracts user from token
+   * @param cityId city id to be added to favorites
+   * @return null, 204 status
+   */
+  @DeleteMapping(value = "/favorite/{cityId}")
+  public ResponseEntity<?> deleteFavoriteCity(
+          @PathVariable long cityId
+//    Authentication authentication
+  ) {
+//    User user = userService.findByName(authentication.getName());
+    long userId = 1;
+    cityService.deleteFavoriteCity(cityId, userId);
+
+    return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
   }
 }
