@@ -66,4 +66,11 @@ public interface CityService {
    * @param userId user extracted by controller
    */
   void saveFavoriteCity(long cityId, long userId);
+
+  /**
+   * Saves city to current users fav cities list
+   * @param cityId city id of city to be saved
+   * @param userId user extracted by controller
+   */
+  void deleteFavoriteCity(long cityId, long userId);
 }

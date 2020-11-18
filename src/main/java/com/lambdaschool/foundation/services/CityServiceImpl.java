@@ -798,4 +798,24 @@ public class CityServiceImpl implements CityService {
     user.getFavoriteCities().add((userCity));
     city.getUsers().add(userCity);
   }
+
+  /**
+   * Saves city to current users fav cities list
+   * @param cityId city id of city to be saved
+   * @param userId user extracted by controller
+   */
+  @Override
+  public void deleteFavoriteCity(long cityId, long userId) {
+    City city = findCityById(cityId);
+    User user = userRepository
+            .findById(userId)
+            .orElseThrow(
+                    () -> new ResourceNotFoundException("User id " + userId + " not found!")
+            );
+
+    UserCities userCity = new UserCities(user, city);
+
+    user.getFavoriteCities().remove(userCity);
+    city.getUsers().remove(userCity);
+  }
 }
